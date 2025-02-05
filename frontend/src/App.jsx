@@ -1,13 +1,12 @@
-import { Box, Button } from "@chakra-ui/react"
-import { ColorModeButton } from "./components/ui/color-mode"
+
+import LoginPage from "./pages/LoginPage"
 
 
 function App() {
   return (
-    <Box>
-      <Button m={5} colorPalette="blue" variant='ghost'>Button</Button>
-      <ColorModeButton />
-    </Box>
+    <>
+    <LoginPage/>
+    </>
   )
 }
 
