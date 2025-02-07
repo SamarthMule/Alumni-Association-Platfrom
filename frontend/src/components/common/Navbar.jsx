@@ -15,7 +15,6 @@ const Navbar = () => {
   return (
     <Box bg="purple.50" px={4} boxShadow="md">
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        {/* Left Section: Logo and College Name */}
         <Flex alignItems="center">
           <Image
             src="/Logo.png"
@@ -34,7 +33,6 @@ const Navbar = () => {
           </Box>
         </Flex>
 
-        {/* Desktop Navigation Links */}
         <Stack
           direction="row"
           spacing={7}
@@ -61,16 +59,15 @@ const Navbar = () => {
           </Link>
         </Stack>
 
-        {/* Mobile Menu */}
         <Box display={{ base: "block", md: "none" }}>
           <MenuRoot>
           <MenuTrigger asChild>
             <Button colorScheme="Purple" c>Menu</Button>
           </MenuTrigger>
             <MenuContent>
-              <MenuItem > Home </MenuItem>
-              <MenuItem > Login </MenuItem>
-              <MenuItem > Register </MenuItem>
+              <MenuItem value="home"> <Link href="/" >Home</Link></MenuItem>
+              <MenuItem value="login"> <Link href="/login"> Login</Link></MenuItem> 
+              <MenuItem value="register"> <Link href="/register" >Register</Link> </MenuItem>
             </MenuContent>
           </MenuRoot>
         </Box>

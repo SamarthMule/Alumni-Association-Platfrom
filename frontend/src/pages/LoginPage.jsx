@@ -93,7 +93,7 @@ const LoginPage = () => {
               <Link
                 color="purple.500"
                 fontWeight="semibold"
-                onClick={() => console.log("Register")}
+                href="/register"
               >
                 Register
               </Link>
