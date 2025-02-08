@@ -11,25 +11,27 @@ const RegisterPage = () => {
     <>
     <Navbar />
     <Flex bg="purple.50" justify="center" align="center"
-          direction={{ base: "column", md: "row" }} gap={{base: '4' , md: '0'}} p={4} h="90vh" >
+          direction={{ base: "column", md: "row" }} gap="5" p={4} h="90vh" >
           <Box
             flex="1"
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            margin={{ base: "0", md: "4" }}
             display={{ base: "none", md: "flex" }}
           >
-            <Heading color="purple.500" mb={6}>
+            <Heading color="purple" m="10" textAlign="center" fontSize="4xl"
+                    fontWeight="bold" lineHeight="shorter" 
+                    filter="drop-shadow(0 0 0.25rem orange)"
+            >
               Walchand Institute Of Technology
             </Heading>
             <Image
               src="/Logo.png"
               alt="Alumni Association Platform"
-              boxSize="300px"
-              shadowColor={"purple.500"}
-              shadow={"lg"}
+              boxSize="400px"
+              width="500px"
               rounded="full"
+              filter="drop-shadow(0 0 0.25rem orange)"
             />
           </Box>
           <Box
