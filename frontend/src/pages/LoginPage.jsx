@@ -3,14 +3,15 @@ import {
   Flex,
   Image,
   Heading,
-  VStack,
   Button,
   Input,
   Text,
   Link,
+  Fieldset,
 } from "@chakra-ui/react";
 import { PasswordInput } from "../components/ui/password-input";
 import Navbar from "../components/common/Navbar";
+import { Field } from "../components/ui/field";
 // import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -51,16 +52,7 @@ const LoginPage = () => {
         justifyContent="center"
         bg="purple.50"
       >
-        <Box
-          as="form"
-          onSubmit={handleLogin}
-          bg="white"
-          p={8}
-          borderRadius="md"
-          boxShadow="lg"
-          w={{ base: "100%", md: "400px" }}
-          gap={4}
-        >
+        <Fieldset.Root size='lg' maxW='400px' mx='auto' p={8} bg='white' borderRadius='md' boxShadow='lg'>
           <Heading
             as="h2"
             size="xl"
@@ -71,20 +63,17 @@ const LoginPage = () => {
             Login
           </Heading>
 
-          <VStack spacing={6} gap={4}>
-            <Input
-              type="email"
-              placeholder="Email"
-              focusBorderColor="purple.500"
-              borderColor="purple.300"
-            />
-            <PasswordInput 
-              placeholder="Password"
-              focusBorderColor="purple.500"
-              borderColor="purple.300"
-            />
+          <Fieldset.Content onSubmit={handleLogin}>
+            <Field label="Email">
+              <Input type="email" placeholder="Email" focusBorderColor="purple.500" borderColor="purple.300" />
+            </Field>
 
-            <Button type="submit" variant="solid" w="full" colorScheme="{purple}">
+            <Field label="Password">
+              <PasswordInput placeholder="Password" focusBorderColor="purple.500" borderColor="purple.300"/>
+            </Field>
+          </Fieldset.Content>
+
+          <Button type="submit" variant="subtle" w="full" colorPalette={"purple"}>
               Login
             </Button>
 
@@ -98,8 +87,7 @@ const LoginPage = () => {
                 Register
               </Link>
             </Text>
-          </VStack>
-        </Box>
+        </Fieldset.Root>
       </Box>
     </Flex>
     </>
