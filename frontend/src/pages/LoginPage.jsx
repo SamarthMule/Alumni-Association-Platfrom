@@ -1,5 +1,4 @@
 import {
-  Box,
   Flex,
   Image,
   Heading,
@@ -22,76 +21,104 @@ const LoginPage = () => {
 
   return (
     <>
-    <Navbar />
-    <Flex bg="purple.50" justify="center" align="center"
-          direction={{ base: "column", md: "row" }} gap="5" p={4} h="90vh" >
-          <Box
-            flex="1"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            display={{ base: "none", md: "flex" }}
-          >
-            <Heading color="purple" m="10" textAlign="center" fontSize="4xl"
-                    fontWeight="bold" lineHeight="shorter" 
-                    filter="drop-shadow(0 0 0.25rem orange)"
-            >
-              Walchand Institute Of Technology
-            </Heading>
-            <Image
-              src="/Logo.png"
-              alt="Alumni Association Platform"
-              boxSize="400px"
-              width="500px"
-              rounded="full"
-              filter="drop-shadow(0 0 0.25rem orange)"
-            />
-          </Box>
-      <Box
-        flex="1"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+      <Navbar />
+      <Flex
         bg="purple.50"
+        justify="center"
+        align="center"
+        direction={{ base: "column", md: "row" }}
+        gap="5"
+        p={4}
+        h="90vh"
       >
-        <Fieldset.Root size='lg' maxW='400px' mx='auto' p={8} bg='white' borderRadius='md' boxShadow='lg'>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          display={{ base: "none", md: "flex" }}
+        >
           <Heading
-            as="h2"
-            size="xl"
-            mb={4}
+            color="purple"
+            m="10"
             textAlign="center"
-            color="orange.500"
+            fontSize="4xl"
+            fontWeight="bold"
+            lineHeight="shorter"
+            filter="drop-shadow(0 0 0.25rem orange)"
           >
-            Login
+            Walchand Institute Of Technology
           </Heading>
+          <Image
+            src="/Logo.png"
+            alt="Alumni Association Platform"
+            width="400px"
+            rounded="full"
+            // filter="drop-shadow(0 0 0.25rem orange)"
+            shadow="lg"
+          />
+        </Flex>
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          bg="purple.50"
+          minW={{ base: "100%", md: "50%" }}
+        >
+          <Fieldset.Root
+            size="lg"
+            maxW="400px"
+            mx="auto"
+            p={8}
+            bg="white"
+            borderRadius="md"
+            boxShadow="lg"
+          >
+            <Heading
+              as="h2"
+              size="xl"
+              mb={4}
+              textAlign="center"
+              color="orange.500"
+            >
+              Login
+            </Heading>
 
-          <Fieldset.Content onSubmit={handleLogin}>
-            <Field label="Email">
-              <Input type="email" placeholder="Email" focusBorderColor="purple.500" borderColor="purple.300" />
-            </Field>
+            <Fieldset.Content onSubmit={handleLogin}>
+              <Field label="Email">
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  focusBorderColor="purple.500"
+                  borderColor="purple.300"
+                />
+              </Field>
 
-            <Field label="Password">
-              <PasswordInput placeholder="Password" focusBorderColor="purple.500" borderColor="purple.300"/>
-            </Field>
-          </Fieldset.Content>
+              <Field label="Password">
+                <PasswordInput
+                  placeholder="Password"
+                  focusBorderColor="purple.500"
+                  borderColor="purple.300"
+                />
+              </Field>
+            </Fieldset.Content>
 
-          <Button type="submit" variant="subtle" w="full" colorPalette={"purple"}>
+            <Button
+              type="submit"
+              variant="subtle"
+              w="full"
+              colorPalette={"purple"}
+            >
               Login
             </Button>
 
             <Text fontSize="sm" textAlign="center">
               Not Having Account?{" "}
-              <Link
-                color="purple.500"
-                fontWeight="semibold"
-                href="/register"
-              >
+              <Link color="purple.500" fontWeight="semibold" href="/register">
                 Register
               </Link>
             </Text>
-        </Fieldset.Root>
-      </Box>
-    </Flex>
+          </Fieldset.Root>
+        </Flex>
+      </Flex>
     </>
   );
 };

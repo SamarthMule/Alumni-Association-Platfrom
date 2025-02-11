@@ -1,13 +1,4 @@
-
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Link, Button } from "@chakra-ui/react";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -19,7 +10,7 @@ const Navbar = () => {
           <Image
             src="/Logo.png"
             alt="WIT Logo"
-            boxSize="50px"
+            boxSize="40px"
             objectFit="contain"
             mr={2}
           />
@@ -33,9 +24,10 @@ const Navbar = () => {
           </Box>
         </Flex>
 
-        <Stack
+        <Flex
           direction="row"
-          spacing={7}
+          alignItems="center"
+          gap="4"
           display={{ base: "none", md: "flex" }}
         >
           <Link as={RouterLink} to="/" color="blue.500" fontWeight="semibold">
@@ -57,17 +49,28 @@ const Navbar = () => {
           >
             Register
           </Link>
-        </Stack>
+        </Flex>
 
         <Box display={{ base: "block", md: "none" }}>
           <MenuRoot>
-          <MenuTrigger asChild>
-            <Button colorScheme="Purple" c>Menu</Button>
-          </MenuTrigger>
+            <MenuTrigger asChild>
+              <Button colorScheme="Purple" c>
+                Menu
+              </Button>
+            </MenuTrigger>
             <MenuContent>
-              <MenuItem value="home"> <Link href="/" >Home</Link></MenuItem>
-              <MenuItem value="login"> <Link href="/login"> Login</Link></MenuItem> 
-              <MenuItem value="register"> <Link href="/register" >Register</Link> </MenuItem>
+              <MenuItem value="home">
+                {" "}
+                <Link href="/">Home</Link>
+              </MenuItem>
+              <MenuItem value="login">
+                {" "}
+                <Link href="/login"> Login</Link>
+              </MenuItem>
+              <MenuItem value="register">
+                {" "}
+                <Link href="/register">Register</Link>{" "}
+              </MenuItem>
             </MenuContent>
           </MenuRoot>
         </Box>
