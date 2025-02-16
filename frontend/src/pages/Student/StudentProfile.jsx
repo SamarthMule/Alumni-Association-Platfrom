@@ -1,4 +1,4 @@
-import Navbar from "../../components/common/Student/StudentNavbar";
+import Navbar from "../../components/Student/StudentNavbar";
 import { Avatar, Box, Flex, Button,} from "@chakra-ui/react";
 import { Field } from "../../components/ui/field";
 import { Editable, IconButton } from "@chakra-ui/react"
