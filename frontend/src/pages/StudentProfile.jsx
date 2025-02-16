@@ -1,5 +1,5 @@
 import Navbar from "../components/common/Student/StudentNavbar";
-import { Avatar, Box, Flex, Button, Heading, Text} from "@chakra-ui/react";
+import { Avatar, Box, Flex, Button,} from "@chakra-ui/react";
 import { Field } from "../components/ui/field";
 import { Editable, IconButton } from "@chakra-ui/react"
 import { LuCheck, LuPencilLine, LuX } from "react-icons/lu"
