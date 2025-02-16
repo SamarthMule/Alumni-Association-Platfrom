@@ -4,6 +4,7 @@ import RegisterPage from "./pages/RegisterPage";
 import StudentProfile from "./pages/StudentProfile";
 import Home from "./pages/Home";
 import OtpVerificationPage from "./pages/Otp";
+import StudentDashboard from "./pages/StudentDashBoard";
 
 function App() {
   return (
@@ -17,6 +18,11 @@ function App() {
           <Route path="/otp" element={<OtpVerificationPage/>}/>
 
           <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/studentdashboard" element={<StudentDashboard/>} />
+        {/* <Route path="/studentnetwork" element={<Section title="Network" />} />
+        <Route path="/studentjobs" element={<Section title="Jobs" />} />
+        <Route path="/studentevents" element={<Section title="Events" />} />
+        <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
