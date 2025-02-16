@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "../components/ui/field";
 import { PasswordInput } from "../components/ui/password-input";
+import { PinInput } from "../components/ui/pin-input";
 const RegisterPage = () => {
   const handleRegister = (e) => {
     e.preventDefault();
@@ -115,13 +116,15 @@ const RegisterPage = () => {
               </Field>
             </Fieldset.Content>
 
-            <Button
-              type="submit"
-              variant="subtle"
-              w="full"
-              colorPalette={"purple"}
-            >
-              Register
+            <Button variant="subtle" w="full" colorPalette={"purple"}>
+              Generate OTP
+            </Button>
+            <Field label="Enter OTP">
+              <PinInput color="purple.500" colorPalette={"purple"} count={6} />
+            </Field>
+
+            <Button type="submit" w="full" colorPalette={"purple"}>
+              Verify OTP & Register
             </Button>
 
             <Text fontSize="sm" textAlign="center">
