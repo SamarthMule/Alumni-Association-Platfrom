@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import Navbar from "../components/common/Student/StudentNavbar";
-import Section from "../components/common/Student/StudentSection";
+import Navbar from "../../components/common/Student/StudentNavbar";
+import Section from "../../components/common/Student/StudentSection";
 
 const StudentDashboard = () => {
     return (

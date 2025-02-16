@@ -1,22 +1,24 @@
-import Navbar from "../components/common/Navbar";
 import {
   Flex,
-  Heading,
   Image,
-  Input,
+  Heading,
   Button,
+  Input,
   Text,
   Link,
   Fieldset,
 } from "@chakra-ui/react";
-import { Field } from "../components/ui/field";
-import { PasswordInput } from "../components/ui/password-input";
-import { PinInput } from "../components/ui/pin-input";
-const RegisterPage = () => {
-  const handleRegister = (e) => {
+import { PasswordInput } from "../../components/ui/password-input";
+import Navbar from "../../components/common/Navbar";
+import { Field } from "../../components/ui/field";
+import { PinInput } from "../../components/ui/pin-input";
+
+const LoginPage = () => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Register");
+    console.log("Login");
   };
+
   return (
     <>
       <Navbar />
@@ -76,30 +78,13 @@ const RegisterPage = () => {
               textAlign="center"
               color="orange.500"
             >
-              Register
+              Login
             </Heading>
 
-            <Fieldset.Content onSubmit={handleRegister}>
-              {/* <Field label="Name">
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field> */}
-
-              <Field label="PRN Number">
-                <Input
-                  type="text"
-                  placeholder="PRN Number"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
-
+            <Fieldset.Content onSubmit={handleLogin}>
               <Field label="Email">
                 <Input
+                  color="purple.500"
                   type="email"
                   placeholder="Email"
                   focusBorderColor="purple.500"
@@ -109,6 +94,7 @@ const RegisterPage = () => {
 
               <Field label="Password">
                 <PasswordInput
+                  color="purple.500"
                   placeholder="Password"
                   focusBorderColor="purple.500"
                   borderColor="purple.300"
@@ -120,17 +106,21 @@ const RegisterPage = () => {
               Generate OTP
             </Button>
             <Field label="Enter OTP">
-              <PinInput color="purple.500" colorPalette={"purple"} count={6} />
+              <PinInput 
+                  color="purple.500"
+                  colorPalette={"purple"}
+                  count={6}
+                   />
             </Field>
 
             <Button type="submit" w="full" colorPalette={"purple"}>
-              Verify OTP & Register
+              Verify OTP & Login
             </Button>
 
-            <Text fontSize="sm" textAlign="center">
-              Already Having Account?{" "}
-              <Link color="purple.500" fontWeight="semibold" href="/login">
-                Login
+            <Text fontSize="sm" textAlign="center" color="black">
+              Not Having Account?{" "}
+              <Link color="purple.500" fontWeight="semibold" href="/register">
+                Register
               </Link>
             </Text>
           </Fieldset.Root>
@@ -140,4 +130,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

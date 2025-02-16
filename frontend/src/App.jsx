@@ -1,10 +1,10 @@
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/Auth/LoginPage";
 import { BrowserRouter, Routes, Route } from "react-router";
-import RegisterPage from "./pages/RegisterPage";
-import StudentProfile from "./pages/StudentProfile";
+import RegisterPage from "./pages/Auth/RegisterPage";
+import StudentProfile from "./pages/Student/StudentProfile";
 import Home from "./pages/Home";
 import OtpVerificationPage from "./pages/Otp";
-import StudentDashboard from "./pages/StudentDashBoard";
+import StudentDashboard from "./pages/Student/StudentDashboard";
 
 function App() {
   return (
