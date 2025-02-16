@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import StudentProfile from "./pages/Student/StudentProfile";
 import Home from "./pages/Home";
-import OtpVerificationPage from "./pages/Otp";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/studentprofile" element={<StudentProfile />} />
-          <Route path="/otp" element={<OtpVerificationPage/>}/>
 
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/studentdashboard" element={<StudentDashboard/>} />
