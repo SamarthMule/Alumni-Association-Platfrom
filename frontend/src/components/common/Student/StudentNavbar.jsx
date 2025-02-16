@@ -76,6 +76,7 @@ const StudentNavbar = () => {
           color="white"
           borderRadius="md"
           boxShadow="lg"
+          mt="40px"
           _hover={{ transform: "translateY(2px)", transition: "0.3s ease-in-out" }}
         >
           <Menu.Item _hover={{ bg: "purple.600" }}>Profile</Menu.Item>
