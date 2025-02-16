@@ -4,8 +4,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <Box bg="purple.50" px={4} boxShadow="md">
-      <Flex h={16} alignItems="center" justifyContent="space-between">
+    <Box bg="purple.50" px={4} boxShadow="md" >
+      <Flex h={16} alignItems="center" justifyContent="space-between" minW="90vw">
         <Flex alignItems="center">
           <Image
             src="/Logo.png"
@@ -54,7 +54,7 @@ const Navbar = () => {
         <Box display={{ base: "block", md: "none" }}>
           <MenuRoot>
             <MenuTrigger asChild>
-              <Button colorScheme="Purple" c>
+              <Button colorScheme="Purple">
                 Menu
               </Button>
             </MenuTrigger>

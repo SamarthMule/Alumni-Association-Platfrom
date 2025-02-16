@@ -35,13 +35,12 @@ const RegisterPage = () => {
           display={{ base: "none", md: "flex" }}
         >
           <Heading
-            color="purple"
+            color="orange.500"
             m="10"
             textAlign="center"
             fontSize="4xl"
             fontWeight="bold"
             lineHeight="shorter"
-            filter="drop-shadow(0 0 0.25rem orange)"
           >
             Walchand Institute Of Technology
           </Heading>
@@ -80,14 +79,14 @@ const RegisterPage = () => {
             </Heading>
 
             <Fieldset.Content onSubmit={handleRegister}>
-              <Field label="Name">
+              {/* <Field label="Name">
                 <Input
                   type="text"
                   placeholder="Name"
                   focusBorderColor="purple.500"
                   borderColor="purple.300"
                 />
-              </Field>
+              </Field> */}
 
               <Field label="PRN Number">
                 <Input
