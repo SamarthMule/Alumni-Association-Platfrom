@@ -11,6 +11,7 @@ import {
 import { PasswordInput } from "../components/ui/password-input";
 import Navbar from "../components/common/Navbar";
 import { Field } from "../components/ui/field";
+import { PinInput } from "../components/ui/pin-input";
 
 const LoginPage = () => {
   const handleLogin = (e) => {
@@ -19,13 +20,19 @@ const LoginPage = () => {
   };
 
   return (
-    <Flex bgImg={"url('/background.avif')"} bgPos="center" direction="column" p={{base : "0", md: "6"}} h="100vh"> 
+    <>
       <Navbar />
-    <Flex direction="row" align="center" justify="center" gap="5" p="4" h="90vh" bg="purple.50">
-    {/* <Flex direction="row" align="center" justify="center" gap="5" p="4" h="90vh" bg="transparent" backdropFilter="blur(5px)"> */}
-      
+      <Flex
+        bg="purple.50"
+        justify="center"
+        align="center"
+        direction={{ base: "column", md: "row" }}
+        gap="5"
+        p={4}
+        h="90vh"
+      >
         <Flex
-          flexDirection="column"
+          direction="column"
           alignItems="center"
           justifyContent="center"
           display={{ base: "none", md: "flex" }}
@@ -35,8 +42,7 @@ const LoginPage = () => {
             m="10"
             textAlign="center"
             fontSize="4xl"
-            fontWeight="4xl"
-            fontFamily={"sans-serif"}
+            fontWeight="bold"
             lineHeight="shorter"
           >
             Walchand Institute Of Technology
@@ -46,13 +52,14 @@ const LoginPage = () => {
             alt="Alumni Association Platform"
             width="400px"
             rounded="full"
-            // filter="drop-shadow(0 0 0.25rem orange)"
+            // filter="drop-shadow(0 0 0.25rem black)"
             shadow="lg"
           />
         </Flex>
         <Flex
           alignItems="center"
           justifyContent="center"
+          bg="purple.50"
           minW={{ base: "100%", md: "50%" }}
         >
           <Fieldset.Root
@@ -75,7 +82,7 @@ const LoginPage = () => {
             </Heading>
 
             <Fieldset.Content onSubmit={handleLogin}>
-              <Field color="purple.700" label="Email">
+              <Field label="Email">
                 <Input
                   color="purple.500"
                   type="email"
@@ -85,7 +92,7 @@ const LoginPage = () => {
                 />
               </Field>
 
-              <Field color="purple.700" label="Password">
+              <Field label="Password">
                 <PasswordInput
                   color="purple.500"
                   placeholder="Password"
@@ -95,13 +102,19 @@ const LoginPage = () => {
               </Field>
             </Fieldset.Content>
 
-            <Button
-              type="submit"
-              variant="subtle"
-              w="full"
-              colorPalette={"purple"}
-            >
-              Login
+            <Button variant="subtle" w="full" colorPalette={"purple"}>
+              Generate OTP
+            </Button>
+            <Field label="Enter OTP">
+              <PinInput 
+                  color="purple.500"
+                  colorPalette={"purple"}
+                  count={6}
+                   />
+            </Field>
+
+            <Button type="submit" w="full" colorPalette={"purple"}>
+              Verify OTP & Login
             </Button>
 
             <Text fontSize="sm" textAlign="center" color="black">
@@ -113,7 +126,7 @@ const LoginPage = () => {
           </Fieldset.Root>
         </Flex>
       </Flex>
-      </Flex>
+    </>
   );
 };
 
