@@ -1,9 +1,10 @@
-import { Flex, Text, Button, HStack, Menu } from "@chakra-ui/react";
+import { Flex, Text, Button, HStack, Menu} from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 
 const StudentNavbar = () => {
   const location = useLocation();
+  const navigator = useNavigate();
 
   const navItems = [
     { name: "Network", path: "/network" },
@@ -72,14 +73,14 @@ const StudentNavbar = () => {
           </Button>
         </Menu.Trigger>
         <Menu.Content
-          bg="purple.700"
+          // bg="purple.700"
           color="white"
           borderRadius="md"
           boxShadow="lg"
           mt="40px"
           _hover={{ transform: "translateY(2px)", transition: "0.3s ease-in-out" }}
         >
-          <Menu.Item _hover={{ bg: "purple.600" }}>Profile</Menu.Item>
+          <Menu.Item _hover={{ bg: "purple.600" }} onClick={navigator("/studentprofile")}>Profile</Menu.Item>
           <Menu.Item _hover={{ bg: "purple.600" }}>Settings</Menu.Item>
           <Menu.Item _hover={{ bg: "purple.600" }}>Logout</Menu.Item>
         </Menu.Content>
