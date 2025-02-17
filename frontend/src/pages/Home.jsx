@@ -19,13 +19,13 @@ const Home = () => {
           justifyContent={"center"}
         >
           <Heading
-            color="purple"
+            color="orange.500"
             m="10"
             textAlign="center"
             fontSize="4xl"
             fontWeight="bold"
             lineHeight="shorter"
-            filter="drop-shadow(0 0 0.25rem orange)"
+            // filter="drop-shadow(0 0 0.25rem orange)"
           >
             Walchand Institute Of Technology
           </Heading>

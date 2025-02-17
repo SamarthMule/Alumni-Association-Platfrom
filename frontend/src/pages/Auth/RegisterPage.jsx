@@ -1,24 +1,22 @@
+import Navbar from "../../components/common/Navbar";
 import {
   Flex,
-  Image,
   Heading,
-  Button,
+  Image,
   Input,
+  Button,
   Text,
   Link,
   Fieldset,
 } from "@chakra-ui/react";
-import { PasswordInput } from "../components/ui/password-input";
-import Navbar from "../components/common/Navbar";
-import { Field } from "../components/ui/field";
-// import { useNavigate } from "react-router-dom";
-
-const LoginPage = () => {
-  const handleLogin = (e) => {
+import { Field } from "../../components/ui/field";
+import { PasswordInput } from "../../components/ui/password-input";
+import { PinInput } from "../../components/ui/pin-input";
+const RegisterPage = () => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Login");
+    console.log("Register");
   };
-
   return (
     <>
       <Navbar />
@@ -32,19 +30,18 @@ const LoginPage = () => {
         h="90vh"
       >
         <Flex
-          flexDirection="column"
+          direction="column"
           alignItems="center"
           justifyContent="center"
           display={{ base: "none", md: "flex" }}
         >
           <Heading
-            color="purple"
+            color="orange.500"
             m="10"
             textAlign="center"
             fontSize="4xl"
             fontWeight="bold"
             lineHeight="shorter"
-            filter="drop-shadow(0 0 0.25rem orange)"
           >
             Walchand Institute Of Technology
           </Heading>
@@ -53,7 +50,7 @@ const LoginPage = () => {
             alt="Alumni Association Platform"
             width="400px"
             rounded="full"
-            // filter="drop-shadow(0 0 0.25rem orange)"
+            // filter="drop-shadow(0 0 0.25rem black)"
             shadow="lg"
           />
         </Flex>
@@ -79,10 +76,28 @@ const LoginPage = () => {
               textAlign="center"
               color="orange.500"
             >
-              Login
+              Register
             </Heading>
 
-            <Fieldset.Content onSubmit={handleLogin}>
+            <Fieldset.Content onSubmit={handleRegister}>
+              {/* <Field label="Name">
+                <Input
+                  type="text"
+                  placeholder="Name"
+                  focusBorderColor="purple.500"
+                  borderColor="purple.300"
+                />
+              </Field> */}
+
+              <Field label="PRN Number">
+                <Input
+                  type="text"
+                  placeholder="PRN Number"
+                  focusBorderColor="purple.500"
+                  borderColor="purple.300"
+                />
+              </Field>
+
               <Field label="Email">
                 <Input
                   type="email"
@@ -101,19 +116,21 @@ const LoginPage = () => {
               </Field>
             </Fieldset.Content>
 
-            <Button
-              type="submit"
-              variant="subtle"
-              w="full"
-              colorPalette={"purple"}
-            >
-              Login
+            <Button variant="subtle" w="full" colorPalette={"purple"}>
+              Generate OTP
+            </Button>
+            <Field label="Enter OTP">
+              <PinInput color="purple.500" colorPalette={"purple"} count={6} />
+            </Field>
+
+            <Button type="submit" w="full" colorPalette={"purple"}>
+              Verify OTP & Register
             </Button>
 
             <Text fontSize="sm" textAlign="center">
-              Not Having Account?{" "}
-              <Link color="purple.500" fontWeight="semibold" href="/register">
-                Register
+              Already Having Account?{" "}
+              <Link color="purple.500" fontWeight="semibold" href="/login">
+                Login
               </Link>
             </Text>
           </Fieldset.Root>
@@ -123,4 +140,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
