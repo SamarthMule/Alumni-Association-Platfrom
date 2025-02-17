@@ -4,6 +4,7 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import StudentProfile from "./pages/Student/StudentProfile";
 import Home from "./pages/Home";
 import StudentDashboard from "./pages/Student/StudentDashboard";
+import Network from "./pages/Student/Network";
 
 function App() {
   return (
@@ -17,10 +18,10 @@ function App() {
 
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/studentdashboard" element={<StudentDashboard/>} />
-        {/* <Route path="/studentnetwork" element={<Section title="Network" />} />
-        <Route path="/studentjobs" element={<Section title="Jobs" />} />
+         <Route path="/studentnetwork" element={<Network/>} />
+        {/* <Route path="/studentjobs" element={<Section title="Jobs" />} />
         <Route path="/studentevents" element={<Section title="Events" />} />
-        <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */}
+        <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */} */}
         </Route>
       </Routes>
     </BrowserRouter>

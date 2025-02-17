@@ -7,7 +7,7 @@ const StudentNavbar = () => {
   const navigator = useNavigate();
 
   const navItems = [
-    { name: "Network", path: "/network" },
+    { name: "Network", path: "/studentnetwork" },
     { name: "Jobs", path: "/jobs" },
     { name: "Events", path: "/events" },
     { name: "Mentorship", path: "/mentorship" },
@@ -99,7 +99,8 @@ const StudentNavbar = () => {
           mt="40px"
           _hover={{ transform: "translateY(2px)", transition: "0.3s ease-in-out" }}
         >
-          <Menu.Item _hover={{ bg: "purple.600" }} onClick={navigator("/studentprofile")}>Profile</Menu.Item>
+          <Menu.Item _hover={{ bg: "purple.600" }} onClick={() => navigator("/studentprofile")}>Profile</Menu.Item>
+
           <Menu.Item _hover={{ bg: "purple.600" }}>Settings</Menu.Item>
           <Menu.Item _hover={{ bg: "purple.600" }}>Logout</Menu.Item>
         </Menu.Content>
