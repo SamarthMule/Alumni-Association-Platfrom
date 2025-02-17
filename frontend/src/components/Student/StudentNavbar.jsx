@@ -90,11 +90,9 @@ const StudentNavbar = () => {
           </Button>
         </Menu.Trigger>
         <Menu.Content
-<<<<<<< HEAD:frontend/src/components/common/Student/StudentNavbar.jsx
+
           bg="whiteAlpha.200"
-=======
-          // bg="purple.700"
->>>>>>> bbcf16ea8e2bf041d92d604eb793a1e72dc6915a:frontend/src/components/Student/StudentNavbar.jsx
+
           color="white"
           borderRadius="md"
           boxShadow="lg"
