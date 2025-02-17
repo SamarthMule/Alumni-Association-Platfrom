@@ -21,7 +21,7 @@ function App() {
          <Route path="/studentnetwork" element={<Network/>} />
         {/* <Route path="/studentjobs" element={<Section title="Jobs" />} />
         <Route path="/studentevents" element={<Section title="Events" />} />
-        <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */} */}
+        <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */} */
         </Route>
       </Routes>
     </BrowserRouter>
