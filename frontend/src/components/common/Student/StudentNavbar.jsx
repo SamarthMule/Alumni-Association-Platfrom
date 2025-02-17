@@ -15,8 +15,8 @@ const StudentNavbar = () => {
   return (
     <Flex
       as="nav"
-      bgGradient="linear(to-r, purple.600, pink.500)" // Modern gradient
-      color="purple"
+      bgGradient="linear(to-r, purple.700, pink.500)" // Sleek gradient
+      color="white"
       px={8}
       py={3}
       justify="space-between"
@@ -27,12 +27,25 @@ const StudentNavbar = () => {
       right="0"
       zIndex="1000"
       width="100%"
-      height="65px"
+      height="70px"
       boxShadow="lg"
     >
       {/* Logo + Title */}
       <HStack spacing={4}>
-        <Text fontSize="xl" fontWeight="bold" letterSpacing="wide">
+        {/* Logo Box */}
+        <Flex
+          bg="white"
+          borderRadius="md"
+          boxSize="45px"
+          align="center"
+          justify="center"
+          boxShadow="md"
+        >
+          <img src="/Logo.png" alt="Logo" style={{ width: "50px", height: "45px" }} />
+        </Flex>
+
+        {/* Heading */}
+        <Text fontSize="xl" fontWeight="bold" letterSpacing="wide" color="purple">
           Student Dashboard
         </Text>
       </HStack>
@@ -45,10 +58,14 @@ const StudentNavbar = () => {
             to={item.path}
             colorScheme="whiteAlpha"
             variant="ghost"
-            _hover={{ bg: "whiteAlpha.400", transform: "scale(1.1)", transition: "0.3s ease-in-out" }}
+            _hover={{
+              bg: "whiteAlpha.400",
+              transform: "scale(1.1)",
+              transition: "0.3s ease-in-out",
+            }}
             _active={{ bg: "whiteAlpha.500" }}
             borderBottom={location.pathname === item.path ? "3px solid white" : "none"}
-            borderRadius="full" // More modern touch
+            borderRadius="full"
             px={4}
             py={2}
             key={item.path}
@@ -58,7 +75,7 @@ const StudentNavbar = () => {
         ))}
       </HStack>
 
-      {/* Profile Menu (Modernized) */}
+      {/* Profile Menu (Using Chakra v3 Syntax) */}
       <Menu.Root>
         <Menu.Trigger>
           <Button
@@ -72,7 +89,7 @@ const StudentNavbar = () => {
           </Button>
         </Menu.Trigger>
         <Menu.Content
-          bg="purple.700"
+          bg="whiteAlpha.200"
           color="white"
           borderRadius="md"
           boxShadow="lg"
