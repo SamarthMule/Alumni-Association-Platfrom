@@ -1,22 +1,23 @@
-import { Flex, Text, Button, HStack, Menu} from "@chakra-ui/react";
+import { Flex, Text, Button, HStack, Menu } from "@chakra-ui/react";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const StudentNavbar = () => {
   const location = useLocation();
   const navigator = useNavigate();
 
   const navItems = [
-    { name: "Network", path: "/studentnetwork" },
+    { name: "Network", path: "/alumninetwork" },
     { name: "Jobs", path: "/jobs" },
-    { name: "Events", path: "/events" },
+    // { name: "Events", path: "/events" },
     { name: "Mentorship", path: "/mentorship" },
   ];
 
   return (
     <Flex
       as="nav"
-      // bgGradient="linear(to-r, purple.700, pink.500)" // Sleek gradient
+      //   bgGradient="linear(to-r, purple.700, pink.500)" // Sleek gradient
+      bg="purple.50"
       color="white"
       px={8}
       py={3}
@@ -30,7 +31,6 @@ const StudentNavbar = () => {
       width="100%"
       height="70px"
       boxShadow="lg"
-      bg="purple.50"
     >
       {/* Logo + Title */}
       <HStack spacing={4}>
@@ -43,12 +43,22 @@ const StudentNavbar = () => {
           justify="center"
           boxShadow="md"
         >
-          <img src="/Logo.png" alt="Logo" style={{ width: "50px", height: "45px" }} />
+          <img
+            src="/Logo.png"
+            alt="Logo"
+            style={{ width: "50px", height: "45px" }}
+          />
         </Flex>
 
         {/* Heading */}
-        <Text fontSize="xl" fontWeight="bold" letterSpacing="wide" color="purple" onClick={() => navigator("/studentdashboard")}>
-          Student Dashboard
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          letterSpacing="wide"
+          color="purple"
+          onClick={() => navigator("/alumnidashboard")}
+        >
+          Alumni Dashboard
         </Text>
       </HStack>
 
@@ -66,7 +76,9 @@ const StudentNavbar = () => {
               transition: "0.3s ease-in-out",
             }}
             _active={{ bg: "whiteAlpha.500" }}
-            borderBottom={location.pathname === item.path ? "3px solid white" : "none"}
+            borderBottom={
+              location.pathname === item.path ? "3px solid white" : "none"
+            }
             borderRadius="full"
             px={4}
             py={2}
@@ -83,7 +95,11 @@ const StudentNavbar = () => {
           <Button
             variant="ghost"
             colorScheme="whiteAlpha"
-            _hover={{ bg: "whiteAlpha.300", transform: "scale(1.1)", transition: "0.3s ease-in-out" }}
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "scale(1.1)",
+              transition: "0.3s ease-in-out",
+            }}
             borderRadius="full"
             p={2}
           >
@@ -91,19 +107,29 @@ const StudentNavbar = () => {
           </Button>
         </Menu.Trigger>
         <Menu.Content
-
           bg="white.200"
-
           color="white"
           borderRadius="md"
           boxShadow="lg"
           mt="40px"
-          _hover={{ transform: "translateY(2px)", transition: "0.3s ease-in-out" }}
+          _hover={{
+            transform: "translateY(2px)",
+            transition: "0.3s ease-in-out",
+          }}
         >
-          <Menu.Item _hover={{ bg: "purple.600", color: "white"}} onClick={() => navigator("/studentprofile")}>Profile</Menu.Item>
+          <Menu.Item
+            _hover={{ bg: "purple.600", color: "white" }}
+            onClick={() => navigator("/alumniprofile")}
+          >
+            Profile
+          </Menu.Item>
 
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>Settings</Menu.Item>
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>Logout</Menu.Item>
+          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
+            Settings
+          </Menu.Item>
+          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
+            Logout
+          </Menu.Item>
         </Menu.Content>
       </Menu.Root>
     </Flex>

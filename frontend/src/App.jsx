@@ -4,7 +4,10 @@ import RegisterPage from "./pages/Auth/RegisterPage";
 import StudentProfile from "./pages/Student/StudentProfile";
 import Home from "./pages/Home";
 import StudentDashboard from "./pages/Student/StudentDashboard";
-import Network from "./pages/Student/Network";
+import AlumniDashboard from "./pages/Alumni/AlumniDashboard";
+import AlumniNetwork from "./pages/Alumni/AlumniNetwork";
+import StudentNetwork from "./pages/Student/StudentNetwork";
+import AlumniProfile from "./pages/Alumni/AlumniProfile";
 
 function App() {
   return (
@@ -18,10 +21,15 @@ function App() {
 
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/studentdashboard" element={<StudentDashboard/>} />
-         <Route path="/studentnetwork" element={<Network/>} />
+         <Route path="/studentnetwork" element={<StudentNetwork/>} />
         {/* <Route path="/studentjobs" element={<Section title="Jobs" />} />
         <Route path="/studentevents" element={<Section title="Events" />} />
         <Route path="/studentmentorship" element={<Section title="Mentorship" />} /> */} */
+
+        <Route path="/alumnidashboard" element={<AlumniDashboard />} />
+        <Route path="/alumninetwork" element={<AlumniNetwork />} />
+        <Route path="/alumniprofile" element={<AlumniProfile />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
