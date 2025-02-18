@@ -1,249 +1,93 @@
 import Navbar from "../../components/Student/StudentNavbar";
-import { Avatar, Box, Flex, Button,} from "@chakra-ui/react";
+import { Avatar, Box, Flex, IconButton, Editable, Button } from "@chakra-ui/react";
 import { Field } from "../../components/ui/field";
-import { Editable, IconButton } from "@chakra-ui/react"
-import { LuCheck, LuPencilLine, LuX } from "react-icons/lu"
+import { LuCheck, LuPencilLine, LuX } from "react-icons/lu";
 
 const StudentProfile = () => {
+  const fields = [
+    { label: "First Name", defaultValue: "Jane" },
+    { label: "Last Name", defaultValue: "Doe" },
+    { label: "Email", defaultValue: "jane.doe@example.com", disabled: true },
+    { label: "Contact No.", defaultValue: "123-456-7890" },
+    { label: "Enrollment No.", defaultValue: "EN123456", disabled: true },
+    { label: "Date of Birth", defaultValue: "01/01/2000" },
+    { label: "Branch", defaultValue: "Computer Science" },
+    { label: "Joining Year", defaultValue: "2018" },
+    { label: "Passout Year", defaultValue: "2022" },
+  ];
+
   return (
-    <Box bg="purple.50" minH="100vh" p={5} pt="80px" h="100vh">
+    <Box bg="purple.50" minH="100vh" p={5} pt="80px">
       <Navbar />
-      <Flex direction={{base:"column", md:"row"}} align="center" justify="center" gap="5" >
+      <Flex direction={{ base: "column", md: "row" }} align="center" justify="center" gap="5">
         <Flex direction="column" align="center" justify="center" p={5} bg="white" borderRadius="lg" boxShadow="md">
-          <Avatar.Root shape="rounded" size="2xl">
+        <Avatar.Root colorPalette={"purple"} size="2xl" h="100%">
             <Avatar.Fallback name="Segun Adebayo" />
             <Avatar.Image src="https://bit.ly/sage-adebayo" />
           </Avatar.Root>
-          <Button colorScheme="teal" size="sm" mt={5}>
-            Change Profile Picture
-          </Button>
+          <Button colorScheme="purple" mt={5}> Change The Image </Button>
         </Flex>
-        <Flex direction={{base: "column" , md : "row"}} p={5} bg="white" borderRadius="lg" boxShadow="md" h="100%" w="100%">
-          <Flex direction="column" w={{base:"100%", md:"50%"}}>
-          <Field label="First Name" w="100%">
-            <Editable.Root defaultValue="Jane" w="100%">
-              <Editable.Preview w={{base:"100%", md:"50%"}} />
-              <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-          
-          <Field label="Last Name" w="100%">
-            <Editable.Root defaultValue="Doe" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
 
-          <Field label="Email" w="100%" disabled >
-            <Editable.Root defaultValue="jane.doe@example.com" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-
-          <Field label="Contact No." w="100%">
-            <Editable.Root defaultValue="123-456-7890" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-
-          <Field label="Enrollment No." w="100%" disabled >
-            <Editable.Root defaultValue="EN123456" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
+        <Flex direction={{ base: "column", md: "row" }} p={5} bg="white" borderRadius="lg" boxShadow="md" w="100%">
+          <Flex direction="column" w={{ base: "100%", md: "50%" }}>
+            {fields.slice(0, 5).map((field, index) => (
+              <Field label={field.label} key={index} disabled={field.disabled}>
+                <Editable.Root defaultValue={field.defaultValue}>
+                  <Editable.Preview minW={{md: "70%", base:"90%"}} />
+                  <Editable.Input minW={{md: "70%", base:"90%"}} />
+                  <Editable.Control>
+                    <Editable.EditTrigger asChild>
+                      <IconButton variant="ghost" size="xs" aria-label="Edit">
+                        <LuPencilLine />
+                      </IconButton>
+                    </Editable.EditTrigger>
+                    <Editable.CancelTrigger asChild>
+                      <IconButton variant="outline" size="xs" aria-label="Cancel">
+                        <LuX />
+                      </IconButton>
+                    </Editable.CancelTrigger>
+                    <Editable.SubmitTrigger asChild>
+                      <IconButton variant="outline" size="xs" aria-label="Submit">
+                        <LuCheck />
+                      </IconButton>
+                    </Editable.SubmitTrigger>
+                  </Editable.Control>
+                </Editable.Root>
+              </Field>
+            ))}
           </Flex>
 
-
-          <Flex direction="column" w={{base:"100%", md:"50%"}}>
-          <Field label="Date of Birth" w="100%">
-            <Editable.Root defaultValue="01/01/2000" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-
-          <Field label="Branch" w="100%">
-            <Editable.Root defaultValue="Computer Science" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-
-          <Field label="Joining Year" w="100%">
-            <Editable.Root defaultValue="2018" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
-
-          <Field label="Passout Year" w="100%">
-            <Editable.Root defaultValue="2022" w="100%">
-            <Editable.Preview w={{base:"100%", md:"50%"}} />
-            <Editable.Input w={{base:"100%", md:"50%"}} />
-              <Editable.Control>
-                <Editable.EditTrigger asChild>
-                  <IconButton variant="ghost" size="xs">
-                    <LuPencilLine />
-                  </IconButton>
-                </Editable.EditTrigger>
-                <Editable.CancelTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuX />
-                  </IconButton>
-                </Editable.CancelTrigger>
-                <Editable.SubmitTrigger asChild>
-                  <IconButton variant="outline" size="xs">
-                    <LuCheck />
-                  </IconButton>
-                </Editable.SubmitTrigger>
-              </Editable.Control>
-            </Editable.Root>
-          </Field>
+          <Flex direction="column" w={{ base: "100%", md: "50%" }}>
+            {fields.slice(5).map((field, index) => (
+              <Field label={field.label} key={index} disabled={field.disabled}>
+                <Editable.Root defaultValue={field.defaultValue} minW={{md: "70%", base:"90%"}}>
+                  <Editable.Preview minW={{md: "70%", base:"90%"}}/>
+                  <Editable.Input minW={{md: "70%", base:"90%"}} />
+                  <Editable.Control>
+                    <Editable.EditTrigger asChild>
+                      <IconButton variant="ghost" size="xs" aria-label="Edit">
+                        <LuPencilLine />
+                      </IconButton>
+                    </Editable.EditTrigger>
+                    <Editable.CancelTrigger asChild>
+                      <IconButton variant="outline" size="xs" aria-label="Cancel">
+                        <LuX />
+                      </IconButton>
+                    </Editable.CancelTrigger>
+                    <Editable.SubmitTrigger asChild>
+                      <IconButton variant="outline" size="xs" aria-label="Submit">
+                        <LuCheck />
+                      </IconButton>
+                    </Editable.SubmitTrigger>
+                  </Editable.Control>
+                </Editable.Root>
+              </Field>
+            ))}
           </Flex>
-
         </Flex>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default StudentProfile
+export default StudentProfile;
