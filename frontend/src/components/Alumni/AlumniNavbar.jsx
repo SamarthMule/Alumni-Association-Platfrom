@@ -8,7 +8,7 @@ const StudentNavbar = () => {
 
   const navItems = [
     { name: "Network", path: "/alumninetwork" },
-    { name: "Jobs", path: "/jobs" },
+    { name: "Jobs", path: "/alumnijobs" },
     // { name: "Events", path: "/events" },
     { name: "Mentorship", path: "/mentorship" },
   ];

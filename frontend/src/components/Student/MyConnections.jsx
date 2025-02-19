@@ -1,7 +1,7 @@
 import { Box, Text, VStack, HStack, Input, Button} from "@chakra-ui/react";
 import { FaSearch, FaUserPlus } from "react-icons/fa";
 import { InputGroup } from "../ui/input-group";  // Import your custom InputGroup
-import { LuUser } from "react-icons/lu";  // Import an icon to use in the input field
+// import { LuUser } from "react-icons/lu";  // Import an icon to use in the input field
 import { Avatar } from "../ui/avatar";
 
 const myConnectionsData = [
