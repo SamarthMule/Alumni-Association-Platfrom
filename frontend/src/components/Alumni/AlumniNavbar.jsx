@@ -1,6 +1,6 @@
 import { Flex, Text, Button, HStack, Menu } from "@chakra-ui/react";
-import { FaUserCircle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaUserCircle, FaBars } from "react-icons/fa";
 
 const StudentNavbar = () => {
   const location = useLocation();
@@ -63,7 +63,7 @@ const StudentNavbar = () => {
       </HStack>
 
       {/* Navigation Links */}
-      <HStack spacing={6} fontSize="md" fontWeight="medium">
+      <HStack spacing={6} fontSize="md" fontWeight="medium" display={{ base: "none", md: "flex" }}>
         {navItems.map((item) => (
           <Button
             as={Link}
@@ -89,7 +89,47 @@ const StudentNavbar = () => {
         ))}
       </HStack>
 
-      {/* Profile Menu (Using Chakra v3 Syntax) */}
+      {/* Mobile View For Navigation */}
+      <Menu.Root>
+        <Menu.Trigger asChild >
+          <Button
+            variant="ghost"
+            colorScheme="whiteAlpha"
+            _hover={{
+              bg: "whiteAlpha.300",
+              transform: "scale(1.1)",
+              transition: "0.3s ease-in-out",
+            }}
+            borderRadius="full"
+            p={2}
+            display={{ base: "block", md: "none" }}
+          >
+            <FaBars style={{ marginRight: "8px" }} /> 
+          </Button>
+        </Menu.Trigger>
+        <Menu.Content
+          bg="white.200"
+          color="white"
+          borderRadius="md"
+          boxShadow="lg"
+          mt="40px"
+          _hover={{
+            transform: "translateY(2px)",
+            transition: "0.3s ease-in-out",
+          }}
+        >
+          {navItems.map((item) => (
+            <Menu.Item
+              key={item.path}
+              _hover={{ bg: "purple.600", color: "white" }}
+              onClick={() => navigator(item.path)}
+            >
+              {item.name}
+            </Menu.Item>
+          ))}
+        </Menu.Content>
+      </Menu.Root>
+
       <Menu.Root>
         <Menu.Trigger>
           <Button

@@ -11,9 +11,9 @@ const AlumniJob = () => {
             {/* Navbar at the Top */}
             <Navbar />
 
-            <Flex mt="80px">
+            <Flex mt="80px" direction={{ base: "column", md: "row" }}>
                 {/* Sidebar */}
-                <Box w="250px" p={4} bg="purple.100" color="white" minH="90vh">
+                <Box p={4} bg="purple.100" color="white"  minH={{md: "90vh"}} minW="250px">
                     <VStack spacing={4} align="stretch">
                         <Button
                             colorScheme="whiteAlpha"
