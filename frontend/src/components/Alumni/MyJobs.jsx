@@ -16,7 +16,7 @@ import {
   DialogRoot,
   DialogTrigger,
 } from "../ui/dialog";
-import Lorem from "react-lorem-ipsum"
+// import Lorem from "react-lorem-ipsum"
 
 const allJobsData = [
   {

@@ -1,20 +1,18 @@
-import { Box, Text, VStack, HStack, Input, Button} from "@chakra-ui/react";
+import { Box, Text, VStack, HStack, Input, Button } from "@chakra-ui/react";
 import { FaSearch, FaUserPlus } from "react-icons/fa";
-import { InputGroup } from "../ui/input-group";  // Import your custom InputGroup
-// import { LuUser } from "react-icons/lu";  // Import an icon to use in the input field
+import { InputGroup } from "../ui/input-group";
 import { Avatar } from "../ui/avatar";
 
-const allConnectionsData = [
-    { name: "John Doe", role: "Software Engineer" },
-    { name: "Jane Smith", role: "Data Scientist" },
-    { name: "Michael Johnson", role: "Product Manager" }
+const myConnectionsData = [
+    { name: "Alice Brown", role: "UX Designer" },
+    { name: "David Wilson", role: "Cloud Engineer" }
 ];
 
-const AllConnections = () => {
+const MyConnections = () => {
     return (
-        <Box p={4} bg="white" boxShadow="sm" borderRadius="md">
+        <Box p={4} bg="white" boxShadow="sm" borderRadius="md" w="full">
             {/* Search Bar */}
-            <HStack mb={6} spacing={4}>
+            <HStack mb={6} spacing={4} w="full">
                 <InputGroup flex="1" startElement={<FaSearch color="gray.400" />}>
                     <Input
                         placeholder="Search Connections..."
@@ -23,15 +21,16 @@ const AllConnections = () => {
                         _hover={{ bg: "gray.100" }}
                         _focus={{ bg: "white", boxShadow: "outline" }}
                         size="lg"
+                        w="full"
                     />
                 </InputGroup>
             </HStack>
 
-            {/* All Connections Title */}
-            <Text fontSize="xl" fontWeight="bold" mb={4}>All Connections</Text>
-            
-            <VStack spacing={3} align="stretch">
-                {allConnectionsData.map((connection, index) => (
+            {/* My Connections Title */}
+            <Text fontSize="xl" fontWeight="bold" mb={4}>My Connections</Text>
+
+            <VStack spacing={3} align="stretch" w="full">
+                {myConnectionsData.map((connection, index) => (
                     <HStack
                         key={index}
                         p={3}
@@ -40,8 +39,10 @@ const AllConnections = () => {
                         justify="space-between"
                         align="center"
                         _hover={{ bg: "gray.200", transform: "scale(1.02)", transition: "0.3s ease-in-out" }}
+                        w="full"
+                        flexWrap="wrap"
                     >
-                        {/* Profile Icon */}
+                        {/* Profile Info */}
                         <HStack spacing={4} align="center">
                             <Avatar name={connection.name} size="sm" />
                             <Box>
@@ -50,7 +51,7 @@ const AllConnections = () => {
                             </Box>
                         </HStack>
 
-                        {/* Connect Button */}
+                        {/* Message Button */}
                         <Button
                             colorScheme="purple"
                             size="sm"
@@ -61,6 +62,7 @@ const AllConnections = () => {
                             backgroundColor="gray.300"
                             color="orange.600"
                         >
+                        
                             Connect
                         </Button>
                     </HStack>
@@ -70,4 +72,4 @@ const AllConnections = () => {
     );
 };
 
-export default AllConnections;
+export default MyConnections;
