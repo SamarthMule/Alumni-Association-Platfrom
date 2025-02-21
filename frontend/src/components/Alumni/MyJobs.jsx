@@ -1,5 +1,4 @@
 import {
-  Card,
   Flex,
   Badge,
   Box,
@@ -8,189 +7,190 @@ import {
   Image,
   Text,
   Heading,
+  Input,
+  Textarea,
+  VStack,
+  Stack,
 } from "@chakra-ui/react";
-import {
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogRoot,
-  DialogTrigger,
-} from "../ui/dialog";
-import Lorem from "react-lorem-ipsum";
-
-const allJobsData = [
-  {
-    company: "Google",
-    position: "Software Developer",
-    location: "Bangalore, Karnataka, India (Remote) - Full Time",
-    skills: ["Python", "GitHub"],
-    logo: "https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
-    description:
-      "Good communication skills (must) Experience of complex crawling like captcha, recaptcha and bypassing proxy, etc. Experience with web crawler projects is a plus. Experience in productionizing machine learning models",
-  },
-  {
-    company: "Facebook",
-    position: "Software Engineer",
-    location: "Menlo Park, California, United States (Remote) - Full Time",
-    skills: ["React", "JavaScript"],
-    logo: "https://pngimg.com/d/facebook_logos_PNG19753.png",
-    description:
-      "Experience with React and JavaScript. Strong problem-solving skills. Ability to work in a fast-paced environment. Experience with version control systems like Git.",
-  },
-  {
-    company: "Amazon",
-    position: "Data Scientist",
-    location: "Seattle, Washington, United States (Remote) - Full Time",
-    skills: ["Python", "SQL"],
-    logo: "https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/amazon-512.png",
-    description:
-      "Proficiency in Python and SQL. Experience with data analysis and machine learning. Strong analytical skills. Ability to work with large datasets.",
-  },
-];
+import { useState, useRef } from "react";
 
 const MyJobs = () => {
+  const [jobs, setJobs] = useState([
+    {
+      id: 1,
+      company: "Google",
+      position: "Software Developer",
+      location: "Bangalore, Karnataka, India (Remote) - Full Time",
+      skills: ["Python", "GitHub"],
+      logo: "https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
+      description:
+        "Good communication skills (must). Experience of complex crawling like captcha, recaptcha, and bypassing proxy.",
+    },
+    {
+      id: 2,
+      company: "Facebook",
+      position: "Software Engineer",
+      location: "Menlo Park, California, United States (Remote) - Full Time",
+      skills: ["React", "JavaScript"],
+      logo: "https://pngimg.com/d/facebook_logos_PNG19753.png",
+      description: "Experience with React and JavaScript. Strong problem-solving skills.",
+    },
+  ]);
+
+  const [editingJobId, setEditingJobId] = useState(null);
+  const [editedJob, setEditedJob] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [skillInput, setSkillInput] = useState("");
+
+  const fileInputRef = useRef(null);
+
+  const handleEdit = (job) => {
+    setEditingJobId(job.id);
+    setEditedJob({ ...job });
+    setPreview(job.logo);
+  };
+
+  const handleChange = (e) => {
+    setEditedJob({ ...editedJob, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEditedJob({ ...editedJob, logo: file });
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleAddSkill = () => {
+    if (skillInput.trim() && !editedJob.skills.includes(skillInput.trim())) {
+      setEditedJob({ ...editedJob, skills: [...editedJob.skills, skillInput.trim()] });
+      setSkillInput("");
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove) => {
+    setEditedJob({
+      ...editedJob,
+      skills: editedJob.skills.filter((skill) => skill !== skillToRemove),
+    });
+  };
+
+  const handleSave = () => {
+    setJobs(jobs.map((job) => (job.id === editedJob.id ? editedJob : job)));
+    setEditingJobId(null);
+  };
+
+  const handleCancel = () => {
+    setEditingJobId(null);
+  };
+
   return (
-    <Flex
-      direction="column"
-      align="center"
-      justify="center"
-      p="4"
-      w="100%"
-      bg="purple.100"
-    >
-      {allJobsData.map((job, index) => (
-        <Card.Root
-          key={index}
-          flexDirection="row"
-          overflow="hidden"
-          maxW="100%"
-          w="100%"
-          bg="white"
-          boxShadow="md"
-          borderRadius="md"
-          _hover={{ transform: "scale(1.02)", transition: "0.3s ease-in-out" }}
-          mb="4"
-        >
-          <Box>
-            <Card.Body>
-              <Card.Title mb="2">
-                <Flex
-                  direction="row"
-                  gap = "4"
-                >
-                  <Flex >
-                    <Image
-                      objectFit="contain"
-                      maxW={{ md: "100px", base: "30px" }}
-                      src={job.logo}
-                      alt={job.company}
-                      minW="100px"
-                      minH="100px"
-                    />
-                    </Flex>
-                    <Flex direction="column" align="flex-start">
-                    <Heading size="2xl" color="purple.600">
-                      <b>{job.position}</b>, {job.company}
-                    </Heading>
-                    <Heading size="md" color="orange.500">
-                      {job.location}
-                    </Heading>
-                    <HStack mt="4">
-                      <Text color="purple.800" fontWeight="bold">
-                        Skills:
-                      </Text>
-                      {job.skills.map((skill, skillIndex) => (
-                        <Badge key={skillIndex}>{skill}</Badge>
-                      ))}
-                    </HStack>
-                  </Flex>
-                </Flex>
-                  
-              </Card.Title>
-              <Card.Description>{job.description}</Card.Description>
-            </Card.Body>
-            <Card.Footer>
-              <DialogRoot
-                size="xl"
-                placement="center"
-                motionPreset="slide-in-bottom"
-              >
-                <DialogTrigger asChild>
-                  <Button variant="outline" size="sm" colorPalette="orange">
-                    Edit
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogCloseTrigger
-                    color="orange.600"
-                    bg="purple.100"
-                    p="2"
-                    m="2"
+    <Box p={6}>
+      <Heading size="lg" mb={4}>
+        My Jobs
+      </Heading>
+      {jobs.map((job) => (
+        <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" bg="white">
+          {editingJobId === job.id ? (
+            // Editable Form
+            <VStack spacing={4} align="stretch">
+              <Input placeholder="Company Name" name="company" value={editedJob.company} onChange={handleChange} />
+              <Input placeholder="Position" name="position" value={editedJob.position} onChange={handleChange} />
+              <Input placeholder="Location" name="location" value={editedJob.location} onChange={handleChange} />
+
+              {/* Skill Input */}
+              <HStack>
+                <Input
+                  placeholder="Add Skill"
+                  value={skillInput}
+                  onChange={(e) => setSkillInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleAddSkill()}
+                />
+                <Button size="sm" colorScheme="blue" onClick={handleAddSkill}>
+                  Add
+                </Button>
+              </HStack>
+
+              {/* Display Skills */}
+              <HStack wrap="wrap">
+                {editedJob.skills.map((skill, index) => (
+                  <Badge
+                    key={index}
+                    colorScheme="purple"
+                    cursor="pointer"
+                    onClick={() => handleRemoveSkill(skill)}
                   >
-                    Cancel
-                  </DialogCloseTrigger>
-                  <DialogBody>
-                    <Card.Body>
-                      <Card.Title mb="2" p="2">
-                      <Flex
-                  direction="row"
-                  gap = "4"
-                >
-                  <Flex >
-                    <Image
-                      objectFit="contain"
-                      maxW={{ md: "100px", base: "50px" }}
-                      src={job.logo}
-                      alt={job.company}
-                      minW="100px"
-                      minH="100px"
-                    />
-                    </Flex>
-                    <Flex direction="column" align="flex-start">
-                    <Heading size="2xl" color="purple.600">
-                      <b>{job.position}</b>, {job.company}
-                    </Heading>
-                    <Heading size="md" color="orange.500">
-                      {job.location}
-                    </Heading>
-                    <HStack mt="4">
-                      <Text color="purple.800" fontWeight="bold">
-                        Skills:
-                      </Text>
-                      {job.skills.map((skill, skillIndex) => (
-                        <Badge key={skillIndex}>{skill}</Badge>
-                      ))}
-                    </HStack>
-                  </Flex>
-                </Flex>
-                      </Card.Title>
-                      <Card.Description>
-                        <Box
-                          scrollBehavior="inside"
-                          overflow="auto"
-                          maxH="300px"
-                        >
-                          <Lorem p={10} />
-                        </Box>
-                      </Card.Description>
-                      <Card.Footer
-                        p="2"
-                        justifyItems="center"
-                        justifyContent="end"
-                      >
-                        <Button color="orange.600" bg="purple.100" p="2">
-                          Save
-                        </Button>
-                      </Card.Footer>
-                    </Card.Body>
-                  </DialogBody>
-                </DialogContent>
-              </DialogRoot>
-            </Card.Footer>
-          </Box>
-        </Card.Root>
+                    {skill} ❌
+                  </Badge>
+                ))}
+              </HStack>
+
+              <Textarea placeholder="Job Description" name="description" value={editedJob.description} onChange={handleChange} />
+
+              {/* Hidden File Input */}
+              <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} hidden />
+
+              {/* Custom Button to Upload Logo */}
+              <Button width="100%" colorScheme="blue" onClick={() => fileInputRef.current.click()}>
+                Change Logo
+              </Button>
+
+              {/* Preview uploaded image */}
+              {preview && <Image src={preview} alt="Company Logo" boxSize="100px" objectFit="contain" borderRadius="md" mt={2} />}
+
+              <HStack justify="center">
+                <Button colorScheme="green" onClick={handleSave}>
+                  Save
+                </Button>
+                <Button colorScheme="red" variant="outline" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </HStack>
+            </VStack>
+          ) : (
+            // Normal Job Display
+            <Stack
+              direction={{ base: "column", md: "row" }}
+              align={{ base: "center", md: "flex-start" }}
+              spacing={4}
+            >
+              <Image
+                src={job.logo}
+                alt="Company Logo"
+                boxSize={{ base: "80px", md: "50px" }}
+                objectFit="contain"
+                borderRadius="md"
+              />
+              <Box flex="1" textAlign={{ base: "center", md: "left" }}>
+                <Text fontSize="lg" fontWeight="bold">
+                  {job.company}
+                </Text>
+                <Text fontSize="md" color="gray.600">
+                  {job.position}
+                </Text>
+                <Text fontSize="sm" color="gray.500">
+                  {job.location}
+                </Text>
+                <HStack mt={2} justify={{ base: "center", md: "flex-start" }} wrap="wrap">
+                  {job.skills.map((skill, index) => (
+                    <Badge key={index} colorScheme="purple">
+                      {skill}
+                    </Badge>
+                  ))}
+                </HStack>
+                <Text fontSize="sm" mt={2} wordBreak="break-word">
+                  {job.description}
+                </Text>
+              </Box>
+              <Button colorScheme="blue" onClick={() => handleEdit(job)}>
+                Edit
+              </Button>
+            </Stack>
+          )}
+        </Box>
       ))}
-    </Flex>
+    </Box>
   );
 };
 

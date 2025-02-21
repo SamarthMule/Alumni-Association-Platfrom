@@ -8,7 +8,7 @@ const myConnectionsData = [
     { name: "David Wilson", role: "Cloud Engineer" }
 ];
 
-const MyConnections = () => {
+const AllConnections = () => {
     return (
         <Box p={4} bg="white" boxShadow="sm" borderRadius="md" w="full">
             {/* Search Bar */}
@@ -72,4 +72,4 @@ const MyConnections = () => {
     );
 };
 
-export default MyConnections;
+export default AllConnections;
