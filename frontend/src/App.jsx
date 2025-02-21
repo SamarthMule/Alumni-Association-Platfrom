@@ -10,9 +10,15 @@ import StudentNetwork from "./pages/Student/StudentNetwork";
 import AlumniProfile from "./pages/Alumni/AlumniProfile";
 import AlumniJobs from "./pages/Alumni/AlumniJob";
 
-function App() {
+import { ChakraProvider } from "@chakra-ui/react";
+import  {system}  from "./theme/theme";
+import { ColorModeProvider } from  "./components/ui/color-mode";
+
+function App({ Component }) {
   return (
-    <BrowserRouter>
+    <ChakraProvider value={system}>
+      <ColorModeProvider>
+      <BrowserRouter>
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
@@ -34,7 +40,12 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+      </ColorModeProvider>
+    </ChakraProvider>
   );
 }
+
+
+
 
 export default App;
