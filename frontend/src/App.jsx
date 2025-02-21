@@ -9,12 +9,17 @@ import AlumniNetwork from "./pages/Alumni/AlumniNetwork";
 import StudentNetwork from "./pages/Student/StudentNetwork";
 import AlumniProfile from "./pages/Alumni/AlumniProfile";
 import AlumniJobs from "./pages/Alumni/AlumniJob";
+import { useEffect } from "react";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import  {system}  from "./theme/theme";
 import { ColorModeProvider } from  "./components/ui/color-mode";
 
 function App({ Component }) {
+
+  useEffect(() => {
+    localStorage.setItem("chakra-ui-color-mode", "light");
+  }, []);
   return (
     <ChakraProvider value={system}>
       <ColorModeProvider>
