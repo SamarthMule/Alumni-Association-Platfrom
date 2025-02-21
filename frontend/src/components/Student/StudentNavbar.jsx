@@ -3,7 +3,6 @@ import {
   Text,
   Button,
   HStack,
-  useBreakpointValue,
   Menu,
 } from "@chakra-ui/react";
 import { FaUserCircle, FaBars } from "react-icons/fa";
@@ -12,9 +11,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const StudentNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Determine if the current screen size is mobile
-  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const navItems = [
     { name: "Network", path: "/studentnetwork" },
@@ -170,7 +166,7 @@ const StudentNavbar = () => {
         >
           <Menu.Item
             _hover={{ bg: "purple.600", color: "white" }}
-            onClick={() => navigate("/alumniprofile")}
+            onClick={() => navigate("/studentprofile")}
           >
             Profile
           </Menu.Item>
