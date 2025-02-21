@@ -81,7 +81,7 @@ const MyJobs = () => {
                   <Flex >
                     <Image
                       objectFit="contain"
-                      maxW={{ md: "100px", base: "50px" }}
+                      maxW={{ md: "100px", base: "30px" }}
                       src={job.logo}
                       alt={job.company}
                       minW="100px"
