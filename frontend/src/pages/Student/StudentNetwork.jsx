@@ -11,86 +11,31 @@ const Network = () => {
 
     return (
         <Box minH="90vh" bg="gray.50">
-            {/* Navbar */}
+            {/* Navbar at the Top */}
             <Navbar />
 
-            {/* Sidebar Toggle Button (Mobile Only) */}
-            <Button
-                aria-label="Toggle Sidebar"
-                onClick={() => setIsSidebarOpen(true)}
-                position="fixed"
-                top="70px"
-                zIndex="overlay"
-                bg="transparent"
-                color="black"
-                fontSize="18px"
-                fontWeight="bold"
-                px="20px"
-                py="10px"
-                borderRadius="md"
-                boxShadow="lg"
-                _hover={{ bg: "purple.700", color: "white" }}
-                _focus={{ outline: "none" }}
-                display={{ base: "flex", md: "none" }} // Hide on full screen
-            >
-                <FaBars style={{ marginRight: "8px" }} /> 
-            </Button>
-
-            <Flex mt="80px">
+            <Flex mt="80px" direction={{ base: "column", md: "row" }}>
                 {/* Sidebar */}
-                <Box
-                    w="250px"
-                    p={4}
-                    bg="purple.100"
-                    color="white"
-                    minH="100vh"
-                    position={{ base: "fixed", md: "relative" }}
-                    left={{ base: isSidebarOpen ? "0" : "-100%", md: "0" }}
-                    transition="left 0.3s ease-in-out"
-                    zIndex="modal"
-                    display={{ base: isSidebarOpen ? "block" : "none", md: "block" }}
-                    boxShadow="lg"
-                >
-                    {/* Cross (X) Button for Closing Sidebar (Only in Mobile View) */}
-                    <Flex justify="flex-end" display={{ base: "flex", md: "none" }}>
-                        <Text
-                            fontSize="24px"
-                            fontWeight="bold"
-                            cursor="pointer"
-                            color="red.500"
-                            _hover={{ color: "red.700" }}
-                            onClick={() => setIsSidebarOpen(false)}
-                        >
-                            ✕
-                        </Text>
-                    </Flex>
-
-                    {/* Sidebar Content */}
-                    <VStack spacing={4} align="stretch" mt={4}>
+                <Box p={4} bg="purple.100" color="white" minH={{md: "90vh"}} minW="250px">
+                    <VStack spacing={4} align="stretch">
                         <Button
-                            colorScheme="whiteAlpha.200"
+                            colorScheme="whiteAlpha"
                             variant={selectedTab === "all" ? "solid" : "ghost"}
-                            onClick={() => {
-                                setSelectedTab("all");
-                                setIsSidebarOpen(false);
-                            }}
+                            onClick={() => setSelectedTab("all")}
                         >
                             All Connections
                         </Button>
                         <Button
                             colorScheme="whiteAlpha"
                             variant={selectedTab === "my" ? "solid" : "ghost"}
-                            onClick={() => {
-                                setSelectedTab("my");
-                                setIsSidebarOpen(false);
-                            }}
+                            onClick={() => setSelectedTab("my")}
                         >
                             My Connections
                         </Button>
                     </VStack>
                 </Box>
 
-                {/* Main Content */}
+                {/* Main Content Area */}
                 <Box flex="1" p={5}>
                     {selectedTab === "all" ? <AllConnections /> : <MyConnections />}
                 </Box>
