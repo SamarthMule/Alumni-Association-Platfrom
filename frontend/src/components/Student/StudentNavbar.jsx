@@ -3,11 +3,6 @@ import {
   Text,
   Button,
   HStack,
-  IconButton,
-  MenuRoot,
-  MenuTrigger,
-  MenuContent,
-  MenuItem,
   useBreakpointValue,
   Menu,
 } from "@chakra-ui/react";
@@ -48,7 +43,7 @@ const StudentNavbar = () => {
       boxShadow="lg"
     >
       {/* Logo + Title */}
-      <HStack spacing={4}>
+      <HStack spacing={4} cursor="pointer" onClick={() => navigate("/studentdashboard")}>
         {/* Logo Box */}
         <Flex
           bg="white"
@@ -71,7 +66,6 @@ const StudentNavbar = () => {
           fontWeight="bold"
           letterSpacing="wide"
           color="purple"
-          onClick={() => navigator("/alumnidashboard")}
         >
           Student Dashboard
         </Text>
