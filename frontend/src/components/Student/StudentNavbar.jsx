@@ -14,7 +14,7 @@ const StudentNavbar = () => {
 
   const navItems = [
     { name: "Network", path: "/studentnetwork" },
-    { name: "Jobs", path: "/jobs" },
+    { name: "Jobs", path: "/studentjobs" },
     { name: "Events", path: "/events" },
     { name: "Mentorship", path: "/mentorship" },
   ];

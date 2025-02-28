@@ -13,6 +13,16 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogRoot,
+} from "../ui/dialog";
 
 const MyJobs = () => {
   const [jobs, setJobs] = useState([
@@ -33,7 +43,8 @@ const MyJobs = () => {
       location: "Menlo Park, California, United States (Remote) - Full Time",
       skills: ["React", "JavaScript"],
       logo: "https://pngimg.com/d/facebook_logos_PNG19753.png",
-      description: "Experience with React and JavaScript. Strong problem-solving skills.",
+      description:
+        "Experience with React and JavaScript. Strong problem-solving skills.",
     },
   ]);
 
@@ -41,6 +52,8 @@ const MyJobs = () => {
   const [editedJob, setEditedJob] = useState(null);
   const [preview, setPreview] = useState(null);
   const [skillInput, setSkillInput] = useState("");
+  const [viewingJob, setViewingJob] = useState(null);
+  
 
   const fileInputRef = useRef(null);
 
@@ -48,20 +61,14 @@ const MyJobs = () => {
     setEditingJobId(job.id);
     setEditedJob({ ...job });
     setPreview(job.logo);
+    setViewingJob(null);
   };
 
-  const handleChange = (e) => {
-    setEditedJob({ ...editedJob, [e.target.name]: e.target.value });
+  const handleViewDetails = (job) => {
+    setViewingJob(job);
+    setEditingJobId(null);
   };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setEditedJob({ ...editedJob, logo: file });
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
+  
   const handleAddSkill = () => {
     if (skillInput.trim() && !editedJob.skills.includes(skillInput.trim())) {
       setEditedJob({ ...editedJob, skills: [...editedJob.skills, skillInput.trim()] });
@@ -76,31 +83,116 @@ const MyJobs = () => {
     });
   };
 
-  const handleSave = () => {
-    setJobs(jobs.map((job) => (job.id === editedJob.id ? editedJob : job)));
-    setEditingJobId(null);
+
+  const handleInputChange = (e) => {
+    setEditedJob({ ...editedJob, [e.target.name]: e.target.value });
   };
 
-  const handleCancel = () => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImage(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleSave = () => {
+    setJobs(jobs.map((job) => (job.id === editingJobId ? editedJob : job)));
     setEditingJobId(null);
+    setEditedJob(null);
+    setPreview(null);
   };
 
   return (
-    <Box p={6}>
-      <Heading size="lg" mb={4}>
+    <Box p={6} bg="gray.100">
+      <Heading size="lg" mb={4} color="blue.700">
         My Jobs
       </Heading>
       {jobs.map((job) => (
         <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" bg="white">
-          {editingJobId === job.id ? (
-            // Editable Form
-            <VStack spacing={4} align="stretch">
-              <Input placeholder="Company Name" name="company" value={editedJob.company} onChange={handleChange} />
-              <Input placeholder="Position" name="position" value={editedJob.position} onChange={handleChange} />
-              <Input placeholder="Location" name="location" value={editedJob.location} onChange={handleChange} />
+          <Stack direction={{ base: "column", md: "row" }} align={{ base: "center", md: "flex-start" }} spacing={4}>
+            <Image
+              src={job.logo}
+              alt="Company Logo"
+              boxSize={{ base: "80px", md: "50px" }}
+              objectFit="contain"
+              borderRadius="md"
+            />
+            <Box flex="1" textAlign={{ base: "center", md: "left" }}>
+              <Text fontSize="lg" fontWeight="bold" color="blue.800">
+                {job.company}
+              </Text>
+              <Text fontSize="md" color="gray.600">
+                {job.position}
+              </Text>
+              <Text fontSize="sm" color="gray.500">
+                {job.location}
+              </Text>
+              <HStack mt={2} justify={{ base: "center", md: "flex-start" }} wrap="wrap">
+                {job.skills.map((skill, index) => (
+                  <Badge key={index} colorScheme="purple">
+                    {skill}
+                  </Badge>
+                ))}
+              </HStack>
+            </Box>
 
-              {/* Skill Input */}
-              <HStack>
+            <HStack spacing={2}>
+              <Button colorScheme="blue" onClick={() => handleEdit(job)}>
+                Edit
+              </Button>
+
+              <DialogRoot>
+                <DialogTrigger asChild>
+                  <Button colorScheme="teal" onClick={() => handleViewDetails(job)}>
+                    View Details
+                  </Button>
+                </DialogTrigger>
+                {viewingJob?.id === job.id && (
+                  <DialogContent>
+                    <DialogCloseTrigger />
+                    <DialogHeader>
+                      <DialogTitle>{viewingJob.company}</DialogTitle>
+                    </DialogHeader>
+                    <DialogBody>
+                      <Text fontSize="md">{viewingJob.position}</Text>
+                      <Text fontSize="sm" color="gray.500">
+                        {viewingJob.location}
+                      </Text>
+                      <Image src={viewingJob.logo} alt="Company Logo" boxSize="100px" borderRadius="md" mt={2} />
+                      <Text mt={2}>{viewingJob.description}</Text>
+                    </DialogBody>
+                    <DialogFooter>
+                      <DialogCloseTrigger asChild>
+                        <Button colorScheme="red">Close</Button>
+                      </DialogCloseTrigger>
+                    </DialogFooter>
+                  </DialogContent>
+                )}
+              </DialogRoot>
+            </HStack>
+          </Stack>
+
+          {editingJobId === job.id && (
+            <Box mt={4} p={4} border="1px solid gray" borderRadius="md" bg="gray.50">
+              <Heading size="md">Edit Job</Heading>
+              <VStack spacing={3} mt={3} align="stretch">
+                <Input name="company" placeholder="Company Name" value={editedJob.company} onChange={handleInputChange} />
+                <Input name="position" placeholder="Job Position" value={editedJob.position} onChange={handleInputChange} />
+                <Input name="location" placeholder="Job Location" value={editedJob.location} onChange={handleInputChange} />
+                <Textarea name="description" placeholder="Job Description" value={editedJob.description} onChange={handleInputChange} />
+                <Input type="file" onChange={handleFileChange} mb={2} />
+                <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} hidden />
+
+{/* Custom Button to Upload Logo */}
+<Button width="100%" colorScheme="blue" onClick={() => fileInputRef.current.click()}>
+  Change Logo
+</Button>
+
+{/* Preview uploaded image */}
+{preview && <Image src={preview} alt="Company Logo" boxSize="100px" objectFit="contain" borderRadius="md" mt={2} />}
+       {/* Skill Input */}
+       <HStack>
                 <Input
                   placeholder="Add Skill"
                   value={skillInput}
@@ -125,68 +217,16 @@ const MyJobs = () => {
                   </Badge>
                 ))}
               </HStack>
-
-              <Textarea placeholder="Job Description" name="description" value={editedJob.description} onChange={handleChange} />
-
-              {/* Hidden File Input */}
-              <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} hidden />
-
-              {/* Custom Button to Upload Logo */}
-              <Button width="100%" colorScheme="blue" onClick={() => fileInputRef.current.click()}>
-                Change Logo
-              </Button>
-
-              {/* Preview uploaded image */}
-              {preview && <Image src={preview} alt="Company Logo" boxSize="100px" objectFit="contain" borderRadius="md" mt={2} />}
-
-              <HStack justify="center">
-                <Button colorScheme="green" onClick={handleSave}>
-                  Save
-                </Button>
-                <Button colorScheme="red" variant="outline" onClick={handleCancel}>
-                  Cancel
-                </Button>
-              </HStack>
-            </VStack>
-          ) : (
-            // Normal Job Display
-            <Stack
-              direction={{ base: "column", md: "row" }}
-              align={{ base: "center", md: "flex-start" }}
-              spacing={4}
-            >
-              <Image
-                src={job.logo}
-                alt="Company Logo"
-                boxSize={{ base: "80px", md: "50px" }}
-                objectFit="contain"
-                borderRadius="md"
-              />
-              <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-                <Text fontSize="lg" fontWeight="bold">
-                  {job.company}
-                </Text>
-                <Text fontSize="md" color="gray.600">
-                  {job.position}
-                </Text>
-                <Text fontSize="sm" color="gray.500">
-                  {job.location}
-                </Text>
-                <HStack mt={2} justify={{ base: "center", md: "flex-start" }} wrap="wrap">
-                  {job.skills.map((skill, index) => (
-                    <Badge key={index} colorScheme="purple">
-                      {skill}
-                    </Badge>
-                  ))}
+                <HStack spacing={2}>
+                  <Button colorScheme="green" onClick={handleSave}>
+                    Save
+                  </Button>
+                  <Button colorScheme="red" onClick={() => setEditingJobId(null)}>
+                    Cancel
+                  </Button>
                 </HStack>
-                <Text fontSize="sm" mt={2} wordBreak="break-word">
-                  {job.description}
-                </Text>
-              </Box>
-              <Button colorScheme="blue" onClick={() => handleEdit(job)}>
-                Edit
-              </Button>
-            </Stack>
+              </VStack>
+            </Box>
           )}
         </Box>
       ))}
