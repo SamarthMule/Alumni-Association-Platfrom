@@ -1,4 +1,4 @@
-import { Box, Button, Input, Textarea, VStack, Heading, Image, Badge, HStack, Flex } from "@chakra-ui/react";
+import { Box, Button, Input, Textarea, VStack, Heading, Image, Badge, HStack } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 
 const CreateEvent = ({ onClose }) => {
