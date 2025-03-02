@@ -10,6 +10,7 @@ import StudentNetwork from "./pages/Student/StudentNetwork";
 import AlumniProfile from "./pages/Alumni/AlumniProfile";
 import AlumniJobs from "./pages/Alumni/AlumniJob";
 import StudentJob from "./pages/Student/StudentJob";
+import StudentEvents from "./pages/Student/StudentEvents";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/studentdashboard" element={<StudentDashboard />} />
           <Route path="/studentnetwork" element={<StudentNetwork />} />
           <Route path="/studentjobs" element={<StudentJob/>}/>
+          <Route path="/studentevents" element={<StudentEvents/>}/>
 
           {/* Alumni */}
           <Route path="/alumnidashboard" element={<AlumniDashboard />} />

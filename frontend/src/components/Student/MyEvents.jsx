@@ -1,5 +1,4 @@
 import {
-  Flex,
   Badge,
   Box,
   Button,
@@ -24,29 +23,29 @@ import {
   DialogRoot,
 } from "../ui/dialog";
 
-const MyJobs = () => {
-  const [jobs, setJobs] = useState([
-    {
-      id: 1,
-      company: "Google",
-      position: "Software Developer",
-      location: "Bangalore, Karnataka, India (Remote) - Full Time",
-      skills: ["Python", "GitHub"],
-      logo: "https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
-      description:
-        "Good communication skills (must). Experience of complex crawling like captcha, recaptcha, and bypassing proxy.",
-    },
-    {
-      id: 2,
-      company: "Facebook",
-      position: "Software Engineer",
-      location: "Menlo Park, California, United States (Remote) - Full Time",
-      skills: ["React", "JavaScript"],
-      logo: "https://pngimg.com/d/facebook_logos_PNG19753.png",
-      description:
-        "Experience with React and JavaScript. Strong problem-solving skills.",
-    },
-  ]);
+const MyEvents = () => {
+    const [events, setEvents] = useState([
+        {
+          id: 1,
+          event_name: "TechFest 202",
+          event_date: "25-5-2025",
+          location: "Bangalore, Karnataka, India (Remote) - Full Time",
+          skills: ["Python", "GitHub"],
+          logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_techfest.jpg",
+          description:
+            "Good communication skills (must). Experience of complex crawling like captcha, recaptcha, and bypassing proxy.",
+        },
+        {
+            id: 2,
+            event_name: "TechFest 203",
+            event_date: "20-7-2025",
+            location: "Menlo Park, California, United States (Remote) - Full Time",
+            skills: ["React", "JavaScript"],
+            logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_techfest.jpg",
+            description:
+                "Experience with React and JavaScript. Strong problem-solving skills.",
+        },
+      ]);
 
   const [editingJobId, setEditingJobId] = useState(null);
   const [editedJob, setEditedJob] = useState(null);
@@ -97,7 +96,7 @@ const MyJobs = () => {
     }
   };
   const handleSave = () => {
-    setJobs(jobs.map((job) => (job.id === editingJobId ? editedJob : job)));
+    setEvents(events.map((job) => (job.id === editingJobId ? editedJob : job)));
     setEditingJobId(null);
     setEditedJob(null);
     setPreview(null);
@@ -108,7 +107,7 @@ const MyJobs = () => {
       <Heading size="lg" mb={4} color="blue.700">
         My Jobs
       </Heading>
-      {jobs.map((job) => (
+      {events.map((job) => (
         <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" bg="white">
           <Stack direction={{ base: "column", md: "row" }} align={{ base: "center", md: "flex-start" }} spacing={4}>
             <Image
@@ -120,10 +119,10 @@ const MyJobs = () => {
             />
             <Box flex="1" textAlign={{ base: "center", md: "left" }}>
               <Text fontSize="lg" fontWeight="bold" color="blue.800">
-                {job.company}
+                {job.event_name}
               </Text>
               <Text fontSize="md" color="gray.600">
-                {job.position}
+                {job.event_date}
               </Text>
               <Text fontSize="sm" color="gray.500">
                 {job.location}
@@ -152,10 +151,10 @@ const MyJobs = () => {
                   <DialogContent>
                     <DialogCloseTrigger />
                     <DialogHeader>
-                      <DialogTitle>{viewingJob.company}</DialogTitle>
+                      <DialogTitle>{viewingJob.event_name}</DialogTitle>
                     </DialogHeader>
                     <DialogBody>
-                      <Text fontSize="md">{viewingJob.position}</Text>
+                      <Text fontSize="md">{viewingJob.event_date}</Text>
                       <Text fontSize="sm" color="gray.500">
                         {viewingJob.location}
                       </Text>
@@ -177,8 +176,8 @@ const MyJobs = () => {
             <Box mt={4} p={4} border="1px solid gray" borderRadius="md" bg="gray.50">
               <Heading size="md">Edit Job</Heading>
               <VStack spacing={3} mt={3} align="stretch">
-                <Input name="company" placeholder="Company Name" value={editedJob.company} onChange={handleInputChange} />
-                <Input name="position" placeholder="Job Position" value={editedJob.position} onChange={handleInputChange} />
+                <Input name="company" placeholder="Company Name" value={editedJob.event_name} onChange={handleInputChange} />
+                <Input name="position" placeholder="Job Position" value={editedJob.event_date} onChange={handleInputChange} />
                 <Input name="location" placeholder="Job Location" value={editedJob.location} onChange={handleInputChange} />
                 <Textarea name="description" placeholder="Job Description" value={editedJob.description} onChange={handleInputChange} />
                 <Input type="file" onChange={handleFileChange} mb={2} />
@@ -234,4 +233,4 @@ const MyJobs = () => {
   );
 };
 
-export default MyJobs;
+export default MyEvents;
