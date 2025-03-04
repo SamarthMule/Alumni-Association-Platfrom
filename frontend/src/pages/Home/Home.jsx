@@ -1,5 +1,5 @@
 import { Flex, Heading, Image } from "@chakra-ui/react";
-import Navbar from "../components/common/Navbar";
+import Navbar from "../../components/Home/Navbar";
 
 const Home = () => {
   return (

@@ -2,7 +2,7 @@ import LoginPage from "./pages/Auth/LoginPage";
 import { BrowserRouter, Routes, Route } from "react-router";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import StudentProfile from "./pages/Student/StudentProfile";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 import AlumniDashboard from "./pages/Alumni/AlumniDashboard";
 import AlumniNetwork from "./pages/Alumni/AlumniNetwork";
