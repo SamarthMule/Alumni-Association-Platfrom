@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../../components/common/Navbar";
+
 import {
   Flex,
   Heading,
@@ -10,12 +10,12 @@ import {
   Link,
   Fieldset,
 } from "@chakra-ui/react";
-import { Field } from "../../components/ui/field";
-import { PasswordInput } from "../../components/ui/password-input";
-import { PinInput } from "../../components/ui/pin-input";
-import InputField from "../../components/chat-components/InputField";
+import { Field } from "../../../components/ui/field";
+
+import { PinInput } from "../../../components/ui/pin-input";
+import InputField from "../../../components/chat-components/InputField";
 import useRegister from "../../../hooks/useRegister";
-import { toaster } from "../../components/ui/toaster";
+import { toaster } from "../../../components/ui/toaster";
 
 const RegisterPage = () => {
   const [prn, setPrn] = useState("");

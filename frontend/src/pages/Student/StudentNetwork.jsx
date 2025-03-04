@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Box, Flex, Button, VStack, Text } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa"; // Only FaBars needed
-import Navbar from "../../components/Student/StudentNavbar";
 import MyConnections from "../../components/Student/MyConnections";
 import AllConnections from "../../components/Student/Allconnections";
 
@@ -10,9 +9,8 @@ const StudentNetwork = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <Box minH="90vh" bg="gray.50">
-            {/* Navbar at the Top */}
-            <Navbar />
+        <Box  bg="gray.50">
+           
 
             <Flex mt="80px" direction={{ base: "column", md: "row" }}>
                 {/* Sidebar */}

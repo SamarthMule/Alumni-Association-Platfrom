@@ -1,9 +1,9 @@
-import Navbar from "./common/Navbar";
+import Navbar from "./Navbar";
 import { Outlet } from "react-router";
-import { Toaster } from "../components/ui/toaster";
+import { Toaster } from "../../components/ui/toaster";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import useChatContext from "../hooks/useChatContext";
+import useChatContext from "../../hooks/useChatContext";
 import Footer from "../common/Footer";
 
 const HomeLayout = () =>{

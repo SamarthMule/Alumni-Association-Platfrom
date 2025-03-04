@@ -9,14 +9,14 @@ import {
   Fieldset,
 } from "@chakra-ui/react";
 
-import { Field } from "../../components/ui/field";
-import { PinInput } from "../../components/ui/pin-input";
-import InputField from "../../components/chat-components/InputField";
+import { Field } from "../../../components/ui/field";
+import { PinInput } from "../../../components/ui/pin-input";
+import InputField from "../../../components/chat-components/InputField";
 import useLogin from "../../../hooks/useLogin";
 import { useState } from "react";
-import { toaster } from "../../components/ui/toaster";
+import { toaster } from "../../../components/ui/toaster";
 import { useNavigate } from "react-router";
-import useChatContext from "../../hooks/useChatContext";
+import useChatContext from "../../../hooks/useChatContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

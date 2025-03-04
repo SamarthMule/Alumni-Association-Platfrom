@@ -2,7 +2,7 @@ import { Box, Flex, Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import AllJobs from "../../components/Alumni/AllJobs";
 import MyJobs from "../../components/Alumni/MyJobs";
-import Navbar from "../../components/Student/StudentNavbar";
+
 
 const StudentJob = () => {
   const [selectedTab, setSelectedTab] = useState("all");
@@ -10,7 +10,6 @@ const StudentJob = () => {
 
   return (
     <Box bg="purple.50" minH="100vh">
-      <Navbar />
 
       <Flex mt="80px" direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
         {/* Sidebar */}

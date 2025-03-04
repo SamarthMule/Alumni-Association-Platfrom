@@ -177,7 +177,7 @@ const SingleChats = () => {
               />
             </Avatar.Root>
 
-            <Heading fontSize="1.3rem" textColor="blue.500" py={4}>
+            <Heading fontSize="1.3rem" textColor="pink.500" py={4}>
               {selectedChat && getSender(user, selectedChat.users)}
             </Heading>
 
@@ -199,14 +199,14 @@ const SingleChats = () => {
 
       {!selectedChat ? (
         <VStack flex={1} justify="center">
-          <Icon as={BiSolidMessageDetail} fontSize="100px" color="blue.300" />
-          <Text fontSize="2xl" color="blue.300">
+          <Icon as={BiSolidMessageDetail} fontSize="100px" color="pink.300" />
+          <Text fontSize="2xl" color="pink.300">
             Select a chat to start messaging
           </Text>
         </VStack>
       ) : messageLoading ? (
         <Grid flex={1} placeItems="center" fontSize="1.3rem">
-          <HStack gap={5} color="blue.400">
+          <HStack gap={5} color="pink.400">
             <Spinner boxSize="40px" />
             <Text>Fetching Messages</Text>
           </HStack>

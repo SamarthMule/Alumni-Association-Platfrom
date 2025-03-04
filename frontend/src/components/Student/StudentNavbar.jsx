@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { FaUserCircle, FaBars } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import LogoutButton from "../common/LogoutButton";
 
 const StudentNavbar = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const StudentNavbar = () => {
       py={3}
       justify="space-between"
       align="center"
-      position="fixed"
+      // position="fixed"
       top="0"
       left="0"
       right="0"
@@ -139,48 +140,7 @@ const StudentNavbar = () => {
         </Menu.Content>
       </Menu.Root>
 
-      <Menu.Root>
-        <Menu.Trigger>
-          <Button
-            variant="ghost"
-            colorScheme="whiteAlpha"
-            _hover={{
-              bg: "whiteAlpha.300",
-              transform: "scale(1.1)",
-              transition: "0.3s ease-in-out",
-            }}
-            borderRadius="full"
-            p={2}
-          >
-            <FaUserCircle size={26} />
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content
-          bg="white.200"
-          color="white"
-          borderRadius="md"
-          boxShadow="lg"
-          mt="40px"
-          _hover={{
-            transform: "translateY(2px)",
-            transition: "0.3s ease-in-out",
-          }}
-        >
-          <Menu.Item
-            _hover={{ bg: "purple.600", color: "white" }}
-            onClick={() => navigate("/studentprofile")}
-          >
-            Profile
-          </Menu.Item>
-
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
-            Settings
-          </Menu.Item>
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
-            Logout
-          </Menu.Item>
-        </Menu.Content>
-      </Menu.Root>
+      <LogoutButton />
     </Flex>
   );
 };

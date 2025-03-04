@@ -60,7 +60,7 @@ const handleViewDetails = (evt) => {
 
 return (
     <Box p={6} bg="gray.100">
-        <Heading size="lg" mb={4} color="blue.700">
+        <Heading size="lg" mb={4} color="pink.700">
             My Events
         </Heading>
         {events.map((event) => (
@@ -78,7 +78,7 @@ return (
                         borderRadius="md"
                     />
                     <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-                        <Text fontSize="lg" fontWeight="bold" color="blue.800">
+                        <Text fontSize="lg" fontWeight="bold" color="pink.800">
                             {event.event_name}
                         </Text>
                         <Text fontSize="md" color="gray.600">

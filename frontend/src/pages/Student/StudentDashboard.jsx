@@ -1,11 +1,10 @@
 import { Box } from "@chakra-ui/react";
-import Navbar from "../../components/Student/StudentNavbar";
 import Section from "../../components/Student/StudentSection";
 
 const StudentDashboard = () => {
     return (
-        <Box bg="pink.100" minH="100vh" p={5} pt="80px">
-            <Navbar />
+        <Box bg="pink.100" minH="100vh" p={5} >
+           
             <Section
                 title="Events"
                 items={[
