@@ -4,6 +4,7 @@ import { Toaster } from "../components/ui/toaster";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useChatContext from "../hooks/useChatContext";
+import Footer from "../common/Footer";
 
 const HomeLayout = () =>{
     const { user } = useChatContext();
@@ -20,6 +21,7 @@ const HomeLayout = () =>{
             <Toaster />
             <Navbar />
             <Outlet />
+            <Footer />
         </>
     )
 }

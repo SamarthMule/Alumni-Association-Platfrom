@@ -1,4 +1,5 @@
-import Navbar from "../../../components/Home/Navbar";
+import React, { useState } from "react";
+import Navbar from "../../components/common/Navbar";
 import {
   Flex,
   Heading,
@@ -9,17 +10,59 @@ import {
   Link,
   Fieldset,
 } from "@chakra-ui/react";
-import { Field } from "../../../components/ui/field";
-import { PasswordInput } from "../../../components/ui/password-input";
-import { PinInput } from "../../../components/ui/pin-input";
+import { Field } from "../../components/ui/field";
+import { PasswordInput } from "../../components/ui/password-input";
+import { PinInput } from "../../components/ui/pin-input";
+import InputField from "../../components/chat-components/InputField";
+import useRegister from "../../../hooks/useRegister";
+import { toaster } from "../../components/ui/toaster";
+
 const RegisterPage = () => {
+  const [prn, setPrn] = useState("");
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [graduationYear, setGraduationYear] = useState("");
+  const [currentStatus, setCurrentStatus] = useState("");
+  const { register, loading, error } = useRegister();
+
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Register");
+    if (password !== confirmPassword) {
+      toaster({
+        title: "Passwords do not match",
+        type: "error",
+      });
+      return;
+    }
+    const response = register(
+      prn,
+      name,
+      gender,
+      mobileNo,
+      email,
+      password,
+      graduationYear,
+      currentStatus
+    );
+    if (response && !error) {
+      toaster({
+        title: "Registration Successful",
+        type: "success",
+      });
+    } else {
+      toaster({
+        title: "Registration Failed",
+        type: error ? error : "Something went wrong",
+      });
+    }
   };
+
   return (
     <>
-      <Navbar />
       <Flex
         bg="purple.50"
         justify="center"
@@ -27,7 +70,6 @@ const RegisterPage = () => {
         direction={{ base: "column", md: "row" }}
         gap="5"
         p={4}
-        h="90vh"
       >
         <Flex
           direction="column"
@@ -50,7 +92,6 @@ const RegisterPage = () => {
             alt="Alumni Association Platform"
             width="400px"
             rounded="full"
-            // filter="drop-shadow(0 0 0.25rem black)"
             shadow="lg"
           />
         </Flex>
@@ -79,42 +120,89 @@ const RegisterPage = () => {
               Register
             </Heading>
 
-            <Fieldset.Content onSubmit={handleRegister}>
-              {/* <Field label="Name">
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field> */}
-
-              <Field label="PRN Number">
-                <Input
-                  type="text"
-                  placeholder="PRN Number"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
-
-              <Field label="Email">
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
-
-              <Field label="Password">
-                <PasswordInput
-                  placeholder="Password"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
-            </Fieldset.Content>
+            <InputField
+              label="PRN"
+              placeholder="Enter your PRN Number"
+              value={prn}
+              onChange={(e) => setPrn(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Name"
+              placeholder="Enter your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Gender"
+              placeholder="Enter your Gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Mobile Number"
+              placeholder="Enter your Mobile Number"
+              value={mobileNo}
+              onChange={(e) => setMobileNo(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Email"
+              placeholder="Enter your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              type="password"
+              label="Password"
+              placeholder="Enter your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              type="password"
+              label="Confirm Password"
+              placeholder="Re-enter your Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Graduation Year"
+              placeholder="Enter your Graduation Year"
+              value={graduationYear}
+              onChange={(e) => setGraduationYear(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
+            <InputField
+              label="Current Status"
+              placeholder="Enter your Current Status"
+              value={currentStatus}
+              onChange={(e) => setCurrentStatus(e.target.value)}
+              isRequired={true}
+              isInvalid={true}
+              errorText={error}
+            />
 
             <Button variant="subtle" w="full" colorPalette={"purple"}>
               Generate OTP
@@ -123,7 +211,12 @@ const RegisterPage = () => {
               <PinInput color="purple.500" colorPalette={"purple"} count={6} />
             </Field>
 
-            <Button type="submit" w="full" colorPalette={"purple"}>
+            <Button
+              type="submit"
+              w="full"
+              colorPalette={"purple"}
+              onClick={handleRegister}
+            >
               Verify OTP & Register
             </Button>
 

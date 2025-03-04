@@ -5,7 +5,7 @@ import Navbar from "../../components/Student/StudentNavbar";
 import MyConnections from "../../components/Student/MyConnections";
 import AllConnections from "../../components/Student/Allconnections";
 
-const Network = () => {
+const StudentNetwork = () => {
     const [selectedTab, setSelectedTab] = useState("all");  
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -44,4 +44,4 @@ const Network = () => {
     );
 };
 
-export default Network;
+export default StudentNetwork;

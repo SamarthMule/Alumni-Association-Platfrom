@@ -13,10 +13,12 @@ const StudentNavbar = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: "Network", path: "/studentnetwork" },
-    { name: "Jobs", path: "/studentjobs" },
-    { name: "Events", path: "/studentevents" },
-    { name: "Mentorship", path: "/mentorship" },
+    { name: "Profile", path: "/student/profile" },
+    { name: "Dashboard", path: "/student/dashboard" },
+    { name: "Network", path: "/student/network" },
+    { name: "Mentor Connect", path: "/student/mentor-connect" },
+    { name: "Jobs", path: "/student/jobs" },
+    { name: "Events", path: "/student/events" },
   ];
 
   return (

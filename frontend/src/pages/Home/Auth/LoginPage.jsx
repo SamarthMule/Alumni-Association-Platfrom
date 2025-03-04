@@ -3,25 +3,60 @@ import {
   Image,
   Heading,
   Button,
-  Input,
+
   Text,
   Link,
   Fieldset,
 } from "@chakra-ui/react";
-import { PasswordInput } from "../../../components/ui/password-input";
-import Navbar from "../../../components/Home/Navbar";
-import { Field } from "../../../components/ui/field";
-import { PinInput } from "../../../components/ui/pin-input";
+
+import { Field } from "../../components/ui/field";
+import { PinInput } from "../../components/ui/pin-input";
+import InputField from "../../components/chat-components/InputField";
+import useLogin from "../../../hooks/useLogin";
+import { useState } from "react";
+import { toaster } from "../../components/ui/toaster";
+import { useNavigate } from "react-router";
+import useChatContext from "../../hooks/useChatContext";
 
 const LoginPage = () => {
-  const handleLogin = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const {login,error,loading} = useLogin();
+  const navigate = useNavigate();
+  const {setUser,user} = useChatContext();
+
+  const handleLogin = async(e) => {
     e.preventDefault();
-    console.log("Login");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toaster.create({
+        title: "Invalid Email",
+        type: "error",
+      })
+      return;
+    }
+
+    const response = await login(email, password);
+    if (response && !error) {
+      toaster.create({
+        title: "Login Successful",
+        type: "success",
+      });
+      setUser(response);
+      user && navigate('/student/profile');
+
+    } else {  
+      toaster.create({
+        title: "Login Failed",
+        type: error ? error : "Something went wrong",
+      });
+
+    }
+     
   };
 
   return (
     <>
-      <Navbar />
       <Flex
         bg="purple.50"
         justify="center"
@@ -81,25 +116,27 @@ const LoginPage = () => {
               Login
             </Heading>
 
-            <Fieldset.Content onSubmit={handleLogin}>
-              <Field label="Email">
-                <Input
-                  color="purple.500"
-                  type="email"
-                  placeholder="Email"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
+            <Fieldset.Content>
+              <InputField
+                label="Email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                isRequired={true}
+                // isInvalid={emailError}
+                // errorText={emailError}
+              />
 
-              <Field label="Password">
-                <PasswordInput
-                  color="purple.500"
-                  placeholder="Password"
-                  focusBorderColor="purple.500"
-                  borderColor="purple.300"
-                />
-              </Field>
+              <InputField
+                type="password"
+                label="Password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                isRequired={true}
+                // isInvalid={passwordError}
+                // errorText={passwordError}
+              />
             </Fieldset.Content>
 
             <Button variant="subtle" w="full" colorPalette={"purple"}>
@@ -113,7 +150,7 @@ const LoginPage = () => {
                    />
             </Field>
 
-            <Button type="submit" w="full" colorPalette={"purple"}>
+            <Button type="submit" w="full" colorPalette={"purple"} onClick={handleLogin}>
               Verify OTP & Login
             </Button>
 
