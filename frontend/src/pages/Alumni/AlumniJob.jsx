@@ -11,7 +11,7 @@ const AlumniJob = () => {
 
   return (
     <Box bg="purple.50" minH="100vh">
-      <Navbar />
+      
 
       <Flex mt="80px" direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
         {/* Sidebar */}

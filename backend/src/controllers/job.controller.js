@@ -1,25 +1,49 @@
-
 import mongoose from "mongoose";
-import {Job} from "../models/job.model.js"
-import {Mentorship} from "../models/mentorship.model.js"
+import { Job } from "../models/job.model.js";
+import { Mentorship } from "../models/mentorship.model.js";
 import { User } from "../models/user.model.js";
 const createJob = async (req, res) => {
     try {
-        const { title, description, company, location, skillsRequired, deadline, contactInfo } = req.body;
+        const {
+            title,
+            description,
+            company,
+            location,
+            skillsRequired,
+            deadline,
+            contactInfo,
+        } = req.body;
 
         const missingFields = [];
         if (!title) missingFields.push("title");
         if (!description) missingFields.push("description");
         if (!company) missingFields.push("company");
         if (!location) missingFields.push("location");
-        if (!skillsRequired || skillsRequired.length === 0) missingFields.push("skillsRequired");
+        if (!skillsRequired || skillsRequired.length === 0)
+            missingFields.push("skillsRequired");
         if (!contactInfo) missingFields.push("contactInfo");
-        if(contactInfo && !contactInfo.email) missingFields.push("email in contactInfo");
-        if(contactInfo && !contactInfo.mobile) missingFields.push("mobile in contactInfo");
+        if (contactInfo && !contactInfo.email)
+            missingFields.push("email in contactInfo");
+        if (contactInfo && !contactInfo.mobile)
+            missingFields.push("mobile in contactInfo");
 
         if (missingFields.length > 0)
-            return res.status(400).json({ "message": `${missingFields.join(", ")} ${missingFields.length > 1 ? "are" : "is"} required` })
-        const job = new Job({ title, description, company, location, skillsRequired, deadline, contactInfo });
+            return res
+                .status(400)
+                .json({
+                    message: `${missingFields.join(", ")} ${
+                        missingFields.length > 1 ? "are" : "is"
+                    } required`,
+                });
+        const job = new Job({
+            title,
+            description,
+            company,
+            location,
+            skillsRequired,
+            deadline,
+            contactInfo,
+        });
         job.referredBy.push(req.user._id);
         job.creator = req.user._id;
         await job.save();
@@ -27,7 +51,10 @@ const createJob = async (req, res) => {
         res.status(201).json({ message: "Job created successfully", job });
     } catch (error) {
         console.log("\n\n\nError in createJob : ", error);
-        res.status(500).json({ message: "Error occurred in createJob", error: error.message });
+        res.status(500).json({
+            message: "Error occurred in createJob",
+            error: error.message,
+        });
     }
 };
 
@@ -40,7 +67,13 @@ const updateJob = async (req, res) => {
         const job = await Job.findById(id);
         if (!job) return res.status(404).json({ error: "Job not found" });
 
-        if(job.creator.toString() !== userId.toString()) return res.status(401).json({"message": "Unauthorized request", error: "Only job creator can update job"});
+        if (job.creator.toString() !== userId.toString())
+            return res
+                .status(401)
+                .json({
+                    message: "Unauthorized request",
+                    error: "Only job creator can update job",
+                });
 
         job.title = updates.title ?? job.title;
         job.description = updates.description ?? job.description;
@@ -65,10 +98,16 @@ const deleteJob = async (req, res) => {
         const userId = req.user._id;
 
         const job = await Job.findById(id);
-        
+
         if (!job) return res.status(404).json({ error: "Job not found" });
-        
-        if(job.creator.toString() !== userId.toString()) return res.status(401).json({"message": "Unauthorized request", error: "Only job creator can update job"});
+
+        if (job.creator.toString() !== userId.toString())
+            return res
+                .status(401)
+                .json({
+                    message: "Unauthorized request",
+                    error: "Only job creator can update job",
+                });
         await Job.deleteOne({ _id: id });
 
         res.status(200).json({ message: "Job deleted successfully" });
@@ -88,9 +127,12 @@ const getJobById = async (req, res) => {
         res.status(200).json({ message: "Job retrieved successfully", job });
     } catch (error) {
         console.log("\n\n\nError in getJobById : ", error);
-        res.status(500).json({ message: "Error occurred in getJobById", error });
+        res.status(500).json({
+            message: "Error occurred in getJobById",
+            error,
+        });
     }
-}
+};
 
 const getFilteredJobs = async (jobs, filter, sortBy) => {
     const query = [];
@@ -103,7 +145,11 @@ const getFilteredJobs = async (jobs, filter, sortBy) => {
                 { description: regexFilter },
                 { company: regexFilter },
                 { location: regexFilter },
-                { skillsRequired: { $elemMatch: { $regex: regexFilter, $options: "i" } } },
+                {
+                    skillsRequired: {
+                        $elemMatch: { $regex: regexFilter, $options: "i" },
+                    },
+                },
             ],
         });
     }
@@ -112,7 +158,7 @@ const getFilteredJobs = async (jobs, filter, sortBy) => {
     switch (filter) {
         case "deadline:today":
             query.push({
-                deadline: { 
+                deadline: {
                     $gte: new Date().setHours(0, 0, 0, 0),
                     $lt: new Date().setHours(23, 59, 59, 999),
                 },
@@ -121,8 +167,18 @@ const getFilteredJobs = async (jobs, filter, sortBy) => {
         case "deadline:tomorrow":
             query.push({
                 deadline: {
-                    $gte: new Date(now.setDate(now.getDate() + 1)).setHours(0, 0, 0, 0),
-                    $lt: new Date(now.setDate(now.getDate() + 1)).setHours(23, 59, 59, 999),
+                    $gte: new Date(now.setDate(now.getDate() + 1)).setHours(
+                        0,
+                        0,
+                        0,
+                        0
+                    ),
+                    $lt: new Date(now.setDate(now.getDate() + 1)).setHours(
+                        23,
+                        59,
+                        59,
+                        999
+                    ),
                 },
             });
             break;
@@ -143,16 +199,25 @@ const getFilteredJobs = async (jobs, filter, sortBy) => {
             break;
     }
 
-    let filteredJobs = query.length > 0
-        ? jobs.filter(job => query.every(q => Object.keys(q).some(key => q[key].test(job[key] || ''))))
-        : jobs;
+    let filteredJobs =
+        query.length > 0
+            ? jobs.filter((job) =>
+                  query.every((q) =>
+                      Object.keys(q).some((key) => q[key].test(job[key] || ""))
+                  )
+              )
+            : jobs;
 
     if (sortBy) {
         const sortOptions = {
-            lowestApplicants: (a, b) => a.applicants.length - b.applicants.length,
-            highestApplicants: (a, b) => b.applicants.length - a.applicants.length,
-            deadlineSoonest: (a, b) => new Date(a.deadline) - new Date(b.deadline),
-            deadlineLatest: (a, b) => new Date(b.deadline) - new Date(a.deadline),
+            lowestApplicants: (a, b) =>
+                a.applicants.length - b.applicants.length,
+            highestApplicants: (a, b) =>
+                b.applicants.length - a.applicants.length,
+            deadlineSoonest: (a, b) =>
+                new Date(a.deadline) - new Date(b.deadline),
+            deadlineLatest: (a, b) =>
+                new Date(b.deadline) - new Date(a.deadline),
         };
         filteredJobs = filteredJobs.sort(sortOptions[sortBy]);
     }
@@ -188,14 +253,16 @@ const getAllJobs = async (req, res) => {
         });
     } catch (error) {
         console.log("\n\n\nError in getAllJobs:", error);
-        return res.status(500).json({ message: "Error occurred in getAllJobs", error });
+        return res
+            .status(500)
+            .json({ message: "Error occurred in getAllJobs", error });
     }
 };
 
 // Get Suggested Jobs - Returns Latest Jobs First
 const getSuggestedJobs = async (req, res) => {
     try {
-        let userId =  req.params.id ?? req.user._id;
+        let userId = req.params.id ?? req.user._id;
         const { page = 1, limit = 10, filter, sortBy } = req.query;
         const parsedPage = parseInt(page, 10);
         const parsedLimit = parseInt(limit, 10);
@@ -204,23 +271,33 @@ const getSuggestedJobs = async (req, res) => {
         let mentorIds = [];
         userId = new mongoose.Types.ObjectId(userId);
         const userObj = await User.findById(userId);
-        const userMentorships = await Mentorship.find({mentee: {$in: [userId]}});
-        if(userMentorships && userMentorships.length > 0) mentorIds = userMentorships.map(ment => ment.mentor);
-        mentorIds = userObj?.followers?.map(flwr => flwr.current_status.toLowerCase() === "alumni");
-        mentorIds.concat(userObj?.following?.map(flwr => flwr.current_status.toLowerCase() === "alumni"));
+        const userMentorships = await Mentorship.find({
+            mentee: { $in: [userId] },
+        });
+        if (userMentorships && userMentorships.length > 0)
+            mentorIds = userMentorships.map((ment) => ment.mentor);
+        mentorIds = userObj?.followers?.map(
+            (flwr) => flwr.current_status.toLowerCase() === "alumni"
+        );
+        mentorIds.concat(
+            userObj?.following?.map(
+                (flwr) => flwr.current_status.toLowerCase() === "alumni"
+            )
+        );
 
-        console.log(mentorIds)
+        console.log(mentorIds);
 
         let jobs = await Job.find({
             $or: [
                 { creator: { $in: mentorIds } }, // If creator is one of the mentorIds
-                { referredBy: { $elemMatch: { $in: mentorIds } } } // If at least one mentorId exists in referredBy array
-            ]
-        }).skip(skip).limit(parsedLimit);
+                { referredBy: { $elemMatch: { $in: mentorIds } } }, // If at least one mentorId exists in referredBy array
+            ],
+        })
+            .skip(skip)
+            .limit(parsedLimit);
 
         const totalJobs = jobs.length;
         jobs = await getFilteredJobs(jobs, filter, sortBy);
-
 
         return res.status(200).json({
             message: "Suggested jobs retrieved successfully",
@@ -234,7 +311,9 @@ const getSuggestedJobs = async (req, res) => {
         });
     } catch (error) {
         console.log("\n\n\nError in getSuggestedJobs:", error);
-        return res.status(500).json({ message: "Error occurred in getSuggestedJobs", error });
+        return res
+            .status(500)
+            .json({ message: "Error occurred in getSuggestedJobs", error });
     }
 };
 
@@ -248,7 +327,7 @@ const getJobsAppliedByUser = async (req, res) => {
         const skip = (parsedPage - 1) * parsedLimit;
 
         const userId = new mongoose.Types.ObjectId(id);
-        let query = { applicants: {$in: userId} };
+        let query = { applicants: { $in: userId } };
 
         let jobsQuery = Job.find(query);
 
@@ -269,10 +348,43 @@ const getJobsAppliedByUser = async (req, res) => {
         });
     } catch (error) {
         console.log("\n\n\nError in getJobsAppliedByUser:", error);
-        return res.status(500).json({ message: "Error occurred in getJobsAppliedByUser", error });
+        return res
+            .status(500)
+            .json({ message: "Error occurred in getJobsAppliedByUser", error });
     }
 };
 
+// Get Jobs Posted of a User
+const getUserJobPosts = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { page = 1, limit = 10, filter, sortBy } = req.query;
+        const parsedPage = parseInt(page, 10);
+        const parsedLimit = parseInt(limit, 10);
+        const skip = (parsedPage - 1) * parsedLimit;
+
+        const jobs = await Job.find({ creator: userId })
+            .skip(skip)
+            .limit(parsedLimit);
+        const totalJobs = await Job.countDocuments({ creator: userId });
+
+        return res.status(200).json({
+            message: "User jobs retrieved successfully",
+            jobs,
+            pagination: {
+                total: totalJobs,
+                page: parsedPage,
+                totalPages: Math.ceil(totalJobs / parsedLimit),
+                limit: parsedLimit,
+            },
+        });
+    } catch (error) {
+        console.log("\n\n\nError in getUserJobPosts:", error);
+        return res
+            .status(500)
+            .json({ message: "Error occurred in getUserJobPosts", error });
+    }
+};
 
 /**
  * Supported Filters:
@@ -300,7 +412,6 @@ const getJobsAppliedByUser = async (req, res) => {
  * - getJobsAppliedByUser → Filters applied only on jobs the user has applied to.
  */
 
-
 // router.post("/job", createJob);
 // router.put("/job/:jobId", updateJob);
 // router.delete("/job/:jobId", deleteJob);
@@ -311,15 +422,13 @@ const getJobsAppliedByUser = async (req, res) => {
 // router.get("/jobs", getAllJobs);
 // router.get("/jobs/suggested", getSuggestedJobs);
 
-
 export {
     createJob,
     updateJob,
     deleteJob,
-
     getJobById,
     getJobsAppliedByUser,
-
     getAllJobs,
-    getSuggestedJobs
+    getSuggestedJobs,
+    getUserJobPosts,
 };

@@ -201,7 +201,7 @@ const SingleChats = () => {
         <VStack flex={1} justify="center">
           <Icon as={BiSolidMessageDetail} fontSize="100px" color="pink.300" />
           <Text fontSize="2xl" color="pink.300">
-            Select a chat to start messaging
+            Connect and start messaging
           </Text>
         </VStack>
       ) : messageLoading ? (

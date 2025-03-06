@@ -28,7 +28,7 @@ import { toaster } from "../ui/toaster";
 import { useEffect } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-const AllJobs = () => {
+const FindJobs = () => {
   const [editingJobId, setEditingJobId] = useState(null);
   const [editedJob, setEditedJob] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -79,7 +79,7 @@ const AllJobs = () => {
   return (
     <Box p={6} bg="gray.100">
       <Heading size="lg" mb={4} color="pink.700">
-        My Jobs
+       Find Jobs
       </Heading>
       {!jobsLoading &&
         jobs &&
@@ -221,4 +221,4 @@ const AllJobs = () => {
   );
 };
 
-export default AllJobs;
+export default FindJobs;

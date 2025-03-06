@@ -153,7 +153,7 @@ const MyJobs = () => {
   return (
     <Box p={6} bg="gray.100">
       <Heading size="lg" mb={4} color="pink.700">
-        My Jobs
+        Applied Jobs
       </Heading>
       {!jobsLoading &&
         jobs &&

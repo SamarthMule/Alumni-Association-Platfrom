@@ -10,7 +10,7 @@ const Network = () => {
     return (
         <Box minH="90vh" bg="gray.50">
             {/* Navbar at the Top */}
-            <Navbar />
+            
 
             <Flex mt="80px" direction={{ base: "column", md: "row" }}>
                 {/* Sidebar */}

@@ -2,6 +2,92 @@ import { User } from "../models/user.model.js";
 import { CollegeDB } from "../models/collegeDb.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { Mentorship } from "../models/mentorship.model.js";
+import nodemailer from "nodemailer";
+import validator from "validator";
+import { otpStore, verifiedEmails } from "../models/user.model.js";
+
+export const sendOTP = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            res.status(400).send("Please fill all the fields");
+        }
+
+        if (!validator.isEmail(email)) {
+            res.status(400).send("Email is not valid. Please enter a valid email");
+        }
+
+        // Send an email with the OTP code
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+
+        // Generates a 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+        // Save the OTP in the temporary store
+        otpStore[email] = otp;
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: "Your OTP Code",
+            html: `
+            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px; border: 1px solid #ddd; border-radius: 10px; max-width: 600px; margin: auto;">
+                <h2 style="color: #333;">Your OTP Code</h2>
+                <p style="font-size: 16px; color: #555;">Please use the following OTP code to complete your verification process:</p>
+                <p style="font-size: 24px; font-weight: bold; color: #000;">${otp}</p>
+                <p style="font-size: 14px; color: #999;">If you did not request this code, please ignore this email.</p>
+            </div>
+            `,
+        };
+
+        const emailRes = await transporter.sendMail(mailOptions)
+            .catch((err) => {
+                return res.status(400).json({ message: err.message });
+            });
+
+        if (emailRes) {
+            verifiedEmails[email] = otp;
+            // console.log('=== verifiedEmails authentication.controller.js [51] ===', verifiedEmails,otpStore);
+        }
+
+        return res.status(201).json({ message: "OTP sent to your mail" });
+    } catch (err) {
+        return res.status(400).json({ message: err.message });
+    }
+};
+
+const verifyOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        console.log('=== email,otp authentication.controller.js [63] ===', email, otp);
+
+        if (!email || !otp) {
+            res.status(400).send({ message: "Please fill all the fields" });
+        }
+
+        if (!validator.isEmail(email)) {
+            res.status(400).send({ message: "Email is not valid. Please enter a valid email" });
+        }
+
+        if (otpStore[email] !== otp) {
+            res.status(400).send({ message: "OTP not verified" });
+        }
+
+        verifiedEmails[email] = true;
+        delete otpStore[email];
+
+        res.status(200).json({ message: "Email verified successfully!", verified: true });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
 
 const checkAccess = async (req, res) => {
     try {
@@ -27,10 +113,14 @@ const registerUser = async (req, res) => {
         if (!name) missingFields.push("name");
         if (!mobile_no) missingFields.push("mobile_no");
         if (!password) missingFields.push("password");
+
         if (missingFields.length > 0) return res.status(400).json({ message: `${missingFields.join(", ")} required except avatar.` });
+
 
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "User already exists" });
+
+
         const user = await User.create({
             name, gender, mobile_no, email, password, graduation_year, current_status
         });
@@ -56,12 +146,12 @@ const generateAccessAndRefreshToken = async (userId) => {
         return { accessToken, refreshToken }
     } catch (error) {
         console.log(`\n\n\nError in generateAccessAndRefreshToken : `, error)
-        throw new Error("unable to generate token");
+        res.status(400).send("unable to generate token");
     }
 }
 const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, otp } = req.body;
         if (!email || !password) return res.status(400).json({ message: "Email and Password are required." });
 
         const existingUser = await User.findOne({ email });
@@ -75,6 +165,8 @@ const loginUser = async (req, res) => {
         const { accessToken, refreshToken } = await generateAccessAndRefreshToken(existingUser._id);
 
         const loggedInUser = await User.findById(existingUser._id).select("-password -refreshToken")
+
+
 
 
         return res.status(200)
@@ -367,7 +459,6 @@ const getAllUsers = async (req, res) => {
         const parsedLimit = parseInt(limit, 10);
         const skip = (parsedPage - 1) * parsedLimit;
 
-
         const query = { is_blocked: false };
         for (const key in filters) {
             if (filters[key]) query[key] = { $regex: filters[key], $options: "i" };
@@ -505,6 +596,7 @@ const getSuggestedUsers = async (req, res) => {
 
 
 export {
+
     checkAccess,
     getCurrentUser,
 
@@ -525,5 +617,5 @@ export {
     getFollowersAndFollowing,
     getMentorsOrMentees,
     getAllUsers,
-
+    verifyOTP
 }

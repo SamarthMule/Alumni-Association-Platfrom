@@ -2,6 +2,9 @@ import mongoose, { Schema } from "mongoose"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 
+export let otpStore = {}; // temporary store for OTPs
+export let verifiedEmails = {}; // temporary store for verified mails
+
 const usersSchema = new Schema({
     name: {
         type: String,
@@ -168,5 +171,16 @@ usersSchema.methods.generateRefreshToken = function () {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         });
 }
+
+usersSchema.statics.verifyOTP = async (email, otp) => {
+    if (otpStore[email] === otp) {
+      verifiedEmails[email] = true
+      delete otpStore[email]
+      res.status(200).json({ message: "Email verified successfully!" })
+    } else {
+      throw new Error("Invalid OTP");
+    }
+  }
+  
 
 export const User = mongoose.model("User", usersSchema);

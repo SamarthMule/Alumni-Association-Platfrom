@@ -27,12 +27,13 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
   const [currentStatus, setCurrentStatus] = useState("");
-  const { register, loading, error } = useRegister();
+  const [otp, setOtp] = useState("");
+  const { register, loading, error, sendOtp } = useRegister();
 
   const handleRegister = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toaster({
+      toaster.create({
         title: "Passwords do not match",
         type: "error",
       });
@@ -46,17 +47,34 @@ const RegisterPage = () => {
       email,
       password,
       graduationYear,
-      currentStatus
+      currentStatus,
+      otp
     );
     if (response && !error) {
-      toaster({
+      toaster.create({
         title: "Registration Successful",
         type: "success",
       });
     } else {
-      toaster({
+      toaster.create({
         title: "Registration Failed",
-        type: error ? error : "Something went wrong",
+        type: "error",
+      });
+    }
+  };
+
+  const handleSendOtp = async (e) => {
+    e.preventDefault();
+    const response = await sendOtp(email);
+    if (response && !error) {
+      toaster.create({
+        title: "OTP Sent Successfully",
+        type: "success",
+      });
+    } else {
+      toaster.create({
+        title: "OTP Failed",
+        type: "error",
       });
     }
   };
@@ -204,11 +222,21 @@ const RegisterPage = () => {
               errorText={error}
             />
 
-            <Button variant="subtle" w="full" colorPalette={"purple"}>
+            <Button
+              variant="subtle"
+              w="full"
+              colorPalette={"purple"}
+              onClick={handleSendOtp}
+            >
               Generate OTP
             </Button>
             <Field label="Enter OTP">
-              <PinInput color="purple.500" colorPalette={"purple"} count={6} />
+              <PinInput
+                color="purple.500"
+                colorPalette={"purple"}
+                count={6}
+                onChange={(e) => setOtp(e.target.value)}
+              />
             </Field>
 
             <Button

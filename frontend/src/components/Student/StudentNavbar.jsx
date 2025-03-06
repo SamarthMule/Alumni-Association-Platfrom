@@ -32,13 +32,10 @@ const StudentNavbar = () => {
       py={3}
       justify="space-between"
       align="center"
-      // position="fixed"
-      top="0"
-      left="0"
-      right="0"
+      height="10svh"     
       zIndex="1000"
       width="100%"
-      height="70px"
+
       boxShadow="lg"
     >
       {/* Logo + Title */}

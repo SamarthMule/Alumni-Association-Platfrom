@@ -1,7 +1,8 @@
 import { Box, Flex, Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import AllJobs from "../../components/Alumni/AllJobs";
-import MyJobs from "../../components/Alumni/MyJobs";
+import AppliedJobs from "../../components/Student/AppliedJobs";
+import FindJobs from "../../components/Student/AllJobs";
 
 
 const StudentJob = () => {
@@ -24,7 +25,7 @@ const StudentJob = () => {
               }}
               w="full"
             >
-              All Jobs
+              Find Jobs
             </Button>
             <Button
               colorScheme="whiteAlpha"
@@ -35,7 +36,7 @@ const StudentJob = () => {
               }}
               w="full"
             >
-              My Jobs
+              Applied Jobs
             </Button>
           
           </VStack>
@@ -43,9 +44,9 @@ const StudentJob = () => {
 
         {/* Main Content Area */}
         <Box flex="1" p={5} w="full">
-          {selectedTab === "all" && !showCreateJobForm && <AllJobs />}
-          {selectedTab === "my" && !showCreateJobForm && <MyJobs />}
-          {showCreateJobForm && <CreateJob onClose={() => setShowCreateJobForm(false)} />}
+          {selectedTab === "all" && !showCreateJobForm && <FindJobs />}
+          {selectedTab === "my" && !showCreateJobForm && <AppliedJobs />}
+     
         </Box>
       </Flex>
     </Box>

@@ -5,7 +5,7 @@ import Section from "../../components/Student/StudentSection";
 const AlumniDashboard = () => {
     return (
         <Box bg="pink.100" minH="100vh" p={5} pt="80px">
-            <Navbar />
+            
             <Section
                 title="Events"
                 items={[

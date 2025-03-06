@@ -43,7 +43,7 @@ const LoginPage = () => {
         type: "success",
       });
       setUser(response);
-      user && navigate('/student/profile');
+      user && navigate('/alumni/profile');
 
     } else {  
       toaster.create({

@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { upload } from "../middlewares/multer.middleware.js";
 import {
+  
     checkAccess,
     getCurrentUser,
 
@@ -21,8 +22,11 @@ import {
     getFollowersAndFollowing,
     getMentorsOrMentees,
     getAllUsers,
+    verifyOTP
 
 } from "../controllers/user.controller.js"
+
+import { sendOTP } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 // import { verifyRefreshToken } from "../middlewares/refreshToken.middleware.js";
 
@@ -50,7 +54,8 @@ router.post("/follow-unfollow/:id", verifyJWT, followUnfollowUser);
 router.route("/suggested-users").get(verifyJWT, getSuggestedUsers);
 router.route("/followers-and-followings").get(verifyJWT, getFollowersAndFollowing);
 router.route("/mentors-or-mentees").get(verifyJWT, getMentorsOrMentees);
-
+router.route('/send-otp').post(sendOTP);
+router.route('/verify-otp').post(verifyOTP);
 // router.route("/refresh-access-token").post(verifyRefreshToken, refreshAccessToken);
 
 

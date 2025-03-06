@@ -7,10 +7,11 @@ const StudentNavbar = () => {
   const navigator = useNavigate();
 
   const navItems = [
-    { name: "Network", path: "/alumninetwork" },
-    { name: "Jobs", path: "/alumnijobs" },
-    // { name: "Events", path: "/events" },
-    { name: "Mentorship", path: "/mentorship" },
+    { name: "Dashboard", path: "/alumni/dashboard" },
+    { name: "Network", path: "/alumni/network" },
+    { name: "Profile", path: "/alumni/profile" },
+    { name: "Jobs", path: "/alumni/jobs" },
+    { name: "Alumni Connect", path: "/alumni/mentor-connect" },
   ];
 
   return (
@@ -23,13 +24,11 @@ const StudentNavbar = () => {
       py={3}
       justify="space-between"
       align="center"
-      position="fixed"
-      top="0"
-      left="0"
-      right="0"
+      // position="fixed"
+      
       zIndex="1000"
       width="100%"
-      height="70px"
+      height="10svh"
       boxShadow="lg"
     >
       {/* Logo + Title */}
