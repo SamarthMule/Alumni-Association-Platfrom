@@ -4,6 +4,7 @@ import useChatContext from "../../hooks/useChatContext";
 import { toaster } from "../ui/toaster";
 import axios from "axios";
 
+
 const LogoutButton = () => {
   const { setUser } = useChatContext();
   const navigate = useNavigate();

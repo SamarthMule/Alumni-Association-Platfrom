@@ -7,7 +7,7 @@ import Footer from "../common/Footer";
 const StudentLayout = () => {
   return (
     <>
-      <Toaster />
+      {/* <Toaster /> */}
       <Grid templateRows="auto 1fr auto" minH="100vh">
         <StudentNavbar />
         <Outlet />

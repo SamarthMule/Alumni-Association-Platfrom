@@ -7,11 +7,11 @@ const useRegister = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const register = async (prn, name, gender, mobile_no, email, password, graduation_year, current_status, otp) => {
+    const register = async (name, gender, mobile_no, email, password, graduation_year, otp) => {
         setLoading(true);
         setError(null);
 
-        if (!prn || !name || !gender || !mobile_no || !email || !password || !graduation_year || !current_status || !otp) {
+        if (!name || !gender || !mobile_no || !email || !password || !graduation_year || !otp) {
             setLoading(false);
             return setError('Please fill all fields');
         }
@@ -25,14 +25,14 @@ const useRegister = () => {
             }
 
             const response2 = await axios.post('/api/v1/users/register', {
-                prn,
+               
                 name,
                 gender,
                 mobile_no,
                 email,
                 password,
-                graduation_year,
-                current_status
+                graduation_year
+
             });
             navigate('/login');
             setLoading(false);
@@ -56,7 +56,7 @@ const useRegister = () => {
         try {
             const response = await axios.post('/api/v1/users/send-otp', { email });
             setLoading(false);
-            
+
             return response.data;
         } catch (err) {
             setLoading(false);
