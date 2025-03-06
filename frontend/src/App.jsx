@@ -16,8 +16,11 @@ import StudentEvents from "./pages/Student/StudentEvents";
 import LoginPage from "./pages/Home/Auth/LoginPage";
 import RegisterPage from "./pages/Home/Auth/RegisterPage";
 import MentorConnect from "./pages/Student/MentorConnect";
+import EventLayout from "./components/Event/EventLayout";
+import AllEvents from "./components/Event/AllEvents";
+import CreateEvent from "./components/Event/CreateEvent";
 
-
+import { Toaster } from "./components/ui/toaster";
 
 
 const router = createBrowserRouter([
@@ -54,10 +57,29 @@ const router = createBrowserRouter([
       { path: "mentor-connect", element: <AConnect /> },
     ],
   },
+  {
+    path: "event",
+    element: <EventLayout />,
+    children: [
+      {
+        path: "all",
+        element: <AllEvents />,
+      },
+      {
+        path: "create",
+        element: <CreateEvent />,
+      },
+    ],
+  },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Toaster />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

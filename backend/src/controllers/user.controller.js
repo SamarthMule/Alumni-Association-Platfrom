@@ -108,11 +108,12 @@ const checkAccess = async (req, res) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { name, gender, mobile_no, email, password, graduation_year, current_status } = req.body;
+        const { name, gender, mobile_no, email, password, graduation_year } = req.body;
         const missingFields = [];
         if (!name) missingFields.push("name");
         if (!mobile_no) missingFields.push("mobile_no");
         if (!password) missingFields.push("password");
+
 
         if (missingFields.length > 0) return res.status(400).json({ message: `${missingFields.join(", ")} required except avatar.` });
 
@@ -120,9 +121,10 @@ const registerUser = async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "User already exists" });
 
+        const role = new Date().getFullYear() - graduation_year > 0 ? "alumni" : "student";
 
         const user = await User.create({
-            name, gender, mobile_no, email, password, graduation_year, current_status
+            name, gender, mobile_no, email, password, graduation_year, role
         });
         console.log(`\nError\n`)
 
@@ -151,7 +153,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 const loginUser = async (req, res) => {
     try {
-        const { email, password, otp } = req.body;
+        const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ message: "Email and Password are required." });
 
         const existingUser = await User.findOne({ email });
@@ -165,7 +167,6 @@ const loginUser = async (req, res) => {
         const { accessToken, refreshToken } = await generateAccessAndRefreshToken(existingUser._id);
 
         const loggedInUser = await User.findById(existingUser._id).select("-password -refreshToken")
-
 
 
 

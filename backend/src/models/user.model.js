@@ -26,7 +26,7 @@ const usersSchema = new Schema({
     role: {
         type: String,
         required: true,
-        enum: ['user', 'admin', 'manager'],  
+        enum: ['student', 'admin', 'alumni'],  
         default: 'user' 
     },
     password: {
@@ -37,10 +37,7 @@ const usersSchema = new Schema({
         type: String,
         required: true
     },
-    current_status: {
-        type: String,
-        required: true
-    },
+
     skills: {
         type: Array,
         default: []

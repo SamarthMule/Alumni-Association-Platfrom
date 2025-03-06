@@ -5,25 +5,55 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useChatContext from "../../hooks/useChatContext";
 import Footer from "../common/Footer";
+import { toaster } from "../../components/ui/toaster";
 
-const HomeLayout = () =>{
-    const { user } = useChatContext();
-    const navigate = useNavigate();
+const HomeLayout = () => {
+  const { user, setUser } = useChatContext();
 
-    useEffect(() => {
-        if (user) {
-            navigate('/');
-        }
-    }, [user]);
+  const navigate = useNavigate();
 
-    return (
-        <>  
-            <Toaster />
-            {/* <Navbar /> */}
-            <Outlet />
-            <Footer />
-        </>
-    )
-}
+  const navigateUser = (role) => {
+    switch (role) {
+      case "admin":
+        navigate("/admin/dashboard");
+        toaster.create({
+          title: "Welcome Admin",
+          type: "success",
+        });
+        break;
+      case "alumni":
+        navigate("/alumni/profile");
+        toaster.create({
+          title: "Welcome Alumni",
+          type: "success",
+        });
+
+        break;
+      case "student":
+        navigate("/student/profile");
+        toaster.create({
+          title: "Welcome Student",
+          type: "success",
+        });
+        break;
+      default:
+        navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      navigateUser(user.role);
+    }
+  }, [user]);
+
+  return (
+    <>
+      
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
 
 export default HomeLayout;

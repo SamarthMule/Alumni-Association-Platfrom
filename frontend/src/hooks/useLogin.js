@@ -11,12 +11,13 @@ const useLogin = () => {
 
         try {
             const response = await axios.post('/api/v1/users/login', { email, password });
-            // Handle successful login, e.g., save token, update user state, etc.
+       
             localStorage.setItem('user', JSON.stringify(response.data.data));
             setLoading(false);
             return response.data.data;
         } catch (err) {
-            setError(err.response ? err.response.data : 'Login failed');
+            setError(err ? err.response.data.message : 'Login failed');
+            console.log('=== error useLogin.js [20] ===', error);
             setLoading(false);
         }
     };
