@@ -6,24 +6,36 @@ import { useEffect } from "react";
 import useChatContext from "../../hooks/useChatContext";
 import Footer from "../common/Footer";
 
-const HomeLayout = () =>{
-    const { user } = useChatContext();
-    const navigate = useNavigate();
+const HomeLayout = () => {
+  const { user } = useChatContext();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            navigate('/');
-        }
-    }, [user]);
+  useEffect(() => {
+    if (user) {
+      switch (user.role) {
+        case "user":
+          navigate("/student/dashboard");
+          break;
+        case "alumni":
+          navigate("/alumni/dashboard");
+          break;
+        case "admin":
+          navigate("/admin/dashboard");
+          break;
+        default:
+          navigate("/login");
+      }
+    }
+  }, [user]);
 
-    return (
-        <>  
-            <Toaster />
-            {/* <Navbar /> */}
-            <Outlet />
-            <Footer />
-        </>
-    )
-}
+  return (
+    <>
+      <Toaster />
+      {/* <Navbar /> */}
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
 
 export default HomeLayout;

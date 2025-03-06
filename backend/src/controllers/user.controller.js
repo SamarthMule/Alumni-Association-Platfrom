@@ -151,7 +151,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 const loginUser = async (req, res) => {
     try {
-        const { email, password, otp } = req.body;
+        const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ message: "Email and Password are required." });
 
         const existingUser = await User.findOne({ email });
@@ -165,7 +165,6 @@ const loginUser = async (req, res) => {
         const { accessToken, refreshToken } = await generateAccessAndRefreshToken(existingUser._id);
 
         const loggedInUser = await User.findById(existingUser._id).select("-password -refreshToken")
-
 
 
 

@@ -13,7 +13,7 @@ import { Field } from "../../../components/ui/field";
 import { PinInput } from "../../../components/ui/pin-input";
 import InputField from "../../../components/chat-components/InputField";
 import useLogin from "../../../hooks/useLogin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toaster } from "../../../components/ui/toaster";
 import { useNavigate } from "react-router";
 import useChatContext from "../../../hooks/useChatContext";
@@ -27,6 +27,15 @@ const LoginPage = () => {
 
   const handleLogin = async(e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toaster.create({
+        title: "Please fill all the fields",
+        type: "error",
+      });
+      return;
+    }
+  
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toaster.create({
@@ -44,16 +53,15 @@ const LoginPage = () => {
       });
       setUser(response);
       user && navigate('/alumni/profile');
-
-    } else {  
-      toaster.create({
-        title: "Login Failed",
-        type: error ? error : "Something went wrong",
-      });
-
     }
-     
   };
+
+  useEffect(() => {
+    error && toaster.create({
+      title: error,
+      type: "error",
+    });
+  }, [error]);
 
   return (
     <>
@@ -139,19 +147,10 @@ const LoginPage = () => {
               />
             </Fieldset.Content>
 
-            <Button variant="subtle" w="full" colorPalette={"purple"}>
-              Generate OTP
-            </Button>
-            <Field label="Enter OTP">
-              <PinInput 
-                  color="purple.500"
-                  colorPalette={"purple"}
-                  count={6}
-                   />
-            </Field>
+            
 
             <Button type="submit" w="full" colorPalette={"purple"} onClick={handleLogin}>
-              Verify OTP & Login
+              Login
             </Button>
 
             <Text fontSize="sm" textAlign="center" color="black">
