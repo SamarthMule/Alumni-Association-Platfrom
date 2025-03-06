@@ -58,6 +58,39 @@ const createJob = async (req, res) => {
     }
 };
 
+const applyForJob = async (req, res) => {
+    try {
+        const { jobId, userId } = req.body;
+
+        if (!jobId || !userId) {
+            return res.status(400).json({ message: "Job ID and User ID are required" });
+        }
+
+        const job = await Job.findById(jobId);
+        if (!job) return res.status(404).json({ message: "Job not found" });
+
+        // Ensure applicants field exists
+        if (!job.applicants) {
+            job.applicants = [];
+        }
+
+        // Check if user already applied
+        if (job.applicants.includes(userId)) {
+            return res.status(400).json({ message: "You have already applied for this job." });
+        }
+
+        // Add user to applicants array
+        job.applicants.push(new mongoose.Types.ObjectId(userId));  // ✅ Ensure ObjectId format
+        await job.save();
+
+        res.status(200).json({ message: "Application successful" });
+    } catch (error) {
+        console.error("Error in applyForJob:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+
 const updateJob = async (req, res) => {
     try {
         const userId = req.user._id;
@@ -317,42 +350,19 @@ const getSuggestedJobs = async (req, res) => {
     }
 };
 
-// Get Jobs Applied By User - Returns Last Applied Job First
 const getJobsAppliedByUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { page = 1, limit = 10, filter, sortBy } = req.query;
-        const parsedPage = parseInt(page, 10);
-        const parsedLimit = parseInt(limit, 10);
-        const skip = (parsedPage - 1) * parsedLimit;
-
         const userId = new mongoose.Types.ObjectId(id);
-        let query = { applicants: { $in: userId } };
 
-        let jobsQuery = Job.find(query);
-
-        let jobs = await jobsQuery.skip(skip).limit(parsedLimit);
-        jobs = await getFilteredJobs(jobs, filter, sortBy);
-
-        const totalJobs = await Job.countDocuments(query);
-
-        return res.status(200).json({
-            message: "Jobs applied by the user retrieved successfully",
-            jobs,
-            pagination: {
-                total: totalJobs,
-                page: parsedPage,
-                totalPages: Math.ceil(totalJobs / parsedLimit),
-                limit: parsedLimit,
-            },
-        });
+        let jobs = await Job.find({ applicants: userId }).populate("applicants", "name email"); // ✅ Populate applicants
+        return res.status(200).json({ jobs });
     } catch (error) {
-        console.log("\n\n\nError in getJobsAppliedByUser:", error);
-        return res
-            .status(500)
-            .json({ message: "Error occurred in getJobsAppliedByUser", error });
+        console.error("Error in getJobsAppliedByUser:", error);
+        return res.status(500).json({ message: "Error occurred", error });
     }
 };
+
 
 // Get Jobs Posted of a User
 const getUserJobPosts = async (req, res) => {
@@ -431,4 +441,5 @@ export {
     getAllJobs,
     getSuggestedJobs,
     getUserJobPosts,
+    applyForJob,
 };

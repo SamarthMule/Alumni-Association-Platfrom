@@ -1,5 +1,7 @@
 import { Router } from "express"
 import { upload } from "../middlewares/multer.middleware.js";
+import { applyForJob } from "../controllers/job.controller.js";
+
 import {
     createJob,
     updateJob,
@@ -22,6 +24,9 @@ router.delete("/:id", verifyJWT, deleteJob);
 router.get("/:id", verifyJWT, getJobById);
 router.get("/", verifyJWT, getAllJobs);
 router.get("/:id/suggested", verifyJWT, getSuggestedJobs);
-router.get("/:id/applied", verifyJWT, getJobsAppliedByUser);
+router.get("/applied/:id", verifyJWT, getJobsAppliedByUser);
+
+router.post("/apply", applyForJob);
+
 
 export default router;
