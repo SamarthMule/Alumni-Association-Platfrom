@@ -12,14 +12,14 @@ const HomeLayout = () =>{
 
     useEffect(() => {
         if (user) {
-            navigate('student/profile');
+            navigate('/');
         }
     }, [user]);
 
     return (
         <>  
             <Toaster />
-            <Navbar />
+            {/* <Navbar /> */}
             <Outlet />
             <Footer />
         </>
