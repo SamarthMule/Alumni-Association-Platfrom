@@ -46,10 +46,10 @@ const Home = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
         >
-          <MotionHeading color="orange.300" fontSize={{ base: "xl", md: "4xl" }} fontWeight="bold">
+          <MotionHeading color="purple.800" fontSize={{ base: "xl", md: "4xl" }} fontWeight="bold">
             Welcome to Our Alumni Association
           </MotionHeading>
-          <MotionText color="purple.300" mt={3} fontSize={{ base: "sm", md: "lg" }}>
+          <MotionText color="pink.700" mt={3} fontSize={{ base: "sm", md: "lg" }}>
             Stay connected, share experiences, and grow with our alumni community.
           </MotionText>
           <MotionButton 
@@ -122,7 +122,7 @@ const Home = () => {
     mx="auto"
     whileHover={{ scale: 1.05, boxShadow: "lg" }}
     transition="0.4s ease-in-out"
-    _hover={{ bg: "gray.200", backdropFilter: "blur(5px)" }}
+    _hover={{ bg: "gray.50", backdropFilter: "blur(5px)" }}
   >
     <Heading fontSize={{ base: "2xl", md: "3xl" }} mb={5} color="blue.700">
       About Our Alumni Association
@@ -132,7 +132,7 @@ const Home = () => {
       color="gray.600"
       textShadow="1px 1px 8px rgba(0, 0, 0, 0.2)"
       transition="0.3s"
-      _hover={{ color: "blue.600" }}
+      _hover={{ color: "black" }}
     >
       Our alumni association is a vibrant community of past students who stay connected, 
       support one another, and contribute to the growth of our alma mater. Whether through 
