@@ -26,6 +26,7 @@ import io from "socket.io-client";
 import useColorTheme from "../../../hooks/useColorTheme";
 import MessageBox from "./MessageBox";
 import ProfileModal from "../ProfileModal";
+import ScrollableFeed from 'react-scrollable-feed'
 
 const ENDPOINT = "http://localhost:8000";
 let socket, selectedChatCompare;
@@ -46,6 +47,7 @@ const SingleChats = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typing, setTyping] = useState(false);
+
 
   const { chatBoxHeaderFooterBG, typingBadgeBG, inputBG } = useColorTheme();
 
@@ -212,7 +214,7 @@ const SingleChats = () => {
           </HStack>
         </Grid>
       ) : (
-        <Stack h="100%" overflowY="auto" p={3} spacing={3}>
+        <ScrollableFeed h="100%" overflowY="auto" p={3} spacing={3}>
           {messages &&
             messages.map((message, index) => (
               <MessageBox
@@ -228,7 +230,7 @@ const SingleChats = () => {
                 isGroupChat={false}
               />
             ))}
-        </Stack>
+        </ScrollableFeed>
       )}
 
       {selectedChat && (

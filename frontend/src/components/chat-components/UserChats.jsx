@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { FaXmark as CloseIcon, FaTrash } from "react-icons/fa6";
+import { FaXmark as CloseIcon, FaTrash, FaPlus as AddIcon } from "react-icons/fa6";
 import { getSender } from "../../config/ChatLogics";
 import useChatContext from "../../hooks/useChatContext";
 import { useColorModeValue } from "../ui/color-mode";
@@ -22,6 +22,8 @@ import ChatDetails from "./ChatDetails";
 import CreateGroupDrawer from "./CreateGroupDrawer";
 import SearchChats from "./SearchChats";
 import { Checkbox } from "../ui/checkbox";
+import { useNavigate } from "react-router";
+
 
 const UserChats = () => {
   const {
@@ -35,8 +37,9 @@ const UserChats = () => {
     search,
     deleteMode,
     setDeleteMode,
+    fetchChats,
+    loading: isLoading,
   } = useChatContext();
-  const [isLoading, setLoading] = useState(true);
 
   const [loggedInUser, setLoggedInUser] = useState(null);
   const userChatsBG = useColorModeValue("white", "gray.800");
@@ -45,26 +48,7 @@ const UserChats = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const [selectedUsers, setSelectedUsers] = useState([]);
-
-  const fetchChats = async () => {
-    await axios
-      .get("/api/v1/chats")
-      .then((res) => {
-        setChats(res.data);
-        // console.table(res.data);
-      })
-      .catch((err) => {
-        if (toaster.isVisible("toast")) {
-          return toaster.dismiss();
-        }
-        toaster.create({
-          id: "toast",
-          title: err.response.data.message,
-          type: "warning",
-        });
-      })
-      .finally(() => setLoading(false));
-  };
+  const navigate = useNavigate();
 
   const handleDeleteUsers = async () => {
     await axios
@@ -123,8 +107,16 @@ const UserChats = () => {
           <SearchChats />
         </Box>
         <Flex gap={3} justifyContent="center">
-          <AddUsersDrawer />
-          {/* <CreateGroupDrawer /> */}
+          <IconButton
+            colorPalette="pink"
+            variant="outline"
+            display="flex"
+            gap={3}
+            onClick={() => navigate("/student/network")}
+          >
+            <AddIcon />
+          </IconButton>
+
           <IconButton
             aria-label="Delete Chats"
             variant="outline"
@@ -182,14 +174,15 @@ const UserChats = () => {
           )}
 
           {!searchResults.length && !search
-            ? chats && chats.length > 0 &&
+            ? chats &&
+              chats.length > 0 &&
               chats.map((chat) => (
                 <HStack key={chat._id} w="full">
                   <ChatDetails
                     setSelectedChat={setSelectedChat}
                     chat={chat}
                     selectedChat={selectedChat}
-                    loggedInUser={loggedInUser}
+                    loggedInUser={user}
                   />
                   {deleteMode && (
                     <Checkbox

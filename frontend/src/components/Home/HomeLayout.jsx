@@ -30,6 +30,7 @@ const HomeLayout = () => {
 
         break;
       case "student":
+      case "user":
         navigate("/student/profile");
         toaster.create({
           title: "Welcome Student",
@@ -49,7 +50,6 @@ const HomeLayout = () => {
 
   return (
     <>
-      
       <Outlet />
       <Footer />
     </>

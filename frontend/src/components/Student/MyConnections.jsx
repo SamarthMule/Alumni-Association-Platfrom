@@ -1,71 +1,84 @@
-import { Box, Text, VStack, HStack, Input, Button} from "@chakra-ui/react";
-import { FaSearch, FaUserPlus } from "react-icons/fa";
-import { InputGroup } from "../ui/input-group";  // Import your custom InputGroup
-// import { LuUser } from "react-icons/lu";  // Import an icon to use in the input field
-import { Avatar } from "../ui/avatar";
-
-const myConnectionsData = [
-    { name: "Alice Brown", role: "UX Designer" },
-    { name: "David Wilson", role: "Cloud Engineer" }
-];
+import { Box, Text, VStack, HStack, Input } from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
+import { InputGroup } from "../ui/input-group"; // Import your custom InputGroup
+import useChatContext from "../../hooks/useChatContext";
+import { useEffect, useState } from "react";
+import ConnectionItem from "../common/ConnectionItem";
 
 const MyConnections = () => {
+    const { chats, fetchChats, user, selectedChat, setSelectedChat} = useChatContext();
+    const [searchResults, setSearchResults] = useState([]);
+    const [search, setSearch] = useState("");
+
+    useEffect(() => {
+        fetchChats();
+    }, []);
+
+    useEffect(() => {
+        if (search) {
+            const results = chats.filter((chat) =>
+                chat.isGroupChat
+                    ? chat.chatName.toLowerCase().includes(search.toLowerCase())
+                    : chat.users.some((u) => u.name.toLowerCase().includes(search.toLowerCase()))
+            );
+            setSearchResults(results);
+            console.log('=== searchResults MyConnections.jsx [25] ===', searchResults);
+        } else {
+            setSearchResults([]);
+        }
+    }, [search, chats]);
+
     return (
-       <Box p={4} bg="white" boxShadow="sm" borderRadius="md">
-                 {/* Search Bar */}
-                 <HStack mb={6} spacing={4}>
-                     <InputGroup flex="1" startElement={<FaSearch color="gray.400" />}>
-                         <Input
-                             placeholder="Search Connections..."
-                             bg="gray.50"
-                             borderRadius="full"
-                             _hover={{ bg: "gray.100" }}
-                             _focus={{ bg: "white", boxShadow: "outline" }}
-                             size="lg"
-                         />
-                     </InputGroup>
-                 </HStack>
-     
-                 {/* All Connections Title */}
-                 <Text fontSize="xl" fontWeight="bold" mb={4}>All Connections</Text>
-                 
-                 <VStack spacing={3} align="stretch">
-                     {myConnectionsData.map((connection, index) => (
-                         <HStack
-                             key={index}
-                             p={3}
-                             bg="gray.100"
-                             borderRadius="md"
-                             justify="space-between"
-                             align="center"
-                             _hover={{ bg: "gray.200", transform: "scale(1.02)", transition: "0.3s ease-in-out" }}
-                         >
-                             {/* Profile Icon */}
-                             <HStack spacing={4} align="center">
-                                 <Avatar name={connection.name} size="sm" />
-                                 <Box>
-                                     <Text fontWeight="bold">{connection.name}</Text>
-                                     <Text fontSize="sm" color="gray.600">{connection.role}</Text>
-                                 </Box>
-                             </HStack>
-     
-                             {/* Connect Button */}
-                             <Button
-                                 colorScheme="purple"
-                                 size="sm"
-                                 rightIcon={<FaUserPlus />}
-                                 variant="outline"
-                                 borderRadius="full"
-                                 _hover={{ bg: "purple.100" }}
-                                 backgroundColor="gray.300"
-                                 color="orange.600"
-                             >
-                                 Message
-                             </Button>
-                         </HStack>
-                     ))}
-                 </VStack>
-             </Box>
+        <Box p={4} bg="white" boxShadow="sm" borderRadius="md">
+            {/* Search Bar */}
+            <HStack mb={6} spacing={4}>
+                <InputGroup flex="1" startElement={<FaSearch color="gray.400" />}>
+                    <Input
+                        placeholder="Search Connections..."
+                        bg="gray.50"
+                        borderRadius="full"
+                        _hover={{ bg: "gray.100" }}
+                        _focus={{ bg: "white", boxShadow: "outline" }}
+                        size="lg"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </InputGroup>
+            </HStack>
+
+            {/* All Connections Title */}
+            <Text fontSize="2xl" fontWeight="bold" mb={4} color="purple.700">
+                Connected People
+            </Text>
+
+            <VStack spacing={4} align="stretch">
+                {searchResults.length > 0 ? (
+                    searchResults.map((connection, index) => (
+                        <ConnectionItem
+                            key={index}
+                            loggedInUser={user}
+                            chat={connection}
+                            selectedChat={selectedChat}
+                            setSelectedChat={setSelectedChat}
+                        />
+                    ))
+                ) : chats && chats.length > 0 ? (
+                    chats.map((connection, index) => (
+                        <ConnectionItem
+                            key={index}
+                            loggedInUser={user}
+                            chat={connection}
+                            selectedChat={selectedChat}
+                            setSelectedChat={setSelectedChat}
+                        />
+                    ))
+                ) : (
+                    <Text fontSize="lg" color="gray.500" textAlign="center">
+                        No Connections Yet
+                    </Text>
+                )}
+            </VStack>
+        </Box>
     );
 };
 

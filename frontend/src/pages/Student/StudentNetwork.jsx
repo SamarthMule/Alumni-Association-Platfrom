@@ -12,7 +12,7 @@ const StudentNetwork = () => {
         <Box  bg="gray.50">
            
 
-            <Flex mt="80px" direction={{ base: "column", md: "row" }}>
+            <Flex  direction={{ base: "column", md: "row" }}>
                 {/* Sidebar */}
                 <Box p={4} bg="purple.100" color="white" minH={{md: "90vh"}} minW="250px">
                     <VStack spacing={4} align="stretch">

@@ -36,6 +36,7 @@ const MessageBox = ({
       flexFlow={senderId !== userId ? "row" : "row-reverse"}
       px={10}
       my={3}
+      w="100%"
     >
       {isGroupChat && !isSameUser(messages, message, i, userId) && (
         <Tooltip label={senderUsername} hasArrow>
@@ -50,6 +51,7 @@ const MessageBox = ({
         bgColor={useColorModeValue(light, dark)}
         p={3}
         borderRadius="md"
+        w='fit-content'
         maxW="70%"
         ml={isGroupChat && isSameUser(messages, message, i) ? "38px" : 0}
         mr={isGroupChat && isSameUser(messages, message, i) ? "38px" : 0}

@@ -18,7 +18,7 @@ const MentorConnect = () => {
   return (
     <Grid
       w="100%"
-      minH="90svh"
+      h="90svh"
       overflow="hidden"
       templateColumns={{
         base: !selectedChat ? "1fr 0px" : "0px 1fr",

@@ -11,11 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
+import LogoutButton from "../common/LogoutButton";
 
 const navItems = [
   { name: "Profile", path: "/student/profile" },
   { name: "Dashboard", path: "/student/dashboard" },
-  { name: "Network", path: "/student/network" },
+
   { name: "Mentor Connect", path: "/student/mentor-connect" },
   { name: "Jobs", path: "/student/jobs" },
   { name: "Events", path: "/student/events" },
@@ -32,9 +33,9 @@ const StudentNavbar = () => {
     <Box
       bg="white"
       px={6}
-      py={4}
-      boxShadow="lg"
-      position="sticky"
+      py={1}
+      boxShadow="sm"
+      height="10svh"
       top={0}
       zIndex={1000}
     >
@@ -88,16 +89,7 @@ const StudentNavbar = () => {
               {item.name}
             </Button>
           ))}
-          <Button
-            as={RouterLink}
-            to="/login"
-            colorScheme="red"
-            fontWeight="bold"
-            transition="0.3s"
-            _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
-          >
-            Logout
-          </Button>
+          <LogoutButton />
         </Flex>
         {/* Mobile Menu */}
         <MenuRoot open={isMenuOpen} onOpenChange={setIsMenuOpen}>
