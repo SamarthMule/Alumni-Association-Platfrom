@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <Box
       bg="white"
-      px={6}
+      px={4}
       py={4}
       boxShadow="lg"
       position="sticky"
@@ -203,7 +203,7 @@ const Navbar = () => {
         fontSize="lg"
         fontWeight="bold"
         borderRadius="md"
-        px={4}
+        px={2}
         py={2}
         textAlign="center"
         bg="blue.100"
@@ -222,7 +222,7 @@ const Navbar = () => {
         fontSize="lg"
         fontWeight="bold"
         borderRadius="md"
-        px={4}
+        px={2}
         py={2}
         textAlign="center"
         bg="blue.300"
