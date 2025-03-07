@@ -52,7 +52,6 @@ const LoginPage = () => {
         type: "success",
       });
       setUser(response);
-      user && navigate('/alumni/profile');
     }
   };
 

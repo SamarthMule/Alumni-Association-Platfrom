@@ -12,6 +12,7 @@ import {
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { FaUserCircle, FaBars } from "react-icons/fa";
+import LogoutButton from "../common/LogoutButton";
 
 const StudentNavbar = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const StudentNavbar = () => {
 
   const navItems = [
     { name: "Dashboard", path: "/alumni/dashboard" },
-    { name: "Network", path: "/alumni/network" },
+    // { name: "Network", path: "/alumni/network" },
     { name: "Profile", path: "/alumni/profile" },
     { name: "Jobs", path: "/alumni/jobs" },
     { name: "Alumni Connect", path: "/alumni/mentor-connect" },
@@ -88,6 +89,8 @@ const StudentNavbar = () => {
             </Button>
           ))}
         </Flex>
+
+        <LogoutButton />
 
         {/* Mobile Menu */}
         <MenuRoot open={isMenuOpen} onOpenChange={setIsMenuOpen}>
