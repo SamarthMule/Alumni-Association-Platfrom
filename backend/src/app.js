@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/posts", postRouter);
-app.use("/api/v1/admins", adminRouter);
+app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/mentorships", mentorshipRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/chats", chatRouter);

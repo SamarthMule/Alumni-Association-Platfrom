@@ -20,14 +20,20 @@ import EventLayout from "./components/Event/EventLayout";
 import AllEvents from "./components/Event/AllEvents";
 import CreateEvent from "./components/Event/CreateEvent";
 
-import { Toaster } from "./components/ui/toaster";
+import AdminLayout from "./components/Admin/AdminLayout";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import ManageUsers from "./components/Admin/ManageUsers";
+import ManageJobs from "./components/Admin/ManageJobs";
+import ManageEvents from "./components/Admin/ManageEvents";
+// import Reports from "./components/Admin/";
+// import Notifications from "./pages/Admin/Notifications";
 
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-
     children: [
       { path: "/", element: <Home /> },
       { path: "login", element: <LoginPage /> },
@@ -62,13 +68,25 @@ const router = createBrowserRouter([
     element: <EventLayout />,
     children: [
       {
-        index:true,
+        index: true,
         element: <AllEvents />,
       },
       {
         path: "create",
         element: <CreateEvent />,
       },
+    ],
+  },
+  {
+    path: "admin",
+    element: <AdminLayout />,
+    children: [
+      { path: "dashboard", element: <AdminDashboard /> },
+      { path: "users", element: <ManageUsers /> },
+      { path: "jobs", element: <ManageJobs /> },
+      { path: "events", element: <ManageEvents /> },
+      // { path: "reports", element: <Reports /> },
+      // { path: "notifications", element: <Notifications /> },
     ],
   },
 ]);
