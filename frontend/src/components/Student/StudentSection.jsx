@@ -1,10 +1,49 @@
-import { Box, Flex, Text, Button, Wrap, WrapItem, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Wrap,
+  WrapItem,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router";
+import useChatContext from "../../hooks/useChatContext";
 
 const StudentSection = ({ title, items = [] }) => {
-  const visibleItems = useBreakpointValue({ base: items.slice(0, 1), sm: items });
+  const { user } = useChatContext();
+  const visibleItems = useBreakpointValue({
+    base: items.slice(0, 1),
+    sm: items,
+  });
+  const navigate = useNavigate();
+
+  const role = user?.role;
+
+  const handleNavigate = () => {
+    switch (title) {
+      case "Events":
+        navigate(`/${role}/events`);
+        break;
+      case "Mentors":
+        navigate(`/${role}/mentor-connect`);
+        break;
+      case "Jobs":
+        navigate(`/${role}/jobs`);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
-    <Box borderRadius="lg" p={6} my={6} boxShadow="lg" bgGradient="linear(to-r, purple.50, blue.50)">
+    <Box
+      borderRadius="lg"
+      p={6}
+      my={6}
+      boxShadow="lg"
+      bgGradient="linear(to-r, purple.50, blue.50)"
+    >
       <Flex justify="space-between" align="center" mb={4} flexWrap="wrap">
         <Text fontSize="xl" fontWeight="bold" color="purple.700">
           {title}
@@ -15,6 +54,7 @@ const StudentSection = ({ title, items = [] }) => {
           variant="solid"
           borderRadius="md"
           _hover={{ transform: "scale(1.05)", boxShadow: "xl" }}
+          onClick={handleNavigate}
         >
           View All {title}
         </Button>
@@ -39,9 +79,15 @@ const StudentSection = ({ title, items = [] }) => {
                 transition="transform 0.3s ease"
                 _hover={{ transform: "scale(1.05)" }}
               >
-                <Text fontSize="lg" fontWeight="bold">{item.heading}</Text>
-                <Text fontSize="sm" opacity={0.9}>{item.subHeading}</Text>
-                <Text fontSize="xs" opacity={0.7}>{item.dateModeLocation}</Text>
+                <Text fontSize="lg" fontWeight="bold">
+                  {item.heading}
+                </Text>
+                <Text fontSize="sm" opacity={0.9}>
+                  {item.subHeading}
+                </Text>
+                <Text fontSize="xs" opacity={0.7}>
+                  {item.dateModeLocation}
+                </Text>
               </Box>
             </WrapItem>
           ))

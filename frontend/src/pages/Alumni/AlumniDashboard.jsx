@@ -1,39 +1,50 @@
 import { Box } from "@chakra-ui/react";
-import Navbar from "../../components/Alumni/AlumniNavbar";
+
 import Section from "../../components/Student/StudentSection";
+import useChatContext from "../../hooks/useChatContext";
+import useJobs from "../../hooks/useJobs";
+import {useEffect} from "react";
+import { getSenderFull } from "../../config/ChatLogics";
 
 const AlumniDashboard = () => {
-    return (
-        <Box bg="pink.100" minH="100vh" p={5} pt="80px">
-            
-            <Section
-                title="Events"
-                items={[
-                    { heading: "Event 1 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" },
-                    { heading: "Event 2 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" },
-                    { heading: "Event 3 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" }
-                ]}
-            />
-            <Section
-                title="Jobs"
-                items={[
-                    { heading: "Job 1 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" },
-                    { heading: "Job 2 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" },
-                    { heading: "Job 3 Heading", subHeading: "SubHeading", dateModeLocation: "Date Mode Location" }
-                ]}
-            />
+    const { chats,user,fetchChats } = useChatContext();
+    const { jobs,fetchJobs } = useJobs();
+  const chatItems = chats.slice(0, 3).map((chat) => {
+    return {
+      heading: chat.isGroupChat
+        ? chat.chatName
+        : getSenderFull(user, chat.users).name,
+      subHeading: chat.latestMessage?.content,
+      dateModeLocation: chat.latestMessage?.date,
+    };
+  });
 
-            <Section
-                title="Mentors"
-                items={[
-                    { heading: "Recent Name 1", subHeading: "Last Chat" },
-                    { heading: "Recent Name 2", subHeading: "Last Chat" },
-                    { heading: "Recent Name 3", subHeading: "Last Chat" }
-                ]}
-            />
+  const jobItems = jobs.slice(0, 3).map((job) => {
+    return {
+      heading: job.title,
+      subHeading: job.description,
+      dateModeLocation: job.location,
+    };
+  });
 
-        </Box>
-    );
+    useEffect(() => { 
+        fetchChats();
+        fetchJobs();
+    }, []);
+
+  return (
+    <Box bg="pink.100" minH="100vh" p={5} pt="80px">
+      <Section
+        title="Jobs"
+        items={jobItems}
+      />
+
+      <Section
+        title="Mentors"
+        items={chatItems}
+      />
+    </Box>
+  );
 };
 
 export default AlumniDashboard;

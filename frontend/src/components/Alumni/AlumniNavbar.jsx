@@ -13,6 +13,7 @@ import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { FaUserCircle, FaBars } from "react-icons/fa";
 import LogoutButton from "../common/LogoutButton";
+import {getSenderFull} from "../../config/ChatLogics"
 
 const StudentNavbar = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const StudentNavbar = () => {
     // { name: "Network", path: "/alumni/network" },
     { name: "Profile", path: "/alumni/profile" },
     { name: "Jobs", path: "/alumni/jobs" },
-    { name: "Alumni Connect", path: "/alumni/mentor-connect" },
+    { name: "Mentor Connect", path: "/alumni/mentor-connect" },
   ];
 
   return (
