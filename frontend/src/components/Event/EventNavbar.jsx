@@ -4,7 +4,6 @@ import {
   Flex,
   Heading,
   Image,
-  Link,
   Button,
   VStack,
   Text,
@@ -21,6 +20,15 @@ const EventNavbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    
+    setTimeout(() => {
+      navigate("/login");
+    }, 100); // Small delay ensures state updates before redirect
+  };
+  
 
   const navItems = [
     { name: "Events", path: "/event/all" },
@@ -87,44 +95,46 @@ const EventNavbar = () => {
         </Flex>
 
         {/* Mobile Menu */}
-        <MenuRoot open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-          <MenuTrigger asChild>
-            <Box
-              display={{ base: "flex", md: "none" }}
-              flexDirection="column"
-              gap="5px"
-              cursor="pointer"
-              onClick={toggleMenu}
-            >
-              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
-              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
-              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
-            </Box>
-          </MenuTrigger>
-          {isMenuOpen && (
-            <MenuContent
-              position="absolute"
-              top="60px"
-              right="20px"
-              bg="white"
-              boxShadow="2xl"
-              borderRadius="lg"
-              p={5}
-              w="240px"
-              border="2px solid"
-              borderColor="purple.300"
-            >
-              <VStack spacing={4}>
-                {navItems.map((item) => (
-                  <MenuItem key={item.name} as={RouterLink} to={item.path}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-                <MenuItem as={RouterLink} to="/login" color="red.500">Logout</MenuItem>
-              </VStack>
-            </MenuContent>
-          )}
-        </MenuRoot>
+        <MenuRoot>
+  <MenuTrigger asChild>
+    <Button
+      variant="ghost"
+      colorScheme="whiteAlpha"
+      _hover={{
+        bg: "whiteAlpha.300",
+        transform: "scale(1.1)",
+        transition: "0.3s ease-in-out",
+      }}
+      borderRadius="full"
+      p={2}
+    >
+      <FaUserCircle size={26} />
+    </Button>
+  </MenuTrigger>
+  <MenuContent
+    position="absolute"
+    top="60px"
+    right="20px"
+    bg="white"
+    boxShadow="2xl"
+    borderRadius="lg"
+    p={5}
+    w="240px"
+    border="2px solid"
+    borderColor="purple.300"
+  >
+    <VStack spacing={4}>
+      {navItems.map((item) => (
+        <MenuItem key={item.name} as={RouterLink} to={item.path}>
+          {item.name}
+        </MenuItem>
+      ))}
+      <MenuItem color="red.500" onClick={handleLogout}>
+        Logout
+      </MenuItem>
+    </VStack>
+  </MenuContent>
+</MenuRoot>
       </Flex>
     </Box>
   );
