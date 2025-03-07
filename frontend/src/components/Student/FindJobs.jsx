@@ -39,6 +39,36 @@ const FindJobs = () => {
     }
   };
 
+  const handleApply = async (jobId) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user || !user._id) {
+        alert("Please log in to apply for jobs.");
+        return;
+      }
+  
+      const applicationData = {
+        jobId, // Ensure jobId is sent in the request body
+        userId: user._id,
+        name: applicantDetails.name,
+        resume: applicantDetails.resume,
+        coverLetter: applicantDetails.coverLetter,
+      };
+  
+      await axios.post(`/api/v1/jobs/apply`, applicationData, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+  
+      alert("Application submitted successfully!");
+      setApplyJobId(null);
+      fetchAppliedJobs(); // Refresh applied jobs list
+    } catch (error) {
+      console.error("Error applying for job", error.response?.data || error.message);
+      alert("Failed to apply for the job. Please try again.");
+    }
+  };
+  
+
   // **Filtering Logic**
   const filteredJobs = jobs.filter((job) => {
     const jobTitle = job.title ? job.title.toLowerCase() : "";
