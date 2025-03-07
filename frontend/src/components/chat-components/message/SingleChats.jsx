@@ -29,6 +29,8 @@ import ProfileModal from "../ProfileModal";
 import ScrollableFeed from 'react-scrollable-feed'
 
 const ENDPOINT = "http://localhost:8000";
+// const ENDPOINT2 = "https://lpdjx99c-8000.inc1.devtunnels.ms/";
+
 let socket, selectedChatCompare;
 
 const SingleChats = () => {

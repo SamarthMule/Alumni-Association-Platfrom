@@ -9,7 +9,7 @@ const StudentJob = () => {
 
   return (
     <Box bg="purple.50" minH="100vh">
-      <Flex mt="20px" direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
+      <Flex  direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
         
         {/* Sidebar */}
         <Box p={4} bg="purple.200" color="black" minH="100%" minW="250px">
