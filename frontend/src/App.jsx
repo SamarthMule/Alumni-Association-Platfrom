@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     element: <EventLayout />,
     children: [
       {
-        path: "all",
+        index:true,
         element: <AllEvents />,
       },
       {

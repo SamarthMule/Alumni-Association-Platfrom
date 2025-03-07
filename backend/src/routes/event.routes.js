@@ -25,7 +25,8 @@ import {
     updateSurvey,
     deleteSurvey,
     getAllSurveys,
-    voteSurvey
+    voteSurvey,
+    participateInEvent
 } from "../controllers/event.controller.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 
@@ -43,13 +44,15 @@ router.route("/event/suggested-events")
 router.route("/event/:id/comment")
     .get(verifyJWT, commentOnEvent);
     
+// ✅ Place "/participated" BEFORE "/:id"
+router.route("/participated").get(verifyJWT, getParticipatedEvents); 
+
 router.route("/:id")
     .get(verifyJWT, getEventById)
     .put(verifyJWT, upload.single("banner"), updateEvent)
-    .delete(verifyJWT, upload.single("banner"), deleteEvent)
+    .delete(verifyJWT, upload.single("banner"), deleteEvent);
 
-router.route("/event/participated")
-    .get(verifyJWT, getParticipatedEvents);
+
 
 // Feedback routes
 router.route("/feedback/:id")
@@ -70,6 +73,10 @@ router.route("/survey")
     .get(verifyJWT, verifyAdminOrManager, getAllSurveys)
     .post(verifyJWT, createSurvey)
 router.route("/:surveyId/vote").patch(verifyJWT, voteSurvey);
+
+
+
+router.post("/:id/participate", verifyJWT, participateInEvent);
 
 export default router;
 

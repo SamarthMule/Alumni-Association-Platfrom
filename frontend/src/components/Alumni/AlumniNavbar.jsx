@@ -1,10 +1,26 @@
-import { Flex, Text, Button, HStack, Menu } from "@chakra-ui/react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Button,
+  VStack,
+  Text,
+} from "@chakra-ui/react";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { FaUserCircle, FaBars } from "react-icons/fa";
 
 const StudentNavbar = () => {
   const location = useLocation();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const navItems = [
     { name: "Dashboard", path: "/alumni/dashboard" },
@@ -15,163 +31,105 @@ const StudentNavbar = () => {
   ];
 
   return (
-    <Flex
-      as="nav"
-      //   bgGradient="linear(to-r, purple.700, pink.500)" // Sleek gradient
-      bg="purple.50"
-      color="white"
-      px={8}
-      py={3}
-      justify="space-between"
-      align="center"
-      // position="fixed"
-      
-      zIndex="1000"
-      width="100%"
-      height="10svh"
+    <Box
+      bg="white"
+      px={6}
+      py={4}
       boxShadow="lg"
+      position="sticky"
+      top={0}
+      zIndex={1000}
     >
-      {/* Logo + Title */}
-      <HStack spacing={4}>
-        {/* Logo Box */}
-        <Flex
-          bg="white"
-          borderRadius="md"
-          boxSize="45px"
-          align="center"
-          justify="center"
-          boxShadow="md"
-        >
-          <img
+      <Flex
+        h={16}
+        alignItems="center"
+        justifyContent="space-between"
+        maxW="1200px"
+        mx="auto"
+      >
+        {/* Logo */}
+        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/alumnidashboard")}>
+          <Image
             src="/Logo.png"
-            alt="Logo"
-            style={{ width: "50px", height: "45px" }}
+            alt="Alumni Dashboard Logo"
+            boxSize="60px"
+            mr={3}
+            transition="transform 0.3s ease"
+            _hover={{ transform: "scale(1.1)" }}
           />
+          <Box>
+            <Heading
+              size={{ base: "md", md: "lg" }}
+              bgGradient="linear(to-r, purple.500, pink.800)"
+              bgClip="text"
+              fontWeight="extrabold"
+              textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)"
+              letterSpacing={{ base: "tight", md: "wide" }}
+              textTransform="uppercase"
+              color="purple.700"
+            >
+              Alumni Dashboard
+            </Heading>
+          </Box>
         </Flex>
-
-        {/* Heading */}
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          letterSpacing="wide"
-          color="purple"
-          onClick={() => navigator("/alumnidashboard")}
-        >
-          Alumni Dashboard
-        </Text>
-      </HStack>
-
-      {/* Navigation Links */}
-      <HStack spacing={6} fontSize="md" fontWeight="medium" display={{ base: "none", md: "flex" }}>
-        {navItems.map((item) => (
-          <Button
-            as={Link}
-            to={item.path}
-            colorScheme="whiteAlpha"
-            variant="ghost"
-            _hover={{
-              bg: "whiteAlpha.400",
-              transform: "scale(1.1)",
-              transition: "0.3s ease-in-out",
-            }}
-            _active={{ bg: "whiteAlpha.500" }}
-            borderBottom={
-              location.pathname === item.path ? "3px solid white" : "none"
-            }
-            borderRadius="full"
-            px={4}
-            py={2}
-            key={item.path}
-          >
-            {item.name}
-          </Button>
-        ))}
-      </HStack>
-
-      {/* Mobile View For Navigation */}
-      <Menu.Root>
-        <Menu.Trigger asChild >
-          <Button
-            variant="ghost"
-            colorScheme="whiteAlpha"
-            _hover={{
-              bg: "whiteAlpha.300",
-              transform: "scale(1.1)",
-              transition: "0.3s ease-in-out",
-            }}
-            borderRadius="full"
-            p={2}
-            display={{ base: "block", md: "none" }}
-          >
-            <FaBars style={{ marginRight: "8px" }} /> 
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content
-          bg="white.200"
-          color="white"
-          borderRadius="md"
-          boxShadow="lg"
-          mt="40px"
-          _hover={{
-            transform: "translateY(2px)",
-            transition: "0.3s ease-in-out",
-          }}
-        >
+        <Flex gap={3} display={{ base: "none", md: "flex" }}>
           {navItems.map((item) => (
-            <Menu.Item
-              key={item.path}
-              _hover={{ bg: "purple.600", color: "white" }}
-              onClick={() => navigator(item.path)}
+            <Button
+              key={item.name}
+              as={RouterLink}
+              to={item.path}
+              variant="ghost"
+              fontSize="lg"
+              fontWeight="medium"
+              color={location.pathname === item.path ? "purple.700" : "gray.700"}
+              _hover={{ color: "purple.500", transform: "scale(1.05)" }}
             >
               {item.name}
-            </Menu.Item>
+            </Button>
           ))}
-        </Menu.Content>
-      </Menu.Root>
+        </Flex>
 
-      <Menu.Root>
-        <Menu.Trigger>
-          <Button
-            variant="ghost"
-            colorScheme="whiteAlpha"
-            _hover={{
-              bg: "whiteAlpha.300",
-              transform: "scale(1.1)",
-              transition: "0.3s ease-in-out",
-            }}
-            borderRadius="full"
-            p={2}
-          >
-            <FaUserCircle size={26} />
-          </Button>
-        </Menu.Trigger>
-        <Menu.Content
-          bg="white.200"
-          color="white"
-          borderRadius="md"
-          boxShadow="lg"
-          mt="40px"
-          _hover={{
-            transform: "translateY(2px)",
-            transition: "0.3s ease-in-out",
-          }}
-        >
-          <Menu.Item
-            _hover={{ bg: "purple.600", color: "white" }}
-            onClick={() => navigator("/alumniprofile")}
-          >
-            Profile
-          </Menu.Item>
-
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
-            Settings
-          </Menu.Item>
-          <Menu.Item _hover={{ bg: "purple.600", color: "white" }}>
-            Logout
-          </Menu.Item>
-        </Menu.Content>
-      </Menu.Root>
-    </Flex>
+        {/* Mobile Menu */}
+        <MenuRoot open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          <MenuTrigger asChild>
+            <Box
+              display={{ base: "flex", md: "none" }}
+              flexDirection="column"
+              gap="5px"
+              cursor="pointer"
+              onClick={toggleMenu}
+            >
+              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
+              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
+              <Box w="26px" h="3px" bg="black" borderRadius="2px" />
+            </Box>
+          </MenuTrigger>
+          {isMenuOpen && (
+            <MenuContent
+              position="absolute"
+              top="60px"
+              right="20px"
+              bg="white"
+              boxShadow="2xl"
+              borderRadius="lg"
+              p={5}
+              w="240px"
+              border="2px solid"
+              borderColor="purple.300"
+            >
+              <VStack spacing={4}>
+                {navItems.map((item) => (
+                  <MenuItem key={item.name} as={RouterLink} to={item.path}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+                <MenuItem as={RouterLink} to="/login" color="red.500">Logout</MenuItem>
+              </VStack>
+            </MenuContent>
+          )}
+        </MenuRoot>
+      </Flex>
+    </Box>
   );
 };
 

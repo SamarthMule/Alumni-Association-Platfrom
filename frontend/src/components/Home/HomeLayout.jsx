@@ -29,6 +29,14 @@ const HomeLayout = () => {
         });
 
         break;
+
+        case "eventmanager":
+        navigate("/event/");
+        toaster.create({
+          title: "Welcome event manager",
+          type: "success",
+        });
+        break;
       case "student":
       case "user":
         navigate("/student/profile");
