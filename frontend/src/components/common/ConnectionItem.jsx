@@ -19,7 +19,7 @@ const ConnectionItem = ({
   );
 
   const fontColor = selectedChat?._id === chat._id ? "white" : "pink.500";
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <HStack
@@ -85,7 +85,13 @@ const ConnectionItem = ({
         _hover={{ bg: "purple.100" }}
         backgroundColor="gray.300"
         color="orange.600"
-        onClick={()=>navigate(`/student/mentor-connect`)}
+        onClick={() =>
+          navigate(
+            loggedInUser.role === "student"
+              ? navigate("/student/mentor-connect")
+              : navigate("/alumni/mentor-connect")
+          )
+        }
       >
         Message
       </Button>

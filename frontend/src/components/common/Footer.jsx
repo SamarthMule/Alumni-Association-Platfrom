@@ -4,9 +4,9 @@ import logo from "/Logo.png"; // Adjust the logo path
 
 const Footer = () => {
   return (
-    <Box bg="blackAlpha.700" color="gray.400" py={8}>
+    <Box bg="blackAlpha.700" color="gray.400" py={2}>
       <Container maxW="6xl">
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} alignItems="start">
+        <SimpleGrid columns={{ base: 3, md: 3 }} spacing={2} alignItems="start">
           {/* Left Section - Logo and Address */}
           <Stack spacing={3} align="center">
             <Image src={logo} alt="Alumni Association Logo" boxSize="80px" />
@@ -15,7 +15,7 @@ const Footer = () => {
           </Stack>
 
           {/* Middle Section - Quick Links */}
-          <Stack spacing={2} align="start">
+          <Stack spacing={1} align="start">
             <Text fontWeight="bold" color="orange.300">Quick Links</Text>
             {["/events", "/jobs", "/mentorship"].map((link, index) => (
               <Link 
@@ -31,7 +31,7 @@ const Footer = () => {
           </Stack>
 
           {/* Right Section - Resources */}
-          <Stack spacing={2} align="start">
+          <Stack spacing={0} align="start">
             <Text fontWeight="bold" color="orange.300">Resources</Text>
             {["/about", "/contact", "/faq", "/privacy-policy"].map((link, index) => (
               <Link 
@@ -48,7 +48,7 @@ const Footer = () => {
         </SimpleGrid>
 
         {/* Bottom Section */}
-        <Box mt={6} textAlign="center" fontSize="sm">
+        <Box mt={4} textAlign="center" fontSize="sm">
           <Text>© 2025 Walchand Institute of Technology Alumni Association</Text>
         </Box>
       </Container>

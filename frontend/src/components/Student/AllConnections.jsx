@@ -82,8 +82,10 @@ const AllConnections = () => {
 
   const handleAccessChat = (id) => {
     accessChat(id);
-   
-    navigate("/student/mentor-connect");
+    user.role === "student"
+        ? navigate("/student/mentor-connect")
+        : navigate("/alumni/mentor-connect");
+    
   }
 
 return (
