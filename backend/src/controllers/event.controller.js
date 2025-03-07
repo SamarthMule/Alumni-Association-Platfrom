@@ -19,24 +19,12 @@ import { User } from "../models/user.model.js";
 // Event controllers
 const createEvent = async (req, res) => {
     try {
-        const { title, description, date, time, location, speakers } = req.body;
+        console.log("Received event data:", req.body);
 
-        const missingFields = [];
-        if (!title) missingFields.push("title");
-        if (!date) missingFields.push("date");
-        if (!location) missingFields.push("location");
-        if (!time) missingFields.push("time");
-        if (!speakers || speakers.length === 0) missingFields.push("speakers");
+        const { title, description, date, time, location } = req.body;
 
-        if (missingFields.length > 0)
-            return res.status(400).json({ "message": `${missingFields.join(", ")} ${missingFields.length > 1 ? "are" : "is"} required` })
-
-        let banner;
-        if (req.file) {
-            const uploadedResponse = await cloudinary.uploader.upload(req.file.path, {
-                resource_type: "auto",
-            });
-            banner = uploadedResponse.secure_url;
+        if (!title || !date || !location || !time) {
+            return res.status(400).json({ message: "Missing required fields" });
         }
 
         const event = await Event.create({
@@ -45,19 +33,16 @@ const createEvent = async (req, res) => {
             date,
             time,
             location,
-            speakers,
-            organized_by: [req.user._id],
-            banner
+            organized_by: [req.user._id]
         });
 
         res.status(201).json({ message: "Event created successfully", event });
     } catch (error) {
-        console.log("\n\n\nError in createEvent : ", error);
-        res.status(500).json({ message: "Error occurred in createEvent", error });
-
-
+        console.error("🔥 Error in createEvent:", error.message);
+        res.status(500).json({ message: "Error occurred in createEvent", error: error.message });
     }
 };
+
 
 const updateEvent = async (req, res) => {
     try {
@@ -681,6 +666,39 @@ const voteSurvey = async (req, res) => {
     }
 };
 
+const participateInEvent = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { id } = req.params;
+
+        console.log("User ID:", userId);
+        console.log("Event ID:", id);
+
+        const event = await Event.findById(id);
+        if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
+        if (!event.participants) {
+            event.participants = []; // Ensure participants field exists
+        }
+
+        if (event.participants.includes(userId)) {
+            return res.status(400).json({ message: "User already registered" });
+        }
+
+        event.participants.push(userId);
+        await event.save();
+
+        res.status(200).json({ message: "Participation successful", event });
+    } catch (error) {
+        console.error("🔥 Error in participateInEvent:", error.message);
+        res.status(500).json({ message: "Error in participation", error: error.message });
+    }
+};
+
+
+
 // Supported Filters for Events APIs:
 
 // General Filters:
@@ -739,5 +757,6 @@ export {
     updateSurvey,
     deleteSurvey,
     getAllSurveys,
-    voteSurvey
+    voteSurvey,
+    participateInEvent,
 };

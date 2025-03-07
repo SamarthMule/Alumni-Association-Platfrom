@@ -13,7 +13,7 @@ const AlumniJob = () => {
     <Box bg="purple.50" minH="100vh">
       
 
-      <Flex mt="80px" direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
+      <Flex mt="20px" direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
         {/* Sidebar */}
         <Box p={4} bg="purple.100" color="white" minH="100%" minW="250px">
           <VStack spacing={2} align="stretch">
