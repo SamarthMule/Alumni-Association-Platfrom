@@ -47,7 +47,7 @@ const AllEvents = () => {
                   <Badge colorScheme="green">Participants: {event.participants.length}</Badge>
                 </HStack>
               </Box>
-              <Button colorScheme="blue" onClick={() => handleViewDetails(event)}>View Details</Button>
+              <Button colorScheme="blue" onClick={() => handleViewDetails(event)} bg="orange.700">View Details</Button>
             </Stack>
           </Box>
         ))

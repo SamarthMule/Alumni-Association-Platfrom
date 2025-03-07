@@ -80,7 +80,7 @@ const LoginPage = () => {
           display={{ base: "none", md: "flex" }}
         >
           <Heading
-            color="orange.500"
+            color="purple.500"
             m="10"
             textAlign="center"
             fontSize="4xl"

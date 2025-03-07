@@ -31,7 +31,7 @@ const EventNavbar = () => {
   
 
   const navItems = [
-    { name: "Events", path: "/event/all" },
+    { name: "Events", path: "/event/" },
     { name: "Create Events", path: "/event/create" },
   ];
 

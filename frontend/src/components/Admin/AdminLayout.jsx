@@ -1,6 +1,6 @@
 import { Grid, Box, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import AdminNavbar from "../AdminNavbar";
+import AdminNavbar from "../Admin/AdminNavbar"
 import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = () => {
