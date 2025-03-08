@@ -7,10 +7,12 @@
     "concurrently": "^7.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "cd frontend && npm",
-    "backend": "cd backend && npm",
-    "dev": "concurrently \"npm run frontend run dev\" \"npm run backend run dev\""
+    "frontend": "cd frontend && yarn",
+    "backend": "cd backend && yarn",
+    "dev": "concurrently \"yarn backend dev\" \"yarn frontend dev\"",
+    "install": "concurrently \"yarn backend\" \"yarn frontend && yarn frontend build\"",
+    "start": "yarn backend start",
+    "server": "nodemon backend/index.js"
   },
   "repository": {
     "type": "git",
