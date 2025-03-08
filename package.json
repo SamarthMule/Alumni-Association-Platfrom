@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "this is aap",
   "main": "index.js",
-  "devDependencies": {
-    "concurrently": "^7.0.0"
-  },
+
   "scripts": {
     "frontend": "cd frontend && yarn",
     "backend": "cd backend && yarn",
@@ -26,6 +24,7 @@
   },
   "homepage": "https://github.com/SamarthMule/Alumni-Association-Platfrom#readme",
   "dependencies": {
+    "concurrently": "^7.0.0",
     "axios": "^1.8.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
