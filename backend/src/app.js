@@ -15,7 +15,7 @@ const app = express()
 import path from 'path';
 import { fileURLToPath } from "url";
 const __dirname1 = path.dirname(fileURLToPath(import.meta.url));
-const __dirname2 = path.join(__dirname1, '../');
+const __dirname2 = path.join(__dirname1, '../../');
 
 
 
