@@ -44,7 +44,7 @@ import {
   DrawerRoot,
 } from "../ui/drawer";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const UpdateGroupDrawer = ({
   groupChatName,
@@ -411,10 +411,10 @@ const UpdateGroupDrawer = ({
   );
 };
 
-UpdateGroupDrawer.propTypes = {
-  groupChatName: PropTypes.string,
-  groupMembers: PropTypes.array,
-  groupChatProfilePic: PropTypes.string,
-};
+// UpdateGroupDrawer.propTypes = {
+//   groupChatName: PropTypes.string,
+//   groupMembers: PropTypes.array,
+//   groupChatProfilePic: PropTypes.string,
+// };
 
 export default UpdateGroupDrawer;

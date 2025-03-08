@@ -1,6 +1,6 @@
 import { Box, Flex, Avatar, Text, Button } from "@chakra-ui/react";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const UserListItem = ({ username, email, avatarUrl, onClick }) => {
   return (
@@ -34,11 +34,11 @@ const UserListItem = ({ username, email, avatarUrl, onClick }) => {
   );
 };
 
-UserListItem.propTypes = {
-  username: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  avatarUrl: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-};
+// UserListItem.propTypes = {
+//   username: PropTypes.string.isRequired,
+//   email: PropTypes.string.isRequired,
+//   avatarUrl: PropTypes.string,
+//   onClick: PropTypes.func.isRequired,
+// };
 
 export default UserListItem;

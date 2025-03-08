@@ -4,7 +4,7 @@ import useChatContext from "../../../hooks/useChatContext";
 import GroupChats from "./GroupChats";
 import SingleChats from "./SingleChats";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const ChatBox = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat } = useChatContext();

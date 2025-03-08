@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { FaXmark as CloseIcon, FaTrash, FaPlus as AddIcon } from "react-icons/fa6";
 import { getSender } from "../../config/ChatLogics";
@@ -224,17 +224,17 @@ const UserChats = () => {
   );
 };
 
-UserChats.propTypes = {
-  user: PropTypes.object,
-  chats: PropTypes.array,
-  setChats: PropTypes.func,
-  selectedChat: PropTypes.object,
-  setSelectedChat: PropTypes.func,
-  fetchAgain: PropTypes.bool,
-  setFetchAgain: PropTypes.func,
-  search: PropTypes.string,
-  deleteMode: PropTypes.bool,
-  setDeleteMode: PropTypes.func,
-};
+// UserChats.propTypes = {
+//   user: PropTypes.object,
+//   chats: PropTypes.array,
+//   setChats: PropTypes.func,
+//   selectedChat: PropTypes.object,
+//   setSelectedChat: PropTypes.func,
+//   fetchAgain: PropTypes.bool,
+//   setFetchAgain: PropTypes.func,
+//   search: PropTypes.string,
+//   deleteMode: PropTypes.bool,
+//   setDeleteMode: PropTypes.func,
+// };
 
 export default UserChats;

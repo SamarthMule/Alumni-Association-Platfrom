@@ -8,7 +8,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { InputGroup } from '../ui/input-group';
 import { Field } from "../ui/field";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const InputField = ({
   type = "text",
@@ -52,15 +52,15 @@ const InputField = ({
   );
 };
 
-InputField.propTypes = {
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  isRequired: PropTypes.bool,
-  isInvalid: PropTypes.bool,
-  errorText: PropTypes.string,
-};
+// InputField.propTypes = {
+//   type: PropTypes.string,
+//   placeholder: PropTypes.string,
+//   label: PropTypes.string,
+//   value: PropTypes.string,
+//   onChange: PropTypes.func,
+//   isRequired: PropTypes.bool,
+//   isInvalid: PropTypes.bool,
+//   errorText: PropTypes.string,
+// };
 
 export default InputField;

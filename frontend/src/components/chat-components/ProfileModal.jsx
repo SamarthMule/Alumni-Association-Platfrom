@@ -19,7 +19,7 @@ import { useState } from "react";
 import useChatContext from "../../hooks/useChatContext";
 import InputField from "./InputField";
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import {
   DialogBody,
@@ -309,15 +309,15 @@ const ProfileModal = ({
   );
 };
 
-ProfileModal.propTypes = {
-  buttonChildren: PropTypes.node,
-  style: PropTypes.object,
-  userInfo: PropTypes.object,
-  isGroupChat: PropTypes.bool,
-  groupChatName: PropTypes.string,
-  groupMembers: PropTypes.array,
-  groupAdmin: PropTypes.string,
-  groupChatavatar: PropTypes.string,
-};
+// ProfileModal.propTypes = {
+//   buttonChildren: PropTypes.node,
+//   style: PropTypes.object,
+//   userInfo: PropTypes.object,
+//   isGroupChat: PropTypes.bool,
+//   groupChatName: PropTypes.string,
+//   groupMembers: PropTypes.array,
+//   groupAdmin: PropTypes.string,
+//   groupChatavatar: PropTypes.string,
+// };
 
 export default ProfileModal;

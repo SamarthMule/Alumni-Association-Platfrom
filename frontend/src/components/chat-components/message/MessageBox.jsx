@@ -8,7 +8,7 @@ import {
   isSameUser,
 } from "../../../config/ChatLogics";
 import { useColorModeValue } from "../../ui/color-mode";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const MessageBox = ({
   i,
@@ -63,16 +63,16 @@ const MessageBox = ({
   );
 };
 
-MessageBox.propTypes = {
-  i: PropTypes.number,
-  messages: PropTypes.array,
-  message: PropTypes.object,
-  userId: PropTypes.string,
-  senderId: PropTypes.string,
-  content: PropTypes.string,
-  senderUsername: PropTypes.string,
-  profilePic: PropTypes.string,
-  isGroupChat: PropTypes.bool,
-};
+// MessageBox.propTypes = {
+//   i: PropTypes.number,
+//   messages: PropTypes.array,
+//   message: PropTypes.object,
+//   userId: PropTypes.string,
+//   senderId: PropTypes.string,
+//   content: PropTypes.string,
+//   senderUsername: PropTypes.string,
+//   profilePic: PropTypes.string,
+//   isGroupChat: PropTypes.bool,
+// };
 
 export default MessageBox;
