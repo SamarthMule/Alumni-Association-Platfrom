@@ -11,9 +11,9 @@ const GlobalThemeProvider = ({ children }) => {
     }
 
     const customThemes = {
-        chatBoxHeaderFooterBG: useColorModeValue("gray.50", "gray.700"),
-        typingBadgeBG: useColorModeValue("pink.500", "pink.300"),
-        inputBG: useColorModeValue("white", "gray.600"),
+        chatBoxHeaderFooterBG: useColorModeValue("gray.50", "gray.50"),
+        typingBadgeBG: useColorModeValue("pink.500", "pink.500"),
+        inputBG: useColorModeValue("white", "white"),
     }
 
 

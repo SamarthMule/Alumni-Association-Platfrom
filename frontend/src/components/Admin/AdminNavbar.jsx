@@ -17,7 +17,7 @@ const navItems = [
   { name: "Users", path: "/admin/users" },
   { name: "Jobs", path: "/admin/jobs" },
   { name: "Events", path: "/admin/events" },
-  { name: "Settings", path: "/admin/settings" },
+  // { name: "Settings", path: "/admin/settings" },
 ];
 
 const AdminNavbar = () => {

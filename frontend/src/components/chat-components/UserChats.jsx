@@ -42,9 +42,9 @@ const UserChats = () => {
   } = useChatContext();
 
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const userChatsBG = useColorModeValue("white", "gray.800");
-  const featuresBG = useColorModeValue("gray.50", "gray.700");
-  const sectionBorderColor = useColorModeValue("gray.200", "gray.600");
+  const userChatsBG = useColorModeValue("white", "white");
+  const featuresBG = useColorModeValue("gray.50", "gray.50");
+  const sectionBorderColor = useColorModeValue("gray.200", "gray.200");
   const [searchResults, setSearchResults] = useState([]);
 
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -167,8 +167,8 @@ const UserChats = () => {
           )}
           {!searchResults.length && !search && !chats.length && (
             <VStack flex={1} justify="center">
-              <Text fontSize="2xl" color="pink.300">
-                No Mentors found
+              <Text fontSize="2xl" color="pink.300" textAlign='center'>
+                Connect to a Mentor by clicking on the + icon
               </Text>
             </VStack>
           )}
