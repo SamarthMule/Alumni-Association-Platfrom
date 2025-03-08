@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Flex, Button, VStack } from "@chakra-ui/react";
 import Navbar from "../../components/Alumni/AlumniNavbar";
 import MyConnections from "../../components/Student/MyConnections";
-import AllConnections from "../../components/Student/Allconnections";
+import AllConnections from "../../components/Student/AllConnections";
 
 const Network = () => {
     const [selectedTab, setSelectedTab] = useState("all");  // "all" or "my"
