@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Box, Flex, Button, VStack, Text } from "@chakra-ui/react";
-import { FaBars } from "react-icons/fa"; // Only FaBars needed
+
 import MyConnections from "../../components/Student/MyConnections";
-import AllConnections from "../../components/Student/Allconnections";
+import AllConnections from "../../components/Student/AllConnections";
 
 const StudentNetwork = () => {
     const [selectedTab, setSelectedTab] = useState("all");  
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    
 
     return (
         <Box  bg="gray.50">
