@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import axios from "axios";
 import { toaster } from "../components/ui/toaster";
 
@@ -70,8 +70,5 @@ const ChatProvider = ({ children }) => {
   );
 };
 
-ChatProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default ChatProvider;
