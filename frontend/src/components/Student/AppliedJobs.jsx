@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, VStack, Text, HStack, Badge, Stack } from "@chakra-ui/react";
+import { Box, Button, VStack, Text, HStack, Badge, Stack, Card } from "@chakra-ui/react";
 import axios from "axios";
 
 const AppliedJobs = () => {
@@ -23,11 +23,11 @@ const AppliedJobs = () => {
   };
 
   return (
-    <Box p={6} bg="gray.100">
+    <Box p={6} >
       <Text fontSize="2xl" fontWeight="bold" mb={4} color="pink.700">Applied Jobs</Text>
       {Array.isArray(appliedJobs) && appliedJobs.length > 0 ? (
         appliedJobs.map((job) => (
-          <Box key={job._id} p={4} bg="white" mb={3} borderRadius="md" shadow="md">
+          <Card.Root key={job._id} p={4}  mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
               <Box flex="1">
                 <Text fontSize="lg" fontWeight="bold" color="pink.800">{job.title} - {job.company}</Text>
@@ -38,14 +38,14 @@ const AppliedJobs = () => {
                 <Button colorScheme="teal" onClick={() => setViewJob(job)}>View Details</Button>
               </HStack>
             </Stack>
-          </Box>
+          </Card.Root>
         ))
       ) : (
         <Text>No applied jobs found</Text>
       )}
 
       {viewJob && (
-        <Box p={6} bg="white" borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
+        <Box p={6}  borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
           <Text fontSize="xl" fontWeight="bold">{viewJob.title}</Text>
           <Text>{viewJob.company}</Text>
           <Text>{viewJob.location}</Text>

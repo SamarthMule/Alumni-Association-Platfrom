@@ -5,11 +5,13 @@ import { getSenderFull } from "../../config/ChatLogics";
 import { useEffect,useState } from "react";
 import useJobs from "../../hooks/useJobs";
 import axios from "axios";
+import useColorTheme from "../../hooks/useColorTheme";
 
 const StudentDashboard = () => {
     const { chats,user,fetchChats } = useChatContext();
     const { jobs,fetchJobs } = useJobs();
     const [events, setEvents] = useState([]);
+    const { homeBG } = useColorTheme();
 
     const fetchEvents = async () => {
         try {
@@ -55,7 +57,7 @@ const StudentDashboard = () => {
 
 
     return (
-        <Box bg="pink.100" minH="100vh" p={5} >
+        <Box  minH="100vh" p={5} bg={homeBG}>
            
             <Section
                 title="Events"

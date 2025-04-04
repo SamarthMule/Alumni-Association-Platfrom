@@ -6,9 +6,12 @@ import { useEffect } from "react";
 import useChatContext from "../../hooks/useChatContext";
 import Footer from "../common/Footer";
 import { toaster } from "../../components/ui/toaster";
+import { Box } from "@chakra-ui/react";
+import useColorTheme from "../../hooks/useColorTheme";
 
 const HomeLayout = () => {
   const { user, setUser } = useChatContext();
+  const { homeBG } = useColorTheme();
 
   const navigate = useNavigate();
 
@@ -57,10 +60,10 @@ const HomeLayout = () => {
   }, [user]);
 
   return (
-    <>
+    <Box >
       <Outlet />
       <Footer />
-    </>
+    </Box>
   );
 };
 

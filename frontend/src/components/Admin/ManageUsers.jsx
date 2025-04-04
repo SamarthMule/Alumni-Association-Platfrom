@@ -53,7 +53,7 @@ const ManageUsers = () => {
         </Box>
         
         {/* Centered Profile Box */}
-        <Box p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" bg="white" maxW="500px" w="100%" display={selectedUser ? "block" : "none"}>
+        <Box p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg"  maxW="500px" w="100%" display={selectedUser ? "block" : "none"}>
           {selectedUser ? (
             <>
               <Text fontSize="2xl" fontWeight="bold" mb={4} color="purple.700" textAlign="center">User Profile</Text>

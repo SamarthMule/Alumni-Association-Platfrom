@@ -98,12 +98,10 @@ const UserChats = () => {
     <Grid
       templateRows="auto 1fr"
       overflow="hidden"
-      bgColor={userChatsBG}
-      borderRightWidth="1px"
-      borderColor={sectionBorderColor}
+   
     >
       <Flex p={3} gap={3}>
-        <Box borderRadius="md" bgColor={featuresBG} flex={1}>
+        <Box borderRadius="md"  flex={1}>
           <SearchChats />
         </Box>
         <Flex gap={3} justifyContent="center">

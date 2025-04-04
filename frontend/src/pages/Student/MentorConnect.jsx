@@ -1,4 +1,12 @@
-import { Box, Flex, Grid, Heading, Button, Avatar } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Button,
+  Avatar,
+  Card,
+} from "@chakra-ui/react";
 
 import useChatContext from "../../hooks/useChatContext";
 // import LogoutButton from "../components/chat-components/LogoutButton";
@@ -25,9 +33,10 @@ const MentorConnect = () => {
         md: "250px 1fr",
         xl: "350px 1fr",
       }}
-      bgColor={useColorModeValue("gray.50", "gray.700")}
     >
-      <UserChats />
+      <Card.Root h="100%" borderRadius='none'>
+        <UserChats />
+      </Card.Root>
       <ChatBox />
     </Grid>
   );

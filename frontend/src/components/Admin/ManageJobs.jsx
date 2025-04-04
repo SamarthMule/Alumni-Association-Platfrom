@@ -50,7 +50,7 @@ const ManageJobs = () => {
       </Box>
       
       {selectedJob && (
-        <Box flex={0.7} p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" bg="white">
+        <Box flex={0.7} p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" >
           <Text fontSize="2xl" fontWeight="bold" mb={4} color="teal.700" textAlign="center">Job Details</Text>
           <Text fontSize="lg"><strong>Title:</strong> {selectedJob.title}</Text>
           <Text fontSize="lg"><strong>Company:</strong> {selectedJob.company}</Text>

@@ -29,7 +29,7 @@ const MyConnections = () => {
     }, [search, chats]);
 
     return (
-        <Box p={4} bg="white" boxShadow="sm" borderRadius="md">
+        <Box p={4}  boxShadow="sm" borderRadius="md">
             {/* Search Bar */}
             <HStack mb={6} spacing={4}>
                 <InputGroup flex="1" startElement={<FaSearch color="gray.400" />}>

@@ -30,11 +30,12 @@ const StudentNavbar = () => {
     { name: "Profile", path: "/alumni/profile" },
     { name: "Jobs", path: "/alumni/jobs" },
     { name: "Mentor Connect", path: "/alumni/mentor-connect" },
+    {name: "Posts", path: "/alumni/posts"},
   ];
 
   return (
     <Box
-      bg="white"
+      
       px={6}
       py={4}
       boxShadow="lg"
@@ -113,7 +114,7 @@ const StudentNavbar = () => {
               position="absolute"
               top="60px"
               right="20px"
-              bg="white"
+              
               boxShadow="2xl"
               borderRadius="lg"
               p={5}

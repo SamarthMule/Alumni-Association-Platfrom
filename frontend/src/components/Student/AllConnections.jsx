@@ -89,7 +89,7 @@ const AllConnections = () => {
   }
 
 return (
-    <Box p={4} bg="white" boxShadow="sm" borderRadius="md" w="full">
+    <Box p={4}  boxShadow="sm" borderRadius="md" w="full">
         {/* Search Bar */}
         <HStack mb={6} spacing={4} w="full">
             <InputGroup flex="1" startElement={<FaSearch color="gray.400" />}>
@@ -124,7 +124,7 @@ return (
                     <HStack
                         key={user._id}
                         p={4}
-                        bg="gray.100"
+                        
                         borderRadius="md"
                         justify="space-between"
                         align="center"

@@ -6,6 +6,7 @@ import {
   Wrap,
   WrapItem,
   useBreakpointValue,
+  Card,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import useChatContext from "../../hooks/useChatContext";
@@ -37,7 +38,7 @@ const StudentSection = ({ title, items = [] }) => {
   };
 
   return (
-    <Box
+    <Card.Root
       borderRadius="lg"
       p={6}
       my={6}
@@ -95,7 +96,7 @@ const StudentSection = ({ title, items = [] }) => {
           <Text color="gray.500">No {title} available</Text>
         )}
       </Wrap>
-    </Box>
+    </Card.Root>
   );
 };
 

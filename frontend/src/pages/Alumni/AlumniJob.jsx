@@ -10,7 +10,7 @@ const AlumniJob = () => {
   const [showCreateJobForm, setShowCreateJobForm] = useState(false);
 
   return (
-    <Box bg="purple.50" minH="100vh">
+    <Box  minH="100vh">
       
 
       <Flex  direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">

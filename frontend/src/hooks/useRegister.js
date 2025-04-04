@@ -25,7 +25,7 @@ const useRegister = () => {
             }
 
             const response2 = await axios.post('/api/v1/users/register', {
-               
+
                 name,
                 gender,
                 mobile_no,
@@ -64,7 +64,27 @@ const useRegister = () => {
         }
     }
 
-    return { register, loading, error, sendOtp };
+    const checkAccess = async (email, prn) => {
+        setLoading(true);
+        setError(null);
+
+        if (!email) {
+            setLoading(false);
+            return setError('Please enter your email');
+        }
+
+        try {
+            const response = await axios.post('/api/v1/users/check-access', { email, prn });
+            setLoading(false);
+
+            return response.data;
+        } catch (err) {
+            setLoading(false);
+            setError(err.response?.data?.message || err.message);
+        }
+    };
+
+    return { register, loading, error, sendOtp, checkAccess };
 };
 
 export default useRegister;

@@ -110,7 +110,7 @@ const CreateJob = () => {
   };
 
   return (
-    <Box bg="white" p={6} mt={4} boxShadow="lg" borderRadius="md">
+    <Box  p={6} mt={4} boxShadow="lg" borderRadius="md">
       <Heading size="md" mb={4} textAlign="center">
         Create a Job Post
       </Heading>

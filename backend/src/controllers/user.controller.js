@@ -90,8 +90,10 @@ const verifyOTP = async (req, res) => {
 };
 
 const checkAccess = async (req, res) => {
+
     try {
         const { email, prn_no } = req.body;
+     
         if (!email && !prn_no) return res.status(400).json({ message: "Email or prn is required for checking..." });
 
         let existingUser = await CollegeDB.findOne({ email });
@@ -594,6 +596,8 @@ const getSuggestedUsers = async (req, res) => {
 // ⚠️ Important Differences:
 // ✅ `getAllUsers` -> Applies filters to all non-blocked users & supports pagination
 // ✅ `getSuggestedUsers` -> Applies filters only to suggested users (friends of friends, mentors of friends) & returns up to 8 users
+
+
 
 
 export {

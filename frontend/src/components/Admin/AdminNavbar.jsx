@@ -28,7 +28,7 @@ const AdminNavbar = () => {
   };
 
   return (
-    <Box bg="white" px={6} py={1} boxShadow="sm" height="10svh" top={0} zIndex={1000}>
+    <Box  px={6} py={1} boxShadow="sm" height="10svh" top={0} zIndex={1000}>
       <Flex h={16} alignItems="center" justifyContent="space-between" maxW="1200px" mx="auto">
         {/* Logo & Title */}
         <Flex alignItems="center">
@@ -60,7 +60,7 @@ const AdminNavbar = () => {
             </Box>
           </MenuTrigger>
           {isMenuOpen && (
-            <MenuContent position="absolute" top="60px" right="20px" bg="white" boxShadow="2xl" borderRadius="lg" p={5} w="240px" border="2px solid" borderColor="blue.300">
+            <MenuContent position="absolute" top="60px" right="20px"  boxShadow="2xl" borderRadius="lg" p={5} w="240px" border="2px solid" borderColor="blue.300">
               <VStack spacing={4}>
                 {navItems.map((item) => (
                   <MenuItem key={item.name} as={RouterLink} to={item.path}>

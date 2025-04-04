@@ -66,7 +66,7 @@ const ManageEvents = () => {
       </Box>
       
       {selectedEvent && (
-        <Box flex={0.7} p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" bg="white">
+        <Box flex={0.7} p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" >
           <Text fontSize="2xl" fontWeight="bold" mb={4} color="blue.700" textAlign="center">Event Details</Text>
           <Text fontSize="lg"><strong>Title:</strong> {selectedEvent.title}</Text>
           <Text fontSize="lg"><strong>Location:</strong> {selectedEvent.location}</Text>

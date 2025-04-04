@@ -5,13 +5,17 @@ import { Provider } from "./components/ui/provider.jsx";
 import ChatProvider from "./context/ChatProvider.jsx";
 import GlobalThemeProvider from "./context/GlobalThemeProvider.jsx";
 import { defaultSystem } from "@chakra-ui/react";
+import { ColorModeProvider } from "./components/ui/color-mode.jsx";
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ChatProvider>
-      <GlobalThemeProvider value={defaultSystem}>
+      <GlobalThemeProvider >
         <Provider>
-          <App />
+          <ColorModeProvider value={defaultSystem}>
+            <App />
+          </ColorModeProvider>
         </Provider>
       </GlobalThemeProvider>
     </ChatProvider>

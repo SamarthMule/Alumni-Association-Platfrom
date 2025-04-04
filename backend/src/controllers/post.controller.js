@@ -40,14 +40,14 @@
 import { Post } from "../models/post.model.js";
 import { Comment } from "../models/comment.model.js";
 import { User } from "../models/user.model.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.js";
 import { Mentorship } from "../models/mentorship.model.js";
 import mongoose from "mongoose";
 
 const createPost = async (req, res) => {
     try {
         const userId = req.user._id;
-        const { title, content } = req.body;
+        const { title, content, } = req.body;
         let attachment = '';
 
         let missingFields = [];
@@ -59,9 +59,7 @@ const createPost = async (req, res) => {
 
         if (req.file) {
             const filePath = req.file.path;
-            const uploadedResponse = await uploadOnCloudinary.uploader.upload(filePath, {
-                resource_type: "auto",
-            });
+            const uploadedResponse = await uploadOnCloudinary(filePath);
             attachment = uploadedResponse.secure_url;
         }
 
@@ -97,12 +95,10 @@ const updatePost = async (req, res) => {
         if (req.file) {
             if (post.attachment) {
                 const attachmentId = post.attachment.split("/").pop().split(".")[0];
-                await uploadOnCloudinary.uploader.destroy(attachmentId);
+                await uploadOnCloudinary(attachmentId);
             }
 
-            const uploadedResponse = await uploadOnCloudinary.uploader.upload(req.file.path, {
-                resource_type: "auto",
-            });
+            const uploadedResponse = await uploadOnCloudinary(req.file.path);
             attachment = uploadedResponse.secure_url;
         }
 
@@ -124,6 +120,7 @@ const deletePost = async (req, res) => {
         const post = await Post.findById(id);
 
         if (!post) return res.status(404).json({ error: "Post not found" });
+        console.log('=== post post.controller.js [125] ===', post);
 
         if (post.owner.toString() !== req.user._id.toString()) {
             return res.status(403).json({ error: "Unauthorized request to delete post" });
@@ -131,7 +128,7 @@ const deletePost = async (req, res) => {
 
         if (post.attachment) {
             const attachmentId = post.attachment.split("/").pop().split(".")[0];
-            await uploadOnCloudinary.uploader.destroy(attachmentId);
+            await deleteFromCloudinary(attachmentId);
         }
 
         await Comment.deleteMany({ post_id: id });
@@ -173,6 +170,7 @@ const likeUnlikePost = async (req, res) => {
 const commentOnPost = async (req, res) => {
     try {
         const { content } = req.body;
+        console.log('=== content post.controller.js [175] ===', content);
         const { id } = req.params;
         const userId = req.user._id;
 

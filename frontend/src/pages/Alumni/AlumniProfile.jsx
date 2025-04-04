@@ -104,7 +104,7 @@ const StudentProfile = () => {
   };
 
   return (
-    <Box bg="purple.50" minH="100vh" p={5} pt="80px">
+    <Box  minH="100vh" p={5} pt="80px">
       <Flex
         direction={{ base: "column", md: "row" }}
         align="center"
@@ -116,7 +116,7 @@ const StudentProfile = () => {
           align="center"
           justify="center"
           p={5}
-          bg="white"
+          
           borderRadius="lg"
           boxShadow="md"
         >
@@ -144,7 +144,7 @@ const StudentProfile = () => {
         <Flex
           direction={{ base: "column", md: "row" }}
           p={5}
-          bg="white"
+          
           borderRadius="lg"
           boxShadow="md"
           w="100%"

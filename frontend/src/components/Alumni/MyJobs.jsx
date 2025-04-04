@@ -151,7 +151,7 @@ const MyJobs = () => {
   };
 
   return (
-    <Box p={6} bg="gray.100">
+    <Box p={6} >
       <Heading size="lg" mb={4} color="pink.700">
         My Jobs
       </Heading>
@@ -165,7 +165,7 @@ const MyJobs = () => {
             mb={4}
             boxShadow="lg"
             borderRadius="md"
-            bg="white"
+            
           >
             <Stack
               direction={{ base: "column", md: "row" }}
@@ -196,7 +196,7 @@ const MyJobs = () => {
                   wrap="wrap"
                 >
                   {job.skillsRequired.map((skill, index) => (
-                    <Badge key={index} colorScheme="purple">
+                    <Badge key={index} colorPalette="purple">
                       {skill}
                     </Badge>
                   ))}
@@ -204,14 +204,14 @@ const MyJobs = () => {
               </Box>
 
               <HStack>
-                <Button colorScheme="blue" onClick={() => handleEdit(job)}>
+                <Button colorPalette="blue" onClick={() => handleEdit(job)}>
                   Edit
                 </Button>
 
                 <DialogRoot>
                   <DialogTrigger asChild>
                     <Button
-                      colorScheme="teal"
+                      colorPalette="teal"
                       onClick={() => handleViewDetails(job._id)}
                     >
                       View Details
@@ -223,7 +223,7 @@ const MyJobs = () => {
                         <DialogHeader>
                           <DialogCloseTrigger asChild>
                             <Button
-                              colorScheme="red"
+                              colorPalette="red"
                               onClick={() => setViewingJob(null)}
                             >
                               Close
@@ -268,7 +268,7 @@ const MyJobs = () => {
                   </DialogContent>
                 </DialogRoot>
 
-                <Button colorScheme="red" onClick={() => handleDelete(job._id)}>
+                <Button colorPalette="red" onClick={() => handleDelete(job._id)}>
                   Delete
                 </Button>
               </HStack>
@@ -333,7 +333,7 @@ const MyJobs = () => {
                   {/* Custom Button to Upload Logo */}
                   <Button
                     width="100%"
-                    colorScheme="blue"
+                    colorPalette="blue"
                     onClick={() => fileInputRef.current.click()}
                   >
                     Change Logo
@@ -360,7 +360,7 @@ const MyJobs = () => {
                     />
                     <Button
                       size="sm"
-                      colorScheme="blue"
+                      colorPalette="blue"
                       onClick={handleAddSkill}
                     >
                       Add
@@ -372,7 +372,7 @@ const MyJobs = () => {
                     {editedJob.skillsRequired.map((skill, index) => (
                       <Badge
                         key={index}
-                        colorScheme="purple"
+                        colorPalette="purple"
                         cursor="pointer"
                         onClick={() => handleRemoveSkill(skill)}
                       >
@@ -381,11 +381,11 @@ const MyJobs = () => {
                     ))}
                   </HStack>
                   <HStack spacing={2}>
-                    <Button colorScheme="green" onClick={handleSave}>
+                    <Button colorPalette="green" onClick={handleSave}>
                       Save
                     </Button>
                     <Button
-                      colorScheme="red"
+                      colorPalette="red"
                       onClick={() => setEditingJobId(null)}
                     >
                       Cancel
@@ -404,7 +404,7 @@ const MyJobs = () => {
             mb={4}
             boxShadow="lg"
             borderRadius="md"
-            bg="white"
+            
           >
             <Stack
               direction={{ base: "column", md: "row" }}
@@ -428,7 +428,7 @@ const MyJobs = () => {
           align="center"
           direction="column"
           p={6}
-          bg="white"
+          
           borderRadius="md"
           boxShadow="lg"
         >

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import StudentProfile from "./pages/Student/StudentProfile";
+import Profile from "./components/common/Profile";
 import Home from "./pages/Home/Home";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 import AlumniDashboard from "./pages/Alumni/AlumniDashboard";
@@ -29,6 +29,7 @@ import ManageEvents from "./components/Admin/ManageEvents";
 // import Notifications from "./pages/Admin/Notifications";
 
 import { Toaster } from "./components/ui/toaster";
+import PostsBox from "./components/post-components/PostsBox";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,13 @@ const router = createBrowserRouter([
     path: "student",
     element: <StudentLayout />,
     children: [
-      { path: "profile", element: <StudentProfile /> },
+      { path: "profile", element: <Profile /> },
       { path: "dashboard", element: <StudentDashboard /> },
       { path: "network", element: <StudentNetwork /> },
       { path: "mentor-connect", element: <MentorConnect /> },
       { path: "jobs", element: <StudentJob /> },
       { path: "events", element: <StudentEvents /> },
+      { path: "posts", element: <PostsBox /> },
     ],
   },
   {
@@ -58,9 +60,10 @@ const router = createBrowserRouter([
     children: [
       { path: "dashboard", element: <AlumniDashboard /> },
       { path: "network", element: <AlumniNetwork /> },
-      { path: "profile", element: <AlumniProfile /> },
+      { path: "profile", element: <Profile /> },
       { path: "jobs", element: <AlumniJobs /> },
       { path: "mentor-connect", element: <AConnect /> },
+      { path: "posts", element: <PostsBox /> },
     ],
   },
   {
@@ -89,6 +92,7 @@ const router = createBrowserRouter([
       // { path: "notifications", element: <Notifications /> },
     ],
   },
+  { path: "posts", element: <PostsBox /> },
 ]);
 
 function App() {

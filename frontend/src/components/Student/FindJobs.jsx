@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Input, Button, VStack, Text, HStack, Badge, Stack } from "@chakra-ui/react";
+import { Box, Input, Button, VStack, Text, HStack, Badge, Stack, Card } from "@chakra-ui/react";
 import axios from "axios";
+import useColorTheme from "../../hooks/useColorTheme";
 
 const FindJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -10,6 +11,8 @@ const FindJobs = () => {
   const [viewJob, setViewJob] = useState(null);
   const [applicantDetails, setApplicantDetails] = useState({ name: "", resume: "", coverLetter: "" });
   const [appliedJobs, setAppliedJobs] = useState([]);
+  
+  
 
   useEffect(() => {
     fetchJobs();
@@ -85,7 +88,7 @@ const FindJobs = () => {
   });
 
   return (
-    <Box p={6} bg="gray.100">
+    <Box p={6} >
       <Text fontSize="2xl" fontWeight="bold" mb={4} color="pink.700">Find Jobs</Text>
       <HStack mb={4} spacing={4}>
         <Input placeholder="Search jobs..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
@@ -96,7 +99,7 @@ const FindJobs = () => {
 
       {Array.isArray(filteredJobs) && filteredJobs.length > 0 ? (
         filteredJobs.map((job) => (
-          <Box key={job._id} p={4} bg="white" mb={3} borderRadius="md" shadow="md">
+          <Card.Root key={job._id} p={4}  mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
               <Box flex="1">
                 <Text fontSize="lg" fontWeight="bold" color="pink.800">{job.title} - {job.company}</Text>
@@ -108,14 +111,14 @@ const FindJobs = () => {
                 <Button colorScheme="blue" onClick={() => setApplyJobId(job._id)}>Apply</Button>
               </HStack>
             </Stack>
-          </Box>
+          </Card.Root>
         ))
       ) : (
         <Text>No jobs available</Text>
       )}
 
       {applyJobId && (
-        <Box p={6} bg="white" borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
+        <Card.Root p={6}  borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
           <Text fontSize="xl" fontWeight="bold">Apply for Job</Text>
           <Input placeholder="Full Name" onChange={(e) => setApplicantDetails({ ...applicantDetails, name: e.target.value })} />
           <Input placeholder="Resume Link" onChange={(e) => setApplicantDetails({ ...applicantDetails, resume: e.target.value })} />
@@ -124,11 +127,11 @@ const FindJobs = () => {
             <Button colorScheme="green" onClick={() => handleApply(applyJobId)}>Submit Application</Button>
             <Button colorScheme="red" onClick={() => setApplyJobId(null)}>Cancel</Button>
           </HStack>
-        </Box>
+        </Card.Root>
       )}
 
       {viewJob && (
-        <Box p={6} bg="white" borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
+        <Card.Root p={6}  borderRadius="md" shadow="lg" position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" width="50%" zIndex={1000}>
           <Text fontSize="xl" fontWeight="bold">{viewJob.title}</Text>
           <Text>{viewJob.company}</Text>
           <Text>{viewJob.location}</Text>
@@ -136,7 +139,7 @@ const FindJobs = () => {
           <HStack mt={3}>
             <Button colorScheme="red" onClick={() => setViewJob(null)}>Close</Button>
           </HStack>
-        </Box>
+        </Card.Root>
       )}
     </Box>
   );

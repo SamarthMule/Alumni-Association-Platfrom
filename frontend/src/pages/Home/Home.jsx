@@ -68,7 +68,7 @@ const Home = () => {
       </MotionBox>
 
       {/* 🎯 Why Join Section */}
-      <Box py={{ base: 12, md: 20 }} bg="gray.100" textAlign="center">
+      <Box py={{ base: 12, md: 20 }}  textAlign="center">
         <Heading fontSize={{ base: "2xl", md: "3xl" }} mb={5} color="gray.700">
           Why Join Alumni Association Platform?
         </Heading>
@@ -80,7 +80,7 @@ const Home = () => {
           ].map((item, index) => (
             <MotionBox
               key={index}
-              bg="white"
+              
               p={6}
               borderRadius="md"
               boxShadow="lg"
@@ -105,7 +105,7 @@ const Home = () => {
   id="about" 
   py={{ base: 12, md: 20 }} 
   px={{ base: 6, md: 10 }} 
-  bg="white" 
+   
   textAlign="center"
   as={motion.div} 
   initial={{ opacity: 0, y: 30 }} 
@@ -114,7 +114,7 @@ const Home = () => {
   transition={{ duration: 1.2 }}
 >
   <MotionBox
-    bg="gray.100"
+    
     p={{ base: 8, md: 10 }} 
     borderRadius="lg"
     boxShadow="2xl"

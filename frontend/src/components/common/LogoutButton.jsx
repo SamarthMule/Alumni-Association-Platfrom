@@ -21,7 +21,7 @@ const LogoutButton = () => {
         });
       })
       .catch((err) => {
-        toaster({
+        toaster.create({
           title: err.response.data.message,
           type: "error",
         });

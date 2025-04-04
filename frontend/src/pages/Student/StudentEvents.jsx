@@ -8,11 +8,11 @@ const StudentEvents = () => {
   const [showCreateJobForm, setShowCreateJobForm] = useState(false);
 
   return (
-    <Box bg="purple.50" minH="100vh">
+    <Box  minH="100vh">
      
       <Flex  direction={{ base: "column", md: "row" }} minH="calc(100vh - 80px)">
         {/* Sidebar */}
-        <Box p={4} bg="purple.100" color="white" minH="100%" minW="250px">
+        <Box p={4}  color="white" minH="100%" minW="250px">
           <VStack spacing={2} align="stretch">
             <Button
               colorScheme="whiteAlpha"

@@ -6,9 +6,7 @@ import { toaster } from "../components/ui/toaster";
 export const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [fetchAgain, setFetchAgain] = useState(false);
@@ -19,8 +17,6 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")) || null);
-    
-    
   }, [fetchAgain]);
 
   const fetchChats = async () => {
@@ -43,6 +39,22 @@ const ChatProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
+  const getSpecUser = async (id) => {
+    try {
+      const res = await axios.get(`/api/v1/users/user/${id}`);
+
+      if (res) {
+        
+        return {
+          author: res.data.user.name,
+          avatar: res.data.user.avatar,
+        };
+      }
+    } catch (error) {
+      console.error("Error fetching specific user:", error);
+      return null;
+    }
+  };
 
   return (
     <ChatContext.Provider
@@ -62,13 +74,13 @@ const ChatProvider = ({ children }) => {
         deleteMode,
         setDeleteMode,
         fetchChats,
-        loading
+        loading,
+        getSpecUser,
       }}
     >
       {children}
     </ChatContext.Provider>
   );
 };
-
 
 export default ChatProvider;

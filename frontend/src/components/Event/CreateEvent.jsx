@@ -31,7 +31,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <Box p={6} bg="white" borderRadius="md" boxShadow="md">
+    <Box p={6}  borderRadius="md" boxShadow="md">
       <Heading size="md" mb={4}>Create Event</Heading>
       <VStack spacing={4} align="stretch">
         <Input placeholder="Event Title" name="title" value={eventDetails.title} onChange={handleChange} />

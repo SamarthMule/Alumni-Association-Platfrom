@@ -4,22 +4,17 @@ import { useColorModeValue } from "../components/ui/color-mode";
 export const GlobalThemeContext = createContext();
 
 const GlobalThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('light');
-
-    const toggleTheme = () => {
-        setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light');
-    }
-
+    
     const customThemes = {
-        chatBoxHeaderFooterBG: useColorModeValue("gray.50", "gray.50"),
+        chatBoxHeaderFooterBG: useColorModeValue("gray.50", "gray.700"),
         typingBadgeBG: useColorModeValue("pink.500", "pink.500"),
         inputBG: useColorModeValue("white", "white"),
+        homeBG: useColorModeValue("pink.100", "gray.800"),
     }
 
 
     return (
         <GlobalThemeContext.Provider value={{
-            theme, toggleTheme,
             ...customThemes
         }}>
             {children}

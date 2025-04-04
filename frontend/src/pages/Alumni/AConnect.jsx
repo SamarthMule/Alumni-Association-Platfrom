@@ -25,7 +25,7 @@ const AConnect = () => {
         md: "250px 1fr",
         xl: "350px 1fr",
       }}
-      bgColor={useColorModeValue("gray.50", "gray.700")}
+     
     >
       <UserChats />
       <ChatBox />

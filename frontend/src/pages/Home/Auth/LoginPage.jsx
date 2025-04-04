@@ -3,7 +3,7 @@ import {
   Image,
   Heading,
   Button,
-
+  Card,
   Text,
   Link,
   Fieldset,
@@ -17,15 +17,17 @@ import { useEffect, useState } from "react";
 import { toaster } from "../../../components/ui/toaster";
 import { useNavigate } from "react-router";
 import useChatContext from "../../../hooks/useChatContext";
+import useColorTheme from "../../../hooks/useColorTheme";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login,error,loading} = useLogin();
+  const { login, error, loading } = useLogin();
   const navigate = useNavigate();
-  const {setUser,user} = useChatContext();
+  const { setUser, user } = useChatContext();
+  const { homeBG } = useColorTheme();
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       toaster.create({
@@ -34,14 +36,13 @@ const LoginPage = () => {
       });
       return;
     }
-  
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toaster.create({
         title: "Invalid Email",
         type: "error",
-      })
+      });
       return;
     }
 
@@ -56,22 +57,23 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    error && toaster.create({
-      title: error,
-      type: "error",
-    });
+    error &&
+      toaster.create({
+        title: error,
+        type: "error",
+      });
   }, [error]);
 
   return (
     <>
       <Flex
-        bg="purple.50"
         justify="center"
         align="center"
         direction={{ base: "column", md: "row" }}
         gap="5"
         p={4}
         h="90vh"
+        bg={homeBG}
       >
         <Flex
           direction="column"
@@ -101,64 +103,67 @@ const LoginPage = () => {
         <Flex
           alignItems="center"
           justifyContent="center"
-          bg="purple.50"
           minW={{ base: "100%", md: "50%" }}
         >
-          <Fieldset.Root
-            size="lg"
-            maxW="400px"
-            mx="auto"
-            p={8}
-            bg="white"
-            borderRadius="md"
-            boxShadow="lg"
-          >
-            <Heading
-              as="h2"
-              size="xl"
-              mb={4}
-              textAlign="center"
-              color="orange.500"
+          <Card.Root  w="400px">
+            <Fieldset.Root
+              size="lg"
+             
+              mx="auto"
+              p={8}
+              borderRadius="md"
+              boxShadow="lg"
             >
-              Login
-            </Heading>
+              <Heading
+                as="h2"
+                size="xl"
+                mb={4}
+                textAlign="center"
+                color="orange.500"
+              >
+                Login
+              </Heading>
 
-            <Fieldset.Content>
-              <InputField
-                label="Email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                isRequired={true}
-                // isInvalid={emailError}
-                // errorText={emailError}
-              />
+              <Fieldset.Content>
+                <InputField
+                  label="Email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  isRequired={true}
+                  // isInvalid={emailError}
+                  // errorText={emailError}
+                />
 
-              <InputField
-                type="password"
-                label="Password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                isRequired={true}
-                // isInvalid={passwordError}
-                // errorText={passwordError}
-              />
-            </Fieldset.Content>
+                <InputField
+                  type="password"
+                  label="Password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  isRequired={true}
+                  // isInvalid={passwordError}
+                  // errorText={passwordError}
+                />
+              </Fieldset.Content>
 
-            
+              <Button
+                type="submit"
+                w="full"
+                colorPalette={"purple"}
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
 
-            <Button type="submit" w="full" colorPalette={"purple"} onClick={handleLogin}>
-              Login
-            </Button>
-
-            <Text fontSize="sm" textAlign="center" color="black">
-              Not Having Account?{" "}
-              <Link color="purple.500" fontWeight="semibold" href="/register">
-                Register
-              </Link>
-            </Text>
-          </Fieldset.Root>
+              <Text fontSize="sm" textAlign="center" color="black">
+                Not Having Account?{" "}
+                <Link color="purple.500" fontWeight="semibold" href="/register">
+                  Register
+                </Link>
+              </Text>
+            </Fieldset.Root>
+          </Card.Root>
         </Flex>
       </Flex>
     </>

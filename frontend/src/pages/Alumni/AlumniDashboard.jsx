@@ -33,14 +33,14 @@ const AlumniDashboard = () => {
     }, []);
 
   return (
-    <Box bg="pink.100" minH="100vh" p={5} pt="80px">
+    <Box  minH="100vh" p={5} pt="80px">
       <Section
         title="Jobs"
         items={jobItems}
       />
 
       <Section
-        title="Mentors"
+        title="Network"
         items={chatItems}
       />
     </Box>

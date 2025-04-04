@@ -16,10 +16,10 @@ import LogoutButton from "../common/LogoutButton";
 const navItems = [
   { name: "Profile", path: "/student/profile" },
   { name: "Dashboard", path: "/student/dashboard" },
-
   { name: "Mentor Connect", path: "/student/mentor-connect" },
   { name: "Jobs", path: "/student/jobs" },
   { name: "Events", path: "/student/events" },
+  { name: "Posts", path: "/student/posts" },
 ];
 
 const StudentNavbar = () => {
@@ -31,7 +31,7 @@ const StudentNavbar = () => {
 
   return (
     <Box
-      bg="white"
+      
       px={6}
       py={1}
       boxShadow="sm"
@@ -111,7 +111,7 @@ const StudentNavbar = () => {
               position="absolute"
               top="60px"
               right="20px"
-              bg="white"
+              
               boxShadow="2xl"
               borderRadius="lg"
               p={5}

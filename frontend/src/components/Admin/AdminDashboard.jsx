@@ -78,7 +78,7 @@ const AdminDashboard = () => {
         
         {/* Recent Activities */}
         {/* <GridItem>
-          <VStack spacing={4} align="stretch" p={4} bg="white" borderRadius="lg" boxShadow="md">
+          <VStack spacing={4} align="stretch" p={4}  borderRadius="lg" boxShadow="md">
             <Text fontSize="lg" fontWeight="bold" color="purple.700">Recent Activities</Text>
             <Text fontSize="md" color="gray.700">- 5 new job postings added today</Text>
             <Text fontSize="md" color="gray.700">- 10 new users registered this week</Text>

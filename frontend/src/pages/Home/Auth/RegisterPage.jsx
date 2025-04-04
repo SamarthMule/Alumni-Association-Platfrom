@@ -10,6 +10,7 @@ import {
   Link,
   Fieldset,
   HStack,
+  Card,
 } from "@chakra-ui/react";
 import { Field } from "../../../components/ui/field";
 
@@ -31,7 +32,8 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "../../../components/ui/select";
-import { use } from "react";
+
+import useColorTheme from "../../../hooks/useColorTheme";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -40,12 +42,47 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [prn, setPrn] = useState("");
+
   const [graduationYear, setGraduationYear] = useState(
     new Date().getFullYear()
   );
   const [role, setRole] = useState("");
   const [otp, setOtp] = useState("");
-  const { register, loading, error, sendOtp } = useRegister();
+  const { register, loading, error, sendOtp, checkAccess } = useRegister();
+  const { homeBG } = useColorTheme();
+
+  const handleCheckAccess = async () => {
+
+    if (!email && !prn) {
+      toaster.create({
+        title: "Please enter either email or PRN",
+        type: "error",
+      });
+      return;
+    }
+
+    
+    const response = await checkAccess(email?email:prn);
+    console.log('=== response RegisterPage.jsx [67] ===', response);
+    if (response.data && !error) {
+      toaster.create({
+        title: "Access Granted",
+        type: "success",
+      });
+      setName(response.data.student_name);
+      setGender(response.data.gender);
+      setMobileNo(response.data.mobile_no);
+      setGraduationYear(new Date(response.data.graduation_year).getFullYear());
+      console.log('=== graduationYear RegisterPage.jsx [77] ===', graduationYear);
+      setRole(response.data.role);
+    } else {
+      toaster.create({
+        title: "Access Denied",
+        type: "error",
+      });
+    }
+  };
 
   const genders = createListCollection({
     items: [
@@ -165,12 +202,12 @@ const RegisterPage = () => {
   return (
     <>
       <Flex
-        bg="purple.50"
         justify="center"
         align="center"
         direction={{ base: "column", md: "row" }}
         gap="5"
         p={4}
+        bg={homeBG}
       >
         <Flex
           direction="column"
@@ -196,177 +233,214 @@ const RegisterPage = () => {
             shadow="lg"
           />
         </Flex>
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          bg="purple.50"
-          minW={{ base: "100%", md: "50%" }}
-        >
-          <Fieldset.Root
-            size="lg"
-            maxW="400px"
-            mx="auto"
-            p={8}
-            bg="white"
-            borderRadius="md"
-            boxShadow="lg"
+        <Card.Root w="400px">
+          <Flex
+            alignItems="center"
+            justifyContent="center"
+            minW={{ base: "100%", md: "50%" }}
           >
-            <Heading
-              as="h2"
-              size="xl"
-              mb={4}
-              textAlign="center"
-              color="orange.500"
+            <Fieldset.Root
+              size="lg"
+              maxW="400px"
+              mx="auto"
+              p={8}
+              borderRadius="md"
             >
-              Register
-            </Heading>
-
-            <Field label="Name" required={true}>
-              <Input
-                placeholder="Enter your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                borderColor="pink.500"
-              />
-            </Field>
-            <Field label="Gender" required={true}>
-              <HStack spacing={4} w="100%">
-                <Button
-                  colorPalette={gender === "male" ? "blue" : "gray"}
-                  variant={gender === "male" ? "solid" : "outline"}
-                  onClick={() => setGender("male")}
-                  flex={1}
-                >
-                  Male
-                </Button>
-                <Button
-                  colorPalette={gender === "female" ? "pink" : "gray"}
-                  variant={gender === "female" ? "solid" : "outline"}
-                  onClick={() => setGender("female")}
-                  flex={1}
-                >
-                  Female
-                </Button>
-                <Button
-                  colorPalette={gender === "other" ? "purple" : "gray"}
-                  variant={gender === "other" ? "solid" : "outline"}
-                  onClick={() => setGender("other")}
-                  flex={1}
-                >
-                  Other
+              <Heading
+                as="h2"
+                size="xl"
+                mb={4}
+                textAlign="center"
+                color="orange.500"
+              >
+                Register
+              </Heading>
+              <HStack gap={3} alignItems="flex-end">
+                <Field label="Email" required={true} invalid={true}>
+                  <Input
+                    placeholder="Enter your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    borderColor="pink.500"
+                  />
+                </Field>
+                <Button onClick={() => handleCheckAccess()}>
+                  Check Access
                 </Button>
               </HStack>
-            </Field>
-            <Field label="Mobile Number" required={true}>
-              <NumberInputRoot min={1000000000} max={9999999999} w="100%">
-                <NumberInputField
-                  w="100%"
-                  placeholder="Enter your Phone Number"
-                  defaultValue={mobileNo}
-                  onChange={(e) => setMobileNo(e.target.value)}
+              <Heading
+                as="h2"
+                size="lg"
+                textAlign="center"
+                color="orange.500"
+                fontSize="2xl"
+                fontWeight="bold"
+              >
+                OR
+              </Heading>
+              <HStack gap={3} alignItems="flex-end">
+                <Field label="PRN No" required={true} invalid={true}>
+                  <Input
+                    placeholder="Enter your PRN No"
+                    value={prn}
+                    onChange={(e) => setPrn(e.target.value)}
+                    borderColor="pink.500"
+                  />
+                </Field>
+                <Button onClick={() => handleCheckAccess()}>
+                  Check Access
+                </Button>
+              </HStack>
+              <Field label="Name" required={true}>
+                <Input
+                  placeholder="Enter your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  borderColor="pink.500"
+                  disabled
                 />
-              </NumberInputRoot>
-            </Field>
-            <Field label="Graduation Year" required={true}>
-              <NumberInputRoot min={1900} max={2100} w="100%">
-                <NumberInputField
+              </Field>
+              <Field label="Gender" required={true}>
+                <HStack spacing={4} w="100%">
+                  <Button
+                    colorPalette={gender === "male" ? "blue" : "gray"}
+                    variant={gender === "male" ? "solid" : "outline"}
+                    onClick={() => setGender("male")}
+                    disabled
+                    flex={1}
+                  >
+                    Male
+                  </Button>
+                  <Button
+                    colorPalette={gender === "female" ? "pink" : "gray"}
+                    variant={gender === "female" ? "solid" : "outline"}
+                    onClick={() => setGender("female")}
+                    flex={1}
+                    disabled
+                  >
+                    Female
+                  </Button>
+                  <Button
+                    colorPalette={gender === "other" ? "purple" : "gray"}
+                    variant={gender === "other" ? "solid" : "outline"}
+                    onClick={() => setGender("other")}
+                    flex={1}
+                    disabled
+                  >
+                    Other
+                  </Button>
+                </HStack>
+              </Field>
+              <Field label="Mobile Number" required={true}>
+                <NumberInputRoot
+                  min={1000000000}
+                  max={9999999999}
                   w="100%"
-                  placeholder="Enter your Graduation Year"
-                  defaultValue={graduationYear}
-                  onChange={(e) => setGraduationYear(e.target.value)}
+                  disabled
+                >
+                  <NumberInputField
+                    w="100%"
+                    placeholder="Enter your Phone Number"
+
+                    defaultValue={mobileNo}
+                    onChange={(e) => setMobileNo(e.target.value)}
+                  />
+                </NumberInputRoot>
+              </Field>
+              <Field label="Graduation Year" required={true}>
+                <NumberInputRoot min={1900} max={2100} w="100%" disabled>
+                  <NumberInputField
+                    w="100%"
+                    placeholder="Enter your Graduation Year"
+                    defaultValue={graduationYear}
+                    value={graduationYear}
+                    onChange={(e) => setGraduationYear(e.target.value)}
+                  />
+                </NumberInputRoot>
+              </Field>
+
+              <Field label="Password" required={true} invalid={true}>
+                <Input
+                  type="password"
+                  placeholder="Enter your Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  borderColor="pink.500"
                 />
-              </NumberInputRoot>
-            </Field>
+              </Field>
+              <Field
+                label="Confirm Password"
+                required={true}
+                errorText={
+                  confirmPassword && password !== confirmPassword
+                    ? "Passwords do not match"
+                    : ""
+                }
+                invalid={true}
+              >
+                <Input
+                  type="password"
+                  placeholder="Re-enter your Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  borderColor="pink.500"
+                />
+              </Field>
 
-            <Field label="Email" required={true} invalid={true}>
-              <Input
-                placeholder="Enter your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                borderColor="pink.500"
-              />
-            </Field>
-            <Field label="Password" required={true} invalid={true}>
-              <Input
-                type="password"
-                placeholder="Enter your Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                borderColor="pink.500"
-              />
-            </Field>
-            <Field
-              label="Confirm Password"
-              required={true}
-              errorText={
-                confirmPassword && password !== confirmPassword
-                  ? "Passwords do not match"
-                  : ""
-              }
-              invalid={true}
-            >
-              <Input
-                type="password"
-                placeholder="Re-enter your Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                borderColor="pink.500"
-              />
-            </Field>
-
-            <Button
-              variant="subtle"
-              w="full"
-              colorPalette={"purple"}
-              onClick={handleSendOtp}
-              disabled={
-                !name ||
-                !mobileNo ||
-                !email ||
-                !password ||
-                !confirmPassword ||
-                !graduationYear ||
-                confirmPassword !== password
-              }
-            >
-              Generate OTP
-            </Button>
-            <Field label="Enter OTP">
-              <PinInput
-                color="purple.500"
+              <Button
+                variant="subtle"
+                w="full"
                 colorPalette={"purple"}
-                count={6}
-                onChange={(e) => setOtp(e.target.value)}
-              />
-            </Field>
+                onClick={handleSendOtp}
+                disabled={
+                  !name ||
+                  !mobileNo ||
+                  !email ||
+                  !password ||
+                  !confirmPassword ||
+                  !graduationYear ||
+                  confirmPassword !== password
+                }
+              >
+                Generate OTP
+              </Button>
+              <Field label="Enter OTP">
+                <PinInput
+                  color="purple.500"
+                  colorPalette={"purple"}
+                  count={6}
+                  onChange={(e) => setOtp(e.target.value)}
+                />
+              </Field>
 
-            <Button
-              type="submit"
-              w="full"
-              colorPalette={"purple"}
-              onClick={handleRegister}
-              disabled={
-                !name ||
-                !mobileNo ||
-                !email ||
-                !password ||
-                !confirmPassword ||
-                !graduationYear ||
-                confirmPassword !== password ||
-                !otp
-              }
-            >
-              Verify OTP & Register
-            </Button>
+              <Button
+                type="submit"
+                w="full"
+                colorPalette={"purple"}
+                onClick={handleRegister}
+                disabled={
+                  !name ||
+                  !mobileNo ||
+                  !email ||
+                  !password ||
+                  !confirmPassword ||
+                  !graduationYear ||
+                  confirmPassword !== password ||
+                  !otp
+                }
+              >
+                Verify OTP & Register
+              </Button>
 
-            <Text fontSize="sm" textAlign="center">
-              Already Having Account?{" "}
-              <Link color="purple.500" fontWeight="semibold" href="/login">
-                Login
-              </Link>
-            </Text>
-          </Fieldset.Root>
-        </Flex>
+              <Text fontSize="sm" textAlign="center">
+                Already Having Account?{" "}
+                <Link color="purple.500" fontWeight="semibold" href="/login">
+                  Login
+                </Link>
+              </Text>
+            </Fieldset.Root>
+          </Flex>
+        </Card.Root>
       </Flex>
     </>
   );

@@ -26,9 +26,12 @@ import {
 
 } from "../controllers/user.controller.js"
 
+
 import { sendOTP } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js"
+import { CollegeDB } from "../models/collegeDb.model.js";
 // import { verifyRefreshToken } from "../middlewares/refreshToken.middleware.js";
+
 
 const router = Router();
 
@@ -57,6 +60,27 @@ router.route("/mentors-or-mentees").get(verifyJWT, getMentorsOrMentees);
 router.route('/send-otp').post(sendOTP);
 router.route('/verify-otp').post(verifyOTP);
 // router.route("/refresh-access-token").post(verifyRefreshToken, refreshAccessToken);
+
+router.post('/insert', async (req, res) => {
+    try {
+        const dataArray = req.body;
+
+        if (!Array.isArray(dataArray)) {
+            return res.status(400).json({ error: 'Request body must be an array of objects' });
+        }
+
+        const insertedData = await CollegeDB.insertMany(dataArray, { ordered: false }); // `ordered: false` skips duplicates
+
+        res.status(201).json({ message: 'Data inserted successfully', insertedCount: insertedData.length });
+    } catch (error) {
+        console.error(error);
+        if (error.code === 11000) {
+            res.status(400).json({ error: 'Duplicate key error' });
+        } else {
+            res.status(500).json({ error: 'An error occurred while inserting data' });
+        }
+    }
+});
 
 
 export default router;

@@ -87,7 +87,7 @@ const AllJobs = () => {
   });
 
   return (
-    <Box p={6} bg="gray.100">
+    <Box p={6} >
       <Heading size="lg" mb={4} color="pink.700">My Jobs</Heading>
       
       {/* Search and Filter Inputs */}
@@ -98,7 +98,7 @@ const AllJobs = () => {
       </HStack>
 
       {!jobsLoading && filteredJobs.length > 0 && filteredJobs.map((job) => (
-        <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" bg="white">
+        <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" >
           <Stack direction={{ base: "column", md: "row" }} align={{ base: "center", md: "flex-start" }} spacing={4}>
             <Image src={job.logo} alt="Company Logo" boxSize={{ base: "80px", md: "50px" }} objectFit="contain" borderRadius="md" />
             <Box flex="1" textAlign={{ base: "center", md: "left" }}>
@@ -120,7 +120,7 @@ const AllJobs = () => {
         </Box>
       ))}
       {jobsLoading && Array.from({ length: 5 }).map((_, index) => (
-        <Box key={index} p={6} mb={4} boxShadow="lg" borderRadius="md" bg="white">
+        <Box key={index} p={6} mb={4} boxShadow="lg" borderRadius="md" >
           <Stack direction={{ base: "column", md: "row" }} align={{ base: "center", md: "flex-start" }} spacing={4}>
             <Skeleton height="80px" width="80px" />
             <Box flex="1">

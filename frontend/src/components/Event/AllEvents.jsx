@@ -28,13 +28,13 @@ const AllEvents = () => {
   };
 
   return (
-    <Box p={6} bg="gray.100">
+    <Box p={6} >
       <Text fontSize="2xl" fontWeight="bold" mb={4} color="pink.700">All Events</Text>
       {loading ? (
         <Text>Loading events...</Text>
       ) : (
         events.map((event) => (
-          <Box key={event._id} p={4} bg="white" mb={3} borderRadius="md" shadow="md">
+          <Box key={event._id} p={4}  mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
               <Image src={event.banner} alt={event.title} boxSize="80px" />
               <Box flex="1">
@@ -60,7 +60,7 @@ const AllEvents = () => {
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          bg="white"
+          
           p={6}
           borderRadius="md"
           boxShadow="lg"

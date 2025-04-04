@@ -1,31 +1,14 @@
 // routes/apiRoutes.js
 import express from "express";
-import { applyForJob, participateInEvent } from "../controllers/jobEventController.js";
-import { updateComment, deleteComment, getPostComments, getEventComments } from "../controllers/commentController.js";
-import { searchAlumni, searchStudents } from "../controllers/userController.js";
+// import { applyForJob, participateInEvent } from "../controllers/jobEventController.js";
+// import { updateComment, deleteComment, getPostComments, getEventComments } from "../controllers/commentController.js";
+// import { searchAlumni, searchStudents } from "../controllers/userController.js";
 
 const router = express.Router();
 
-// Job and Event Routes
-router.post("/jobs/:jobId/apply", applyForJob);
-router.post("/events/:eventId/participate", participateInEvent);
-
-// Comment Routes
-router.put("/comments/:commentId", updateComment);
-router.delete("/comments/:commentId", deleteComment);
-router.get("/posts/:postId/comments", getPostComments);
-router.get("/events/:eventId/comments", getEventComments);
-
-// User Search Routes
-router.get("/users/alumni", searchAlumni);
-router.get("/users/students", searchStudents);
-
-export default router;
-
-
 // controllers/jobEventController.js
-import { Job } from "../models/job.js";
-import { Event } from "../models/event.js";
+import {Job} from "../models/job.model.js";
+import {Event} from "../models/event.model.js";
 
 // Apply for a Job
 export const applyForJob = async (req, res) => {
@@ -61,7 +44,7 @@ export const participateInEvent = async (req, res) => {
 
 
 // controllers/commentController.js
-import { Comment } from "../models/comment.js";
+import  {Comment}  from "../models/comment.model.js";
 
 // Update a Comment
 export const updateComment = async (req, res) => {
@@ -107,7 +90,7 @@ export const getEventComments = async (req, res) => {
 
 
 // controllers/userController.js
-import { User } from "../models/user.js";
+import {User} from "../models/user.model.js";
 
 // Search Alumni
 export const searchAlumni = async (req, res) => {
@@ -130,3 +113,18 @@ export const searchStudents = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+router.post("/jobs/:jobId/apply", applyForJob);
+router.post("/events/:eventId/participate", participateInEvent);
+
+// Comment Routes
+router.put("/comments/:commentId", updateComment);
+router.delete("/comments/:commentId", deleteComment);
+router.get("/posts/:postId/comments", getPostComments);
+router.get("/events/:eventId/comments", getEventComments);
+
+// User Search Routes
+router.get("/users/alumni", searchAlumni);
+router.get("/users/students", searchStudents);
+
+export default router;

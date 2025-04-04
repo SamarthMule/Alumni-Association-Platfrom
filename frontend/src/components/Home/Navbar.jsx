@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <Box
-      bg="white"
+      
       px={4}
       py={4}
       boxShadow="lg"
@@ -148,7 +148,7 @@ const Navbar = () => {
     position="absolute"
     top="60px"
     right="20px"
-    bg="white"
+    
     boxShadow="2xl"
     borderRadius="lg"
     p={5}
@@ -185,7 +185,7 @@ const Navbar = () => {
           px={4}
           py={2}
           textAlign="center"
-          bg="gray.100"
+          
           transition="0.3s"
           _hover={{
             bg: "blue.500",
