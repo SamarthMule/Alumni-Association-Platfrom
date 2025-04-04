@@ -22,7 +22,8 @@ import {
     getFollowersAndFollowing,
     getMentorsOrMentees,
     getAllUsers,
-    verifyOTP
+    verifyOTP,
+
 
 } from "../controllers/user.controller.js"
 
@@ -60,6 +61,7 @@ router.route("/mentors-or-mentees").get(verifyJWT, getMentorsOrMentees);
 router.route('/send-otp').post(sendOTP);
 router.route('/verify-otp').post(verifyOTP);
 // router.route("/refresh-access-token").post(verifyRefreshToken, refreshAccessToken);
+
 
 router.post('/insert', async (req, res) => {
     try {

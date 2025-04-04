@@ -6,7 +6,7 @@ import {
     getBlockedEntities,
     uploadStudents,
     getAdminStats,
-    getAllUsers,getAllJobs,deleteJob ,getAllEvents,deleteEvent // ✅ Import getAllUsers function
+    getAllUsers,getAllJobs,deleteJob ,getAllEvents,deleteEvent,deleteUser // ✅ Import getAllUsers function
 } from "../controllers/admin.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -14,6 +14,7 @@ import { verifyAdmin } from "../middlewares/admin.middleware.js";
 
 const router = Router();
 
+router.route('/:id').delete(verifyJWT, deleteUser);
 router.get("/blocked/:entityName", verifyJWT, verifyAdmin, getBlockedEntities);
 router.put("/block-unblock/:entityName/:id", verifyJWT, verifyAdmin, blockOrUnblockEntity);
 router.post("/students/upload", verifyJWT, verifyAdmin, upload.single("attachment"), uploadStudents);

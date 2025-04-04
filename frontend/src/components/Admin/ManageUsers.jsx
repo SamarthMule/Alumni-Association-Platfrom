@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Text, VStack, Spinner, Center, Button, Flex, Grid } from "@chakra-ui/react";
+import { Box, Text, VStack, Spinner, Center, Button, Flex, Grid ,Dialog} from "@chakra-ui/react";
 import axios from "axios";
 
 const ManageUsers = () => {
@@ -7,6 +7,8 @@ const ManageUsers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     axios.get("/api/v1/admin/users")
@@ -22,6 +24,28 @@ const ManageUsers = () => {
 
   const handleViewProfile = (user) => {
     setSelectedUser(user);
+  };
+
+  const handleDeleteUser = (userId) => {
+    axios.delete(`/api/v1/admin/${userId}`)
+      .then(() => {
+        setUsers(users.filter(user => user._id !== userId));
+        setSelectedUser(null);
+        setIsDialogOpen(false);
+      })
+      .catch(() => {
+        setError("Failed to delete user");
+      });
+  };
+
+  const openDeleteDialog = (userId) => {
+    setUserToDelete(userId);
+    setIsDialogOpen(true);
+  };
+
+  const closeDeleteDialog = () => {
+    setIsDialogOpen(false);
+    setUserToDelete(null);
   };
 
   if (loading) return <Center h="100vh"><Spinner size="xl" /></Center>;
@@ -46,6 +70,30 @@ const ManageUsers = () => {
                   <Button colorScheme="blue" onClick={() => handleViewProfile(user)}>
                     View Profile
                   </Button>
+                  <Dialog.Root>
+          <Dialog.Trigger >
+            <Button colorPalette='red'>Delete</Button>
+          </Dialog.Trigger>
+          <Dialog.Backdrop  />
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.CloseTrigger />
+              <Dialog.Header>
+                <Dialog.Title>Confirm Deletion</Dialog.Title>
+                
+              </Dialog.Header>
+              <Dialog.Body>
+                <Text>Are you sure you want to delete this user? This action cannot be undone.</Text>
+              </Dialog.Body>
+              <Dialog.Footer>
+                
+                <Button colorScheme="red" onClick={() => handleDeleteUser(userToDelete)}>
+                  Delete
+                </Button>
+              </Dialog.Footer>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Dialog.Root>
                 </Flex>
               ))
             )}
@@ -53,7 +101,7 @@ const ManageUsers = () => {
         </Box>
         
         {/* Centered Profile Box */}
-        <Box p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg"  maxW="500px" w="100%" display={selectedUser ? "block" : "none"}>
+        <Box p={6} borderWidth="1px" borderRadius="lg" boxShadow="lg" maxW="500px" w="100%" display={selectedUser ? "block" : "none"}>
           {selectedUser ? (
             <>
               <Text fontSize="2xl" fontWeight="bold" mb={4} color="purple.700" textAlign="center">User Profile</Text>
@@ -67,6 +115,9 @@ const ManageUsers = () => {
           )}
         </Box>
       </Grid>
+
+      {/* Delete Confirmation Dialog */}
+      
     </Center>
   );
 };

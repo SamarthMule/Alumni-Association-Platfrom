@@ -597,9 +597,6 @@ const getSuggestedUsers = async (req, res) => {
 // ✅ `getAllUsers` -> Applies filters to all non-blocked users & supports pagination
 // ✅ `getSuggestedUsers` -> Applies filters only to suggested users (friends of friends, mentors of friends) & returns up to 8 users
 
-
-
-
 export {
 
     checkAccess,
@@ -622,5 +619,6 @@ export {
     getFollowersAndFollowing,
     getMentorsOrMentees,
     getAllUsers,
-    verifyOTP
+    verifyOTP,
+
 }

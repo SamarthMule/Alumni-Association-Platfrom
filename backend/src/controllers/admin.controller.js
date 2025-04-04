@@ -204,6 +204,22 @@ const deleteEvent = async (req, res) => {
         res.status(500).json({ message: "Failed to delete event", error });
     }
 };
+
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const deletedUser = await User.findByIdAndDelete(userId);
+        if (!deletedUser) return res.status(404).json({ message: "User not found" });
+
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        console.log(`\n\n\nError in deleteUser : `, error)
+        res.status(500).json({ message: "Error occurred in deleteUser", error });
+    }
+}
+
+
 export {
     blockOrUnblockEntity,
     getAdminStats,
@@ -211,7 +227,8 @@ export {
     getAllJobs,
     getBlockedEntities,
     uploadStudents,
-     deleteJob,getAllEvents, deleteEvent ,  // ✅ Added this export
+     deleteJob,getAllEvents, deleteEvent , deleteUser
+      // ✅ Added this export
 };
 
 
