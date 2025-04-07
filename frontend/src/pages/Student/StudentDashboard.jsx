@@ -13,6 +13,8 @@ const StudentDashboard = () => {
     const [events, setEvents] = useState([]);
     const { homeBG } = useColorTheme();
 
+    
+
     const fetchEvents = async () => {
         try {
           const response = await axios.get("/api/v1/events");
@@ -22,11 +24,20 @@ const StudentDashboard = () => {
         } 
       };
 
+      useEffect(() => {
+        fetchChats();
+        fetchJobs();
+        fetchEvents();
+    }
+    ,[]);
+
+
     const chatItems = chats.slice(0,3).map((chat) => {
+        const sender = getSenderFull(user, chat.users);
         return {
-            heading: chat.isGroupChat ? chat.chatName : getSenderFull(user,chat.users).name,
-            subHeading: chat.latestMessage?.content,
-            dateModeLocation: chat.latestMessage?.date
+            heading: chat.isGroupChat ? chat.chatName : sender?.name || "Unknown",
+            subHeading: chat.latestMessage?.content || "",
+            dateModeLocation: chat.latestMessage?.date || ""
         };
     });
 
@@ -48,13 +59,7 @@ const StudentDashboard = () => {
         };
     });
 
-    useEffect(() => {
-        fetchChats();
-        fetchJobs();
-        fetchEvents();
-    }
-    ,[]);
-
+    
 
     return (
         <Box  minH="100vh" p={5} bg={homeBG}>

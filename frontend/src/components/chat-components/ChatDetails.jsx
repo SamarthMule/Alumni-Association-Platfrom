@@ -17,13 +17,15 @@ export function ChatDetails({
 
   const fontColor = selectedChat?._id === chat._id ? "white" : "pink.500";
 
+  const senderFull = getSenderFull(loggedInUser, chat.users); // ✅ Safe assignment
+
   return (
-     <Box
+    <Box
       w="100%"
       key={chat._id}
       p={3}
       onClick={() => setSelectedChat(chat)}
-      bg={{ base: "transperant", md: chatDetailsBG }} // color={selectedChat === chat._id ? "white" : "black"}
+      bg={{ base: "transparent", md: chatDetailsBG }}
       color={fontColor}
       borderBottomWidth="1px"
       sx={{
@@ -34,35 +36,39 @@ export function ChatDetails({
       }}
     >
       <HStack>
-        <Avatar.Root size='sm'>
-          <Avatar.Fallback name={
-            !chat.isGroupChat
-              ? getSender(loggedInUser, chat.users)
-              : chat.chatName
-          } />
-          <Avatar.Image src={
-            !chat.isGroupChat
-              ? getSenderFull(loggedInUser, chat.users).avatar
-              : chat.groupChatProfilePic
-          } />
+        <Avatar.Root size="sm">
+          <Avatar.Fallback
+            name={
+              !chat.isGroupChat
+                ? getSender(loggedInUser, chat.users)
+                : chat.chatName
+            }
+          />
+          <Avatar.Image
+            src={
+              !chat.isGroupChat
+                ? senderFull?.avatar // ✅ Safe access with optional chaining
+                : chat.groupChatProfilePic
+            }
+          />
         </Avatar.Root>
-        {/* {console.log("===  ChatDetails.jsx [50] ===", chat.latestMessage)} */}
+
         <Box>
           <Text fontWeight="bold" fontSize="1.1rem">
             {!chat.isGroupChat
               ? getSender(loggedInUser, chat.users)
               : chat.chatName}
           </Text>
+
           {chat.latestMessage && (
-            <HStack
-              fontSize="sm" // color={selectedChat === chat._id ? "white" : "gray.500"}
-            >
-              {chat.latestMessage?.sender?.name ===
-                loggedInUser.name ? (
+            <HStack fontSize="sm">
+              {chat.latestMessage?.sender?.name === loggedInUser.name ? (
                 <Text fontWeight="bold">You:</Text>
               ) : (
                 chat.isGroupChat && (
-                  <Text fontWeight="bold">{chat.latestMessage?.sender?.name}:</Text>
+                  <Text fontWeight="bold">
+                    {chat.latestMessage?.sender?.name}:
+                  </Text>
                 )
               )}
               <Text>{chat.latestMessage?.content}</Text>
@@ -73,4 +79,5 @@ export function ChatDetails({
     </Box>
   );
 }
+
 export default ChatDetails;
