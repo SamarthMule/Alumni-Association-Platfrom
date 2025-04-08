@@ -1,6 +1,14 @@
 // AllEvents.jsx (View Details in Centered Box)
-import React, { useState, useEffect } from "react";
-import { Box, Button, Text, HStack, Badge, Stack, Image } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Text,
+  HStack,
+  Badge,
+  Stack,
+  Image,
+} from "@chakra-ui/react";
 import axios from "axios";
 
 const AllEvents = () => {
@@ -28,26 +36,39 @@ const AllEvents = () => {
   };
 
   return (
-    <Box p={6} >
-      <Text fontSize="2xl" fontWeight="bold" mb={4} color="pink.700">All Events</Text>
+    <Box p={6}>
+      <Text fontSize="2xl" fontWeight="bold" mb={4} color="pink.700">
+        All Events
+      </Text>
       {loading ? (
         <Text>Loading events...</Text>
       ) : (
         events.map((event) => (
-          <Box key={event._id} p={4}  mb={3} borderRadius="md" shadow="md">
+          <Box key={event._id} p={4} mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-              <Image src={event.banner} alt={event.title} boxSize="80px" />
+              <Image src={event.banner} alt={event.title} width="100px" objectFit='contain' />
               <Box flex="1">
-                <Text fontSize="lg" fontWeight="bold" color="pink.800">{event.title}</Text>
+                <Text fontSize="lg" fontWeight="bold" color="pink.800">
+                  {event.title}
+                </Text>
                 <Text fontSize="sm" color="gray.500">
-                  {new Date(event.date).toLocaleDateString("en-GB")} | {event.time} | {event.location}
+                  {new Date(event.date).toLocaleDateString("en-GB")} |{" "}
+                  {event.time} | {event.location}
                 </Text>
                 <Text fontSize="md">{event.description}</Text>
                 <HStack>
-                  <Badge colorScheme="green">Participants: {event.participants.length}</Badge>
+                  <Badge colorScheme="green">
+                    Participants: {event.participants.length}
+                  </Badge>
                 </HStack>
               </Box>
-              <Button colorScheme="blue" onClick={() => handleViewDetails(event)} bg="orange.700">View Details</Button>
+              <Button
+                colorScheme="blue"
+                onClick={() => handleViewDetails(event)}
+                bg="orange.700"
+              >
+                View Details
+              </Button>
             </Stack>
           </Box>
         ))
@@ -60,20 +81,52 @@ const AllEvents = () => {
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          
+          bgColor="white"
           p={6}
           borderRadius="md"
           boxShadow="lg"
           width={{ base: "90%", md: "50%" }}
           zIndex={1000}
         >
-          <Text fontSize="xl" fontWeight="bold" mb={2}>{selectedEvent.title}</Text>
-          <Text><strong>Date:</strong> {new Date(selectedEvent.date).toLocaleDateString("en-GB")}</Text>
-          <Text><strong>Time:</strong> {selectedEvent.time}</Text>
-          <Text><strong>Location:</strong> {selectedEvent.location}</Text>
-          <Text><strong>Description:</strong> {selectedEvent.description}</Text>
-          <Text><strong>Participants:</strong> {selectedEvent.participants.length}</Text>
-          <Button mt={4} colorScheme="blue" onClick={() => setSelectedEvent(null)}>Close</Button>
+          <HStack>
+            <Box>
+              <Text fontSize="xl" fontWeight="bold" mb={2}>
+                {selectedEvent.title}
+              </Text>
+              <Text>
+                <strong>Date:</strong>{" "}
+                {new Date(selectedEvent.date).toLocaleDateString("en-GB")}
+              </Text>
+              <Text>
+                <strong>Time:</strong> {selectedEvent.time}
+              </Text>
+              <Text>
+                <strong>Location:</strong> {selectedEvent.location}
+              </Text>
+              <Text>
+                <strong>Description:</strong> {selectedEvent.description}
+              </Text>
+              <Text>
+                <strong>Participants:</strong>{" "}
+                {selectedEvent.participants.length}
+              </Text>
+            </Box>
+            <Image
+              src={selectedEvent.banner}
+              alt={selectedEvent.title}
+              w="200px"
+              borderRadius="md"
+              ml={4}
+              objectFit="cover"
+            />
+          </HStack>
+          <Button
+            mt={4}
+            colorScheme="blue"
+            onClick={() => setSelectedEvent(null)}
+          >
+            Close
+          </Button>
         </Box>
       )}
     </Box>

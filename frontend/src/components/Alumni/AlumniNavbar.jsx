@@ -14,11 +14,13 @@ import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { FaUserCircle, FaBars } from "react-icons/fa";
 import LogoutButton from "../common/LogoutButton";
 import {getSenderFull} from "../../config/ChatLogics"
+import useColorTheme from "../../hooks/useColorTheme";
 
 const StudentNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {chatBoxHeaderFooterBG} = useColorTheme()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,13 +37,13 @@ const StudentNavbar = () => {
 
   return (
     <Box
-      
       px={6}
       py={4}
       boxShadow="lg"
       position="sticky"
       top={0}
       zIndex={1000}
+      bgColor={chatBoxHeaderFooterBG}
     >
       <Flex
         h={16}

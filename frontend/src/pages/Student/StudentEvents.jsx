@@ -44,7 +44,7 @@ const StudentEvents = () => {
         <Box flex="1" p={5} w="full">
           {selectedTab === "all" && !showCreateJobForm && <AllEvents />}
           {selectedTab === "my" && !showCreateJobForm && <MyEvents />}
-          {showCreateJobForm && <CreateEvent onClose={() => setShowCreateJobForm(false)} />}
+
         </Box>
       </Flex>
     </Box>

@@ -11,11 +11,14 @@ import {
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import { FaUserCircle, FaBars } from "react-icons/fa";
+import LogoutButton from "../common/LogoutButton";
+import useColorTheme from "../../hooks/useColorTheme";
 
 const EventNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {chatBoxHeaderFooterBG} = useColorTheme()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -42,6 +45,7 @@ const EventNavbar = () => {
       py={4}
       boxShadow="lg"
       position="sticky"
+      bgColor={chatBoxHeaderFooterBG}
       top={0}
       zIndex={1000}
     >
@@ -129,9 +133,7 @@ const EventNavbar = () => {
           {item.name}
         </MenuItem>
       ))}
-      <MenuItem color="red.500" onClick={handleLogout}>
-        Logout
-      </MenuItem>
+      <LogoutButton/>
     </VStack>
   </MenuContent>
 </MenuRoot>

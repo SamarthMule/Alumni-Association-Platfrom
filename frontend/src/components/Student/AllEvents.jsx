@@ -78,7 +78,7 @@ const AllEvents = () => {
         filteredEvents.map((event) => (
           <Card.Root key={event._id} p={4}  mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-              <Image src={event.banner} alt={event.title} boxSize="80px" />
+              <Image src={event.banner} alt={event.title} width="100px" objectFit='contain' />
               <Box flex="1">
                 <Text fontSize="lg" fontWeight="bold" color="pink.800">{event.title}</Text>
                 <Text fontSize="sm" color="gray.500">
@@ -106,7 +106,7 @@ const AllEvents = () => {
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          
+          bg="white"
           p={6}
           borderRadius="md"
           boxShadow="lg"

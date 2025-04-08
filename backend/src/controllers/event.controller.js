@@ -15,6 +15,7 @@ import { Survey } from "../models/survey.model.js";
 import { Feedback } from "../models/feedback.model.js";
 import { Event } from "../models/event.model.js"
 import { User } from "../models/user.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 // Event controllers
 const createEvent = async (req, res) => {
@@ -27,12 +28,24 @@ const createEvent = async (req, res) => {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
+        let bannerUrl = null;
+        if (req.file) {
+            const localPath = req.file.path;
+            console.log("Uploading banner from path:", localPath);
+            const banner = await uploadOnCloudinary(localPath);
+            if (!banner.url) {
+                return res.status(400).json({ message: "Error while uploading banner on Cloudinary" });
+            }
+            bannerUrl = banner.url;
+        }
+
         const event = await Event.create({
             title,
             description,
             date,
             time,
             location,
+            banner: bannerUrl,
             organized_by: [req.user._id]
         });
 

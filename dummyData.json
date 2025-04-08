@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Student User",
+        "gender": "Male",
+        "mobile_no": "1234567890",
+        "email": "student@gmail.com",
+        "password": "",
+        "graduation_year": "2024-01-01T00:00:00.000Z",
+        "current_status": "Undergraduate Student"
+    },
+    {
+        "name": "Event Manager",
+        "gender": "Female",
+        "mobile_no": "2345678901",
+        "email": "eventmanager@gmail.com",
+        "password": "",
+        "graduation_year": "2020-01-01T00:00:00.000Z",
+        "current_status": "Event Coordinator"
+    },
+    {
+        "name": "Admin User",
+        "gender": "Non-binary",
+        "mobile_no": "3456789012",
+        "email": "admin@gmail.com",
+        "password": "",
+        "graduation_year": "2015-01-01T00:00:00.000Z",
+        "current_status": "System Administrator"
+    },
+    {
+        "name": "Alumni User",
+        "gender": "Female",
+        "mobile_no": "4567890123",
+        "email": "alumni@gmail.com",
+        "password": "",
+        "graduation_year": "2018-01-01T00:00:00.000Z",
+        "current_status": "Marketing Manager"
+    }
+]

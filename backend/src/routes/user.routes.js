@@ -66,12 +66,14 @@ router.route('/verify-otp').post(verifyOTP);
 router.post('/insert', async (req, res) => {
     try {
         const dataArray = req.body;
+        console.log('=== dataArray user.routes.js [69] ===', dataArray);
 
         if (!Array.isArray(dataArray)) {
             return res.status(400).json({ error: 'Request body must be an array of objects' });
         }
 
-        const insertedData = await CollegeDB.insertMany(dataArray, { ordered: false }); // `ordered: false` skips duplicates
+        const validatedData = dataArray.map(item => new CollegeDB(item).toObject());
+        const insertedData = await CollegeDB.insertMany(validatedData, { ordered: false }); // `ordered: false` skips duplicates
 
         res.status(201).json({ message: 'Data inserted successfully', insertedCount: insertedData.length });
     } catch (error) {

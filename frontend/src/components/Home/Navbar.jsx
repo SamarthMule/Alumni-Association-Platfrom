@@ -11,9 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
+import useColorTheme from "../../hooks/useColorTheme";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { chatBoxHeaderFooterBG } = useColorTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,6 +33,7 @@ const Navbar = () => {
       py={4}
       boxShadow="lg"
       position="sticky"
+      bgColor={chatBoxHeaderFooterBG}
       top={0}
       zIndex={1000}
     >
