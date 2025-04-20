@@ -49,6 +49,7 @@ const UserChats = () => {
 
   const [selectedUsers, setSelectedUsers] = useState([]);
   const navigate = useNavigate();
+  const redirect = user.role === "student" ? "student" : "alumni";
 
   const handleDeleteUsers = async () => {
     await axios
@@ -110,7 +111,7 @@ const UserChats = () => {
             variant="outline"
             display="flex"
             gap={3}
-            onClick={() => navigate("/student/network")}
+            onClick={() => navigate(`/${redirect}/network`)}
           >
             <AddIcon />
           </IconButton>
