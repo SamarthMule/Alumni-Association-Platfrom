@@ -4,7 +4,6 @@ import {
   Flex,
   Heading,
   Image,
-  Link,
   Button,
   VStack,
   Text,
