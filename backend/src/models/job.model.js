@@ -7,11 +7,12 @@ const jobSchema = new Schema(
         company: { type: String, required: true },
         location: { type: String, required: true },
         skillsRequired: { type: [String], required: true },
+        bannerUrl: { type: String },
         deadline: { type: Date },
         applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
         referredBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
         contactInfo: {
-            email: { type: String, required: true },
+            // email: { type: String, required: true },
             mobile: { type: String, required: true },
             website: { type: String }
         },

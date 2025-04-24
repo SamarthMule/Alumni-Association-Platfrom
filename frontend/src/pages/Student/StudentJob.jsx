@@ -27,7 +27,7 @@ const StudentJob = () => {
               Find Jobs
             </Button>
 
-            <Button
+            {/* <Button
               colorScheme="purple"
               variant={selectedTab === "my" ? "solid" : "ghost"}
               _hover={{ bg: "purple.300" }}
@@ -38,14 +38,14 @@ const StudentJob = () => {
               w="full"
             >
               Applied Jobs
-            </Button>
+            </Button> */}
           </VStack>
         </Box>
 
         {/* Main Content Area */}
         <Box flex="1" p={5} w="full">
           {selectedTab === "all" && !showCreateJobForm && <FindJobs />}
-          {selectedTab === "my" && !showCreateJobForm && <AppliedJobs />}
+          {/* {selectedTab === "my" && !showCreateJobForm && <AppliedJobs />} */}
         </Box>
       </Flex>
     </Box>

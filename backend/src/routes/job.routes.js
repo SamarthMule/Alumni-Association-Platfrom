@@ -18,7 +18,7 @@ import { verifyAlumni } from "../middlewares/alumni.middleware.js";
 const router = Router();
 
 router.get("/myjobs", verifyJWT, getUserJobPosts);
-router.post("/", verifyJWT, createJob);
+router.post("/", verifyJWT,upload.single("banner"), createJob);
 router.put("/:id", verifyJWT, updateJob);
 router.delete("/:id", verifyJWT, deleteJob);
 router.get("/:id", verifyJWT, getJobById);

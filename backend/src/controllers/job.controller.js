@@ -22,19 +22,30 @@ const createJob = async (req, res) => {
         if (!skillsRequired || skillsRequired.length === 0)
             missingFields.push("skillsRequired");
         if (!contactInfo) missingFields.push("contactInfo");
-        if (contactInfo && !contactInfo.email)
-            missingFields.push("email in contactInfo");
+        // if (contactInfo && !contactInfo.email)
+        //     missingFields.push("email in contactInfo");
         if (contactInfo && !contactInfo.mobile)
             missingFields.push("mobile in contactInfo");
-
+        let bannerUrl = null;
+        
         if (missingFields.length > 0)
             return res
-                .status(400)
-                .json({
-                    message: `${missingFields.join(", ")} ${
-                        missingFields.length > 1 ? "are" : "is"
-                    } required`,
-                });
+        .status(400)
+        .json({
+            message: `${missingFields.join(", ")} ${missingFields.length > 1 ? "are" : "is"
+            } required`,
+        });
+        
+        if (req.file) {
+            const localPath = req.file.path;
+            console.log("Uploading banner from path:", localPath);
+            const banner = await uploadOnCloudinary(localPath);
+            if (!banner.url) {
+                return res.status(400).json({ message: "Error while uploading banner on Cloudinary" });
+            }
+            bannerUrl = banner.url;
+        }
+
         const job = new Job({
             title,
             description,
@@ -43,6 +54,7 @@ const createJob = async (req, res) => {
             skillsRequired,
             deadline,
             contactInfo,
+            bannerUrl,
         });
         job.referredBy.push(req.user._id);
         job.creator = req.user._id;
@@ -235,10 +247,10 @@ const getFilteredJobs = async (jobs, filter, sortBy) => {
     let filteredJobs =
         query.length > 0
             ? jobs.filter((job) =>
-                  query.every((q) =>
-                      Object.keys(q).some((key) => q[key].test(job[key] || ""))
-                  )
-              )
+                query.every((q) =>
+                    Object.keys(q).some((key) => q[key].test(job[key] || ""))
+                )
+            )
             : jobs;
 
     if (sortBy) {
