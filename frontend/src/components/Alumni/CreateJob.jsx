@@ -129,11 +129,11 @@ const CreateJob = () => {
           onChange={handleChange}
         />
         <HStack gap={3}>
-          <Input
+          {/* <Input
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+          /> */}
           <Input
             placeholder="Phone"
             value={mobile}
@@ -177,16 +177,16 @@ const CreateJob = () => {
         />
 
         {/* Hidden File Input */}
-        <Input
+        {/* <Input
           type="file"
           accept="image/*"
           ref={fileInputRef}
           onChange={handleFileChange}
           hidden
-        />
+        /> */}
 
         {/* Custom Button to Trigger File Input */}
-        <Button
+        {/* <Button
           width="100%"
           colorScheme="blue"
           backgroundColor="gray.300"
@@ -194,7 +194,7 @@ const CreateJob = () => {
           onClick={() => fileInputRef.current.click()}
         >
           {fileName}
-        </Button>
+        </Button> */}
 
         {/* Preview uploaded image */}
         {preview && (

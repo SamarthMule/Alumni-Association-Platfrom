@@ -172,13 +172,13 @@ const MyJobs = () => {
               align={{ base: "center", md: "flex-start" }}
               spacing={4}
             >
-              <Image
-                src={job.logo}
+              {/* <Image
+                src={job.bannerUrl}
                 alt="Company Logo"
                 boxSize={{ base: "80px", md: "50px" }}
                 objectFit="contain"
                 borderRadius="md"
-              />
+              /> */}
               <Box flex="1" textAlign={{ base: "center", md: "left" }}>
               <Text fontSize="lg" fontWeight="bold" color="pink.800">
                   Role: {job.title}

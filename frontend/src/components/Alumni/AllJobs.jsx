@@ -100,7 +100,7 @@ const AllJobs = () => {
       {!jobsLoading && filteredJobs.length > 0 && filteredJobs.map((job) => (
         <Box key={job.id} p={6} mb={4} boxShadow="lg" borderRadius="md" >
           <Stack direction={{ base: "column", md: "row" }} align={{ base: "center", md: "flex-start" }} spacing={4}>
-            <Image src={job.logo} alt="Company Logo" boxSize={{ base: "80px", md: "50px" }} objectFit="contain" borderRadius="md" />
+            {/* <Image src={job.bannerUrl} alt="Company Logo" boxSize={{ base: "80px", md: "50px" }} objectFit="contain" borderRadius="md" /> */}
             <Box flex="1" textAlign={{ base: "center", md: "left" }}>
               <Text fontSize="lg" fontWeight="bold" color="pink.800">Role: {job.title}</Text>
               <Text fontSize="lg" fontWeight="bold" color="pink.800">{job.company}</Text>

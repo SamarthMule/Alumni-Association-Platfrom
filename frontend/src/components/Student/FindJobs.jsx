@@ -108,7 +108,7 @@ const FindJobs = () => {
               </Box>
               <HStack>
                 <Button colorScheme="teal" onClick={() => setViewJob(job)}>View Details</Button>
-                <Button colorScheme="blue" onClick={() => setApplyJobId(job._id)}>Apply</Button>
+                {/* <Button colorScheme="blue" onClick={() => setApplyJobId(job._id)}>Apply</Button> */}
               </HStack>
             </Stack>
           </Card.Root>
