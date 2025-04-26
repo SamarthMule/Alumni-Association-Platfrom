@@ -57,7 +57,7 @@ const AllEvents = () => {
     return (
       eventTitle.includes(searchTerm.toLowerCase()) &&
       (!filters.location || eventLocation.includes(filters.location.toLowerCase())) &&
-      (!filters.date || eventDate === filters.date)
+      (!filters.date || new Date(eventDate).toISOString().split('T')[0] === filters.date)
     );
   });
 

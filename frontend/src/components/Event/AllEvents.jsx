@@ -8,6 +8,7 @@ import {
   Badge,
   Stack,
   Image,
+  Dialog
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -15,6 +16,16 @@ const AllEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventData, setEventData] = useState(selectedEvent || {
+    title: "",
+    date: "",
+    time: "",
+    location: "",
+    description: "",
+    banner: "",
+  });
+  
+
 
   useEffect(() => {
     fetchEvents();
@@ -28,6 +39,32 @@ const AllEvents = () => {
       console.error("Error fetching events", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEventDelete = async (eventId) => {
+    try {
+      await axios.delete(`/api/v1/events/${eventId}`);
+      setEvents((prevEvents) =>
+        prevEvents.filter((event) => event._id !== eventId)
+      );
+    } catch (error) {
+      console.error("Error deleting event", error);
+    }
+  };
+
+  const handleEditEvent = async (eventId) => {
+    try {
+      const response = await axios.put(`/api/v1/events/${eventId}`, eventData);
+      setEvents((prevEvents) =>
+        prevEvents.map((event) =>
+          event._id === eventId ? response.data.event : event
+        )
+      );
+      
+      
+    } catch (error) {
+      console.error("Error updating event", error);
     }
   };
 
@@ -46,7 +83,12 @@ const AllEvents = () => {
         events.map((event) => (
           <Box key={event._id} p={4} mb={3} borderRadius="md" shadow="md">
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-              <Image src={event.banner} alt={event.title} width="100px" objectFit='contain' />
+              <Image
+                src={event.banner}
+                alt={event.title}
+                width="100px"
+                objectFit="contain"
+              />
               <Box flex="1">
                 <Text fontSize="lg" fontWeight="bold" color="pink.800">
                   {event.title}
@@ -65,9 +107,121 @@ const AllEvents = () => {
               <Button
                 colorScheme="blue"
                 onClick={() => handleViewDetails(event)}
-                bg="orange.700"
               >
                 View Details
+              </Button>
+              <Dialog.Root>
+                <Dialog.Trigger as={Button} colorPalette="teal" onClick={() => {
+                  setEventData(event);
+                  setSelectedEvent(event);
+                }
+                }>
+                  Edit
+                </Dialog.Trigger>
+                <Dialog.Backdrop />
+                <Dialog.Positioner>
+                  <Dialog.Content>
+                    <Dialog.CloseTrigger />
+                    <Dialog.Header>
+                      Edit Event
+                    </Dialog.Header>
+                    <Dialog.Body >
+                      <Box as="form">
+                        <Stack spacing={4}>
+                          <Box>
+                            <Text fontWeight="bold">Title</Text>
+                            <input
+                              type="text"
+                              value={eventData.title}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, title: e.target.value })
+                              }
+                              placeholder="Event Title"
+                              style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            />
+                          </Box>
+                          <Box>
+                            <Text fontWeight="bold">Date</Text>
+                            <input
+                              type="date"
+                              value={eventData.date}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, date: e.target.value })
+                              }
+                              style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            />
+                          </Box>
+                          <Box>
+                            <Text fontWeight="bold">Time</Text>
+                            <input
+                              type="time"
+                              value={eventData.time}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, time: e.target.value })
+                              }
+                              style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            />
+                          </Box>
+                          <Box>
+                            <Text fontWeight="bold">Location</Text>
+                            <input
+                              type="text"
+                              value={eventData.location}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, location: e.target.value })
+                              }
+                              placeholder="Event Location"
+                              style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            />
+                          </Box>
+                          <Box>
+                            <Text fontWeight="bold">Description</Text>
+                            <textarea
+                              value={eventData.description}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, description: e.target.value })
+                              }
+                              placeholder="Event Description"
+                              style={{
+                                width: "100%",
+                                padding: "8px",
+                                borderRadius: "4px",
+                                minHeight: "80px",
+                              }}
+                            />
+                          </Box>
+                          <Box>
+                            <Text fontWeight="bold">Banner URL</Text>
+                            <input
+                              type="text"
+                              value={eventData.banner}
+                              onChange={(e) =>
+                                setEventData({ ...eventData, banner: e.target.value })
+                              }
+                              placeholder="Banner Image URL"
+                              style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            />
+                          </Box>
+                        </Stack>
+                      </Box>
+                    </Dialog.Body>
+                    <Dialog.Footer >
+                      <Button colorScheme="blue" mr={3} onClick={() => handleEditEvent(selectedEvent._id)}>
+                        Save Changes
+                      </Button>
+                      <Button variant="ghost" onClick={() => setSelectedEvent(null)}>
+                        Cancel
+                      </Button>
+                    </Dialog.Footer>
+                  </Dialog.Content>
+                </Dialog.Positioner>
+              </Dialog.Root>
+              <Button
+                colorScheme="red"
+                onClick={() => handleEventDelete(event._id)}
+                bg="red.700"
+              >
+                Delete Event
               </Button>
             </Stack>
           </Box>

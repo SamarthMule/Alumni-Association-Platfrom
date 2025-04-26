@@ -15,7 +15,7 @@ import { Survey } from "../models/survey.model.js";
 import { Feedback } from "../models/feedback.model.js";
 import { Event } from "../models/event.model.js"
 import { User } from "../models/user.model.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.js";
 
 // Event controllers
 const createEvent = async (req, res) => {
@@ -61,22 +61,24 @@ const updateEvent = async (req, res) => {
     try {
         const userId = req.user._id;
         const { id } = req.params;
+        console.log('=== id event.controller.js [64] ===', id);
         const updates = req.body;
 
         const event = await Event.findById(id);
         if (!event) return res.status(404).json({ error: "Event not found" });
+        console.log('=== event.organized_by.toString() event.controller.js [69] ===', event.organized_by.toString(),userId.toString());
 
-        if (event.organizer.toString() !== userId.toString()) {
+        if (event.organized_by.toString() !== userId.toString()) {
             return res.status(403).json({ error: "Unauthorized request to update event" });
         }
 
         if (req.file) {
             if (event.banner) {
                 const attachmentId = event.banner.split("/").pop().split(".")[0];
-                await cloudinary.uploader.destroy(attachmentId);
+                await deleteFromCloudinary(attachmentId);
             }
 
-            const uploadedResponse = await cloudinary.uploader.upload(req.file.path, {
+            const uploadedResponse = await uploadOnCloudinary(req.file.path, {
                 resource_type: "auto",
             });
             event.banner = uploadedResponse.secure_url;
@@ -108,7 +110,7 @@ const deleteEvent = async (req, res) => {
 
         if (event.banner) {
             const attachmentId = event.banner.split("/").pop().split(".")[0];
-            await cloudinary.uploader.destroy(attachmentId);
+            await deleteFromCloudinary(attachmentId);
         }
 
         await Event.findByIdAndDelete(id);
