@@ -147,11 +147,7 @@ const PostCard = ({
                         </FileUpload.Trigger>
                         <FileUpload.List />
                       </FileUpload.Root>
-                      {postAttachment && (
-                        <Button size="sm" colorScheme="red" onClick={() => setPostAttachment(null)}>
-                          Remove File
-                        </Button>
-                      )}
+                      
                     </Flex>
                   </Box>
                 </VStack>
