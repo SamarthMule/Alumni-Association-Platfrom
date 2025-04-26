@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { upload } from "../middlewares/multer.middleware.js";
 import {
-  
+
     checkAccess,
     getCurrentUser,
 
@@ -85,6 +85,34 @@ router.post('/insert', async (req, res) => {
         }
     }
 });
+
+router.put('/update-gender', async (req, res) => {
+    try {
+        const users = await CollegeDB.find({});
+        console.log('=== users user.routes.js [91] ===', users);
+
+        const updatedUsers = [];
+        for (const user of users) {
+            if (user.gender === '0') {
+                user.gender = 'male';
+                updatedUsers.push(user);
+            } else if (user.gender === '1') {
+                user.gender = 'female';
+                updatedUsers.push(user);
+            }
+            await user.save();
+        }
+
+        res.status(200).json({
+            message: 'Data updated successfully',
+            updatedCount: updatedUsers.length
+        });
+    } catch (error) {
+        console.error('Error updating gender:', error);
+        res.status(500).json({ error: 'An error occurred while updating gender' });
+    }
+});
+
 
 
 export default router;

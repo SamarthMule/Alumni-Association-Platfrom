@@ -630,5 +630,4 @@ export {
     getMentorsOrMentees,
     getAllUsers,
     verifyOTP,
-
 }

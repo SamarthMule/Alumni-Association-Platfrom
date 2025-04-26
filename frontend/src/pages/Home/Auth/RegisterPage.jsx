@@ -70,6 +70,7 @@ const RegisterPage = () => {
         title: "Access Granted",
         type: "success",
       });
+      setEmail(response.data.email);
       setName(response.data.student_name);
       setGender(response.data.gender);
       setMobileNo(response.data.mobile_no);
@@ -86,7 +87,7 @@ const RegisterPage = () => {
 
   const genders = createListCollection({
     items: [
-      { label: "Male", value: "male" },
+      { label: "Male", value: "male"  },
       { label: "Female", value: "female" },
       { label: "Other", value: "other" },
     ],
