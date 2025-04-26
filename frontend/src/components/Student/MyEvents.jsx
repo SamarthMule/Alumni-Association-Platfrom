@@ -63,7 +63,7 @@ const MyEvents = () => {
                     top="50%"
                     left="50%"
                     transform="translate(-50%, -50%)"
-                    
+                    bg="white"
                     p={6}
                     borderRadius="md"
                     boxShadow="lg"
