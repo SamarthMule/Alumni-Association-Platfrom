@@ -63,7 +63,7 @@ const RegisterPage = () => {
     }
 
     
-    const response = await checkAccess(email?email:prn);
+    const response = await checkAccess(email,prn);
     console.log('=== response RegisterPage.jsx [67] ===', response);
     if (response.data && !error) {
       toaster.create({

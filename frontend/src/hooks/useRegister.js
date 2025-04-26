@@ -64,17 +64,18 @@ const useRegister = () => {
         }
     }
 
-    const checkAccess = async (email, prn) => {
+    const checkAccess = async (email=null, prn=null) => {
         setLoading(true);
         setError(null);
 
-        if (!email) {
+        if (!email && !prn) {
             setLoading(false);
-            return setError('Please enter your email');
+            return setError('Please enter your email or PRN number');
         }
-
+    
         try {
-            const response = await axios.post('/api/v1/users/check-access', { email, prn });
+            console.log('=== email,prn useRegister.js [77] ===', email,prn);
+            const response = await axios.post('/api/v1/users/check-access', { email, prn_no: prn });
             setLoading(false);
 
             return response.data;

@@ -87,7 +87,7 @@ const ManageUsers = () => {
               </Dialog.Body>
               <Dialog.Footer>
                 
-                <Button colorScheme="red" onClick={() => handleDeleteUser(userToDelete)}>
+                <Button colorScheme="red" onClick={() => handleDeleteUser(user._id)}>
                   Delete
                 </Button>
               </Dialog.Footer>

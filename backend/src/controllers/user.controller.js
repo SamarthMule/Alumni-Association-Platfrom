@@ -90,20 +90,30 @@ const verifyOTP = async (req, res) => {
 };
 
 const checkAccess = async (req, res) => {
-
     try {
         const { email, prn_no } = req.body;
-     
-        if (!email && !prn_no) return res.status(400).json({ message: "Email or prn is required for checking..." });
+        console.log('=== email,prn_no user.controller.js [96] ===', email, prn_no);
+
+        if (!email && !prn_no) return res.status(400).json({ message: "Email or PRN is required for checking..." });
+
+        let isRegistered = null;
+
+        if (email) {
+            isRegistered = await User.findOne({ email });
+
+            if (isRegistered) return res.status(409).json({ status: 409, message: "User already registered." });
+        }
 
         let existingUser = await CollegeDB.findOne({ email });
+
         if (!existingUser && prn_no) existingUser = await CollegeDB.findOne({ prn_no });
+        console.log('=== existingUser user.controller.js [103] ===', existingUser);
 
         if (!existingUser) return res.status(400).json({ message: "User does not exist..." });
 
         return res.status(200).json({ status: 200, data: existingUser, message: "User authenticated and has access." });
     } catch (error) {
-        console.log(`\n\n\nError in checkAccess : `, error)
+        console.log(`\n\n\nError in checkAccess : `, error);
         res.status(500).json({ message: "Error occurred in checkAccess", error });
     }
 };
