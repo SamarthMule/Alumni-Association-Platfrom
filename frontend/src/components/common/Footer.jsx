@@ -1,6 +1,8 @@
 import { Box, Container, SimpleGrid, Stack, Text, Link, Image } from "@chakra-ui/react";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import logo from "/Logo.png"; // Adjust the logo path
+import { Link as RouterLink } from "react-router-dom";
+
 
 const Footer = () => {
   return (
@@ -31,7 +33,7 @@ const Footer = () => {
           </Stack>
 
           {/* Right Section - Resources */}
-          <Stack spacing={0} align="start">
+          {/* <Stack spacing={0} align="start">
             <Text fontWeight="bold" color="orange.300">Resources</Text>
             {["/about", "/contact", "/faq", "/privacy-policy"].map((link, index) => (
               <Link 
@@ -44,7 +46,29 @@ const Footer = () => {
                 {link.replace("/", "").replace("-", " ").toUpperCase()}
               </Link>
             ))}
-          </Stack>
+          </Stack> */}
+
+<Stack spacing={0} align="start">
+  <Text fontWeight="bold" color="orange.300">Resources</Text>
+  {[
+     { to: "/", label: "HOME" },
+    { to: "/#about", label: "ABOUT" },
+   
+    { to: "/faq", label: "FAQ" },
+    { to: "/privacy-policy", label: "PRIVACY POLICY" }
+  ].map((item, index) => (
+    <RouterLink 
+      key={index} 
+      to={item.to}
+      style={{ color: "#D6BCFA", textDecoration: "none" }}
+      onMouseOver={(e) => e.target.style.color = "white"}
+      onMouseOut={(e) => e.target.style.color = "#D6BCFA"}
+    >
+      {item.label}
+    </RouterLink>
+  ))}
+</Stack>
+
         </SimpleGrid>
 
         {/* Bottom Section */}

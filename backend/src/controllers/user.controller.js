@@ -118,6 +118,7 @@ const checkAccess = async (req, res) => {
     }
 };
 
+
 const registerUser = async (req, res) => {
     try {
         const { name, gender, mobile_no, email, password, graduation_year } = req.body;

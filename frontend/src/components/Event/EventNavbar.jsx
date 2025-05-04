@@ -57,7 +57,7 @@ const EventNavbar = () => {
         mx="auto"
       >
         {/* Logo */}
-        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/alumnidashboard")}>
+        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/event")}>
           <Image
             src="/Logo.png"
             alt="Event Manager Logo"

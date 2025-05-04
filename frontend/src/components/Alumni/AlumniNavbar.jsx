@@ -53,7 +53,7 @@ const StudentNavbar = () => {
         mx="auto"
       >
         {/* Logo */}
-        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/alumnidashboard")}>
+        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/alumni/dashboard")}>
           <Image
             src="/Logo.png"
             alt="Alumni Dashboard Logo"

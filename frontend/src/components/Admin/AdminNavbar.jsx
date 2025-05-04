@@ -31,7 +31,7 @@ const AdminNavbar = () => {
     <Box  px={6} py={1} boxShadow="sm" height="10svh" top={0} zIndex={1000}>
       <Flex h={16} alignItems="center" justifyContent="space-between" maxW="1200px" mx="auto">
         {/* Logo & Title */}
-        <Flex alignItems="center">
+        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/admin/dashboard")}>
           <Image src="/Logo.png" alt="Admin Logo" boxSize="60px" mr={3} transition="transform 0.3s ease" _hover={{ transform: "scale(1.1)" }} />
           <Box>
             <Heading size={{ base: "md", md: "lg" }} bgGradient="linear(to-r, blue.500, blue.800)" bgClip="text" fontWeight="extrabold" textShadow="2px 2px 4px rgba(0, 0, 0, 0.2)" letterSpacing={{ base: "tight", md: "wide" }} textTransform="uppercase" color="purple.700">

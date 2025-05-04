@@ -47,7 +47,7 @@ const StudentNavbar = () => {
         mx="auto"
       >
         {/* Logo */}
-        <Flex alignItems="center">
+        <Flex alignItems="center" cursor="pointer" onClick={() => navigate("/student/dashboard")}>
           <Image
             src="/Logo.png"
             alt="Student Logo"
