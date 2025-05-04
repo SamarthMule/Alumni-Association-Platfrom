@@ -9,7 +9,7 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink , useLocation, useNavigate} from "react-router-dom";
 import { MenuRoot, MenuTrigger, MenuContent, MenuItem } from "../ui/menu";
 import LogoutButton from "../common/LogoutButton";
 
@@ -24,6 +24,7 @@ const navItems = [
 
 const StudentNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
