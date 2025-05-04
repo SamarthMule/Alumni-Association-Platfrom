@@ -7,9 +7,10 @@ const AdminLayout = () => {
   return (
     <Grid templateRows="auto 1fr" minH="100vh">
       <AdminNavbar />
-      <Flex>
-        <AdminSidebar />
-        <Box flex="1" ml="250px" p={6}>
+      <Flex justifyContent={"center"}>
+      {/* <Flex> */}
+        {/* <AdminSidebar /> */}
+        <Box flex="2" p={6}>
           <Outlet />
         </Box>
       </Flex>

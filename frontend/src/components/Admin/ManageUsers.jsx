@@ -53,7 +53,7 @@ const ManageUsers = () => {
 
   return (
     <Center h="100vh">
-      <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={8} w={{ base: "90%", md: "80%" }}>
+      <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={8} w={{ base: "100%", md: "90%" }}>
         {/* Users List */}
         <Box p={6} bg="gray.50" borderRadius="lg" boxShadow="lg" overflowY="auto" maxH="80vh">
           <Text fontSize="3xl" fontWeight="bold" mb={6} textAlign="center" color="blue.600">Manage Users</Text>
@@ -63,11 +63,11 @@ const ManageUsers = () => {
             ) : (
               users.map(user => (
                 <Flex key={user._id} p={4} borderWidth="1px" borderRadius="lg" w="100%" justifyContent="space-between" alignItems="center" bgGradient="linear(to-r, purple.50, blue.50)" _hover={{ bgGradient: "linear(to-r, purple.100, blue.100)" }}>
-                  <Box>
+                  <Box w="350px">
                     <Text fontSize="lg" fontWeight="bold" color="purple.700">{user.name}</Text>
                     <Text fontSize="sm" color="gray.700">{user.email}</Text>
                   </Box>
-                  <Button colorScheme="blue" onClick={() => handleViewProfile(user)}>
+                  <Button colorScheme="blue" onClick={() => handleViewProfile(user)} >
                     View Profile
                   </Button>
                   <Dialog.Root>
